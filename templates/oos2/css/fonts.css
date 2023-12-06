@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "montserrat_l";
+    src: url("../fonts/Montserrat-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "montserrat";
+    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "montserrat_m";
+    src: url("../fonts/Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "montserrat_b";
+    src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
+}
+
+
+/* @font-face {
+    font-family: "PFCentroSansPro";
+    font-weight: bold;
+    src: url("../fonts/PFCentroSansPro-Black.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "PFCentroSansPro";
+    src: url("../fonts/PFCentroSansPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "PFCentroSlabPro";
+    font-weight: bold;
+    src: url("../fonts/PFCentroSlabPro-Black.otf") format("opentype");
+} */

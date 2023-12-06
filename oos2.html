@@ -1,0 +1,1047 @@
+<html>
+    <head>
+        <title data-lang-ru="Оплата банковскими картами" data-lang-en="Payment bank cards">
+            Оплата банковскими картами
+        </title>
+        <meta name="Generator" content="EditPlus">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link
+            media="screen"
+            href="templates/oos2/css/fonts.css?404318503"
+            type="text/css"
+            rel="stylesheet"
+        >
+        <link
+            media="screen"
+            href="templates/oos2/css/main.css?417877704"
+            type="text/css"
+            rel="stylesheet"
+        >
+        <script src="templates/js/jquery-3.3.1.min.js"></script>
+        <script src="templates/js/base64.js"></script>
+        <script src="templates/oos2/js/script.js"></script>
+        <script language="JavaScript">
+        user_agent = navigator.userAgent;
+        isMobileAndroid = user_agent.match(/android/i);
+        isMobileAndroid = false;
+    
+        if(!isMobileAndroid){
+            jQuery("head").append("<script src='templates/js/jquery.mask.js'><\/script>");
+        }
+        </script>
+        <script src="templates/js/jquery.mask.js"></script>
+        <script language="JavaScript">
+
+    function postSubmitActions(){
+        if(!isMobileAndroid){
+            $("#card").unmask();
+            $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
+        }
+        $(".pay-container__wrapper .pay-container").addClass("pay-in-progress");
+        $("input.pay-button").attr("disabled","disabled");
+        $(".waiting-wrapper").addClass("active");
+    }
+
+    
+    $(document).ready(function(){
+
+        if(user_agent.match(/mobile/i)){
+    
+            if(isMobileAndroid){
+                //ограничиваем ввод цифрами
+                $("#card, #exp, #exp_year").on("keypress",function(e){
+                    var symbol = (e.key == undefined ? String.fromCharCode(e.keyCode) : e.key);
+                    if(!symbol.match(/[0-9]/) && e.keyCode!=27){
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                });
+            }
+            
+            //меняем тип поля у cvc (через attr это сделать нельзя, только так)
+            $("#cvc2").remove();
+            $(".card-back__code").append('<input autocomplete="off" size="3" id="cvc2" name="CVC2" type="tel" maxlength="3" required align="baseline" value="" placeholder="•••"> ');
+        }
+
+        //для мобильных экранов дублируем сумму к оплате на кнопку "Оплатить"
+        if($(window).width() <= 528){
+        //if(true){
+            
+            var submit_button = $("input.pay-button");
+            //var payment_sum_to_append = " " + $("td.param.sum").html().replace("руб.",'\u20bd').trim();
+            var payment_sum_to_append = " 1.17 "+
+            "RUB";
+            $("input.pay-button").each(function(){
+                $.each(this.attributes,function(i,attrib){
+                    var name = attrib.name;
+                    if(name.match("^data-lang-[A-z]{2}$"))
+                        submit_button.attr(name,submit_button.attr(name) + payment_sum_to_append);
+                });
+            });
+            submit_button.val(submit_button.val() + payment_sum_to_append);
+        }
+        
+        function setSelectionRange(input, selectionStart, selectionEnd) {
+          if (input.setSelectionRange) {
+            input.focus();
+            input.setSelectionRange(selectionStart, selectionEnd);
+          }
+          else if (input.createTextRange) {
+            var range = input.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', selectionEnd);
+            range.moveStart('character', selectionStart);
+            range.select();
+          }
+        }
+
+        function setCaretToPos (input, pos) {
+            return true;
+          setSelectionRange(input, pos, pos);
+          return true;
+        }
+        function trickMI (event)
+        {
+            setTimeout(moveCursor, 50, event);
+        }
+        function moveCursor(event)
+        {
+            var o=event.target;
+            var a=$.trim(o.value);
+                        /*if(o.selectionStart>a.length) setCaretToPos(o,a.length);*/
+            if(a=="")  setCaretToPos(o,0);
+            check();
+            return true;
+        }
+        $("#card, #cvc2, #phone").focus(function(event) {return trickMI(event);});
+        $("#card, #cvc2, #phone").click(function(event) {return trickMI(event);});
+        
+       
+        /**
+        * переключаем язык на элементах с загруженным переводом
+        */
+        $(".payform-select").on("change",function(event){
+            
+            //var sTo=($(".payform-lang .lang-select .payform-select option:selected").val());
+            var sTo=event.target.options[event.target.selectedIndex].value;
+            if(sTo == $("body").attr("curlang")) return true; // нечего менять
+            switch_language_to(sTo);
+            $("body").attr("curlang", sTo);
+            event.stopPropagation();
+            //$(this).addClass('active').siblings().removeClass('active');
+        });
+        
+        $("#offert-accept").on("click",function(e){
+            var _checkbox = $(this).siblings("input[type='checkbox']");
+            if(_checkbox.attr("checked") == undefined){
+                _checkbox.attr("checked","checked");
+            }else{
+                _checkbox.removeAttr("checked");
+            }
+            check(this,e);
+            
+        });
+
+        function checkCardInput()
+        {
+            var card_input = $(document.payform.CARD);
+            var card=document.payform.CARD.value;
+            card=card.replace(/[^0-9]/g,"");
+            var Luhn=card;
+            var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1,Luhn.length));
+            var LuhnLess = Luhn.substring(0,Luhn.length-1);
+            var LuhnDigitCalc=cl(LuhnLess);
+            
+            if (card.length > 0 && LuhnDigitCalc!=LuhnDigit){
+                card_input.removeClass('good').addClass('error');
+            }
+            else{
+                if (card.length > 0 && card.length<16){
+                    card_input.addClass('error').removeClass('good');
+                }
+                else{
+                    if(card.length > 0){
+                        card_input.removeClass('error').addClass('good');
+                    }else{
+                        card_input.removeClass('error').removeClass('good');
+                    }
+                }
+            }
+        }
+        function checkCardInputInterval()
+        {
+            var card_input = $(document.payform.CARD);
+            if(card_input.length==0) return;
+            if(card_input.is(":focus") || card_input.hasClass("good") || card_input.hasClass("error")) return;
+            checkCardInput();
+        }
+
+        setInterval(checkCardInputInterval, 500);
+
+        $("input[name='CARD']").on("blur",function(e){
+            checkCardInput();
+            check(this,e);
+        });
+
+        $("input[name='CARD']").on("focus",function(e){
+            $(this).removeClass("good").removeClass("error");
+        });
+
+        $("#fp_savecard").on("click",function(e){
+            var _checkbox = $(this).siblings("input[type='checkbox']");
+            if(_checkbox.attr("checked") == undefined){
+                _checkbox.attr("checked","checked");
+            }else{
+                _checkbox.removeAttr("checked");
+            }
+            //check(this,e);
+            
+        });
+        
+        $(".payform-lang-mobile .language-switcher").on("click",function(){
+            $(".payform-lang li:not(.active)").trigger("click");
+        });
+
+        $("input[name='CARD']").on("keyup",function(e){
+            var card_input = $(document.payform.CARD);
+            var card=document.payform.CARD.value;
+            card=card.replace(/[^0-9]/g,"");
+            if(card.length > 0){
+                var card_type = get_card_type(card_input.val().replace(/[^0-9]/g,''));
+                markPaySystem(card_input,card_type);
+                //if(card_type=="cup") $("body").attr("id","unionpay"); else $("body").removeAttr("id")
+            }
+            oCuppDiv=document.getElementById("cuppdiv");
+            if(1==0 && (card.substring(0,2)=="62" || card.substring(0,2)=="81") && oCuppDiv.style.display=="none") 
+            {
+                //oCuppDiv.style.display="inline-block";
+                $("#cupp").prop('required',true);
+                $("#cuppdiv").css("display","flex");
+                $("#cuppdiv").css("flex-direction","column");
+                $("div.pay-buttons").css("margin-top","0");
+                //$("div.pay-buttons").css("align-items","flex-end");
+                $(".pay-buttons > div").css("align-self","center");
+
+            }
+            if(card.substring(0,2)!="62" && card.substring(0,2)!="81" && oCuppDiv.style.display!="none") 
+            {
+                oCuppDiv.style.display="none";
+                $("#cupp").prop('required',false);
+                $("div.pay-buttons").css("margin-top","");
+                $("div.pay-buttons").css("align-items","");
+                $("#cuppdiv").css("display","none");
+                $("#cuppdiv").css("flex-direction","");
+                $(".pay-buttons > div").css("align-self","");
+
+            }
+
+        });
+        
+        $("input[name='CARD']").on("keyup",function(e){
+            /*var card_input = $(document.payform.CARD);
+            var card=document.payform.CARD.value;
+            card=card.replace(/[^0-9]/g,"");
+            var Luhn=card;
+            var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1,Luhn.length));
+            var LuhnLess = Luhn.substring(0,Luhn.length-1);
+            var LuhnDigitCalc=cl(LuhnLess);
+            
+            if (card.length > 0 && LuhnDigitCalc!=LuhnDigit){
+                card_input.removeClass('good').addClass('error');
+            }
+            else{
+                if (card.length > 0 && card.length<16){
+                    card_input.addClass('error').removeClass('good');
+                }
+                else{
+                    if(card.length > 0){
+                        card_input.removeClass('error').addClass('good');
+                    }else{
+                        card_input.removeClass('error').removeClass('good');
+                    }
+                }
+            }*/
+            //if(e.keyCode!=13) check(this,e);
+        });
+
+    
+        $("input[name='CARDHOLDER']").on("keyup blur change click",function(e){
+            if(e.keyCode!=13) check(this,e);
+        });
+        $("input[name='EXP']").on("keyup blur change",function(e){
+            if(e.keyCode!=13) check(this,e);
+        });
+        $("input[name='EXP_YEAR']").on("keyup blur change",function(e){
+            if(e.keyCode!=13) check(this,e);
+        });
+        //через делегат из-за возможности смены типа поля
+        $(document).on("keyup blur change","input[name='CVC2']",function(e){
+            if(e.keyCode!=13) check(this,e);
+        });
+        
+        //ограничиваем ввод в cardholder
+        $(document).on("keypress","input[name='CARDHOLDER'].card-front__input",function(e){
+            var symbol = (e.key == undefined ? String.fromCharCode(e.keyCode) : e.key);
+            if(symbol.match(/[a-z0-9]|\s|\-|\./i) == null){
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+        
+        if(!isMobileAndroid){
+            
+            $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
+            $("#EXP").mask("99",{autoclear: true});
+            $("#EXP_YEAR").mask("99",{autoclear: true});
+            
+            $("#phone").mask("+9 (999) 999-9999",{placeholder:" "});
+            
+            $(document).on("submit","form[name='payform']",function(){
+                $("#submit_button").prop('disabled', true);
+                $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
+            });
+            
+            $(document).on("keydown","input[name='EXP'], input[name='EXP_YEAR']",function(e){
+                return;
+
+                var clear_value = $(this).val().replace('_','');
+                if(clear_value.length < 2){
+                    var new_value = 0;
+                    if($(this).caret().begin == 0) new_value = e.key + "" + clear_value;
+                    else new_value = parseInt(clear_value + "" + e.key);
+                }
+                else if(!parseInt(event.key) >= 0){
+                    return true;
+                }
+                else if(clear_value.length == 2){
+            if(!isMobileAndroid){
+                        $(this).unmask();
+            }
+                    $(this).val(e.key);
+                    $(this).mask("99",{autoclear:true});
+                    $(this).get(0).setSelectionRange(1,1);
+                }
+            });
+        }
+        
+        //если это быстрый платеж, нужно сразу установить значения полей
+        if(isFastPayment()){
+            $("#card").unmask();
+            $("#card").val("•••• •••• •••• ");
+            //$("#card").after('<div class="card-front__change"></div>');
+            $(".card-front__action").addClass("change");
+            $(".card-front__action").attr("title","Оплатить с другой карты");
+            $("#cardholder").val("•••••• ••••");
+            $("#EXP").unmask();
+            $("#EXP").val("••");
+            $("#EXP_YEAR").unmask();
+            $("#EXP_YEAR").val("••");
+            
+            
+            makeFieldFake($("#card"));
+            makeFieldFake($("#cardholder"));
+            makeFieldFake($("#EXP"));
+            makeFieldFake($("#EXP_YEAR"));
+            
+            markPaySystem($("#card_fake"),"");
+            
+            //сразу фокус на cvc2
+            $("#cvc2").focus();
+        }
+
+        // действя для иконки в поле карты справа
+        $(".card-front__action").on("mousedown",function(){
+
+            var card_input = $(document.payform.CARD);
+
+            if($(this).attr("title")=="Оплатить с другой карты") {
+
+                
+
+                makeFieldActual($("#card_fake"));
+                makeFieldActual($("#cardholder_fake"));
+                makeFieldActual($("#EXP_fake"));
+                makeFieldActual($("#EXP_YEAR_fake"));
+                
+                if(!isMobileAndroid){
+                    ApplyMasks();
+                }
+
+                
+                
+                $("#card").attr("data-card-type","");
+                $("#card").focus();
+                $(this).attr("title","Очистить данные карты");
+                $(this).removeClass("change");
+                $(".fast-payment").remove();
+                $(".input[name='fp_sc']").attr("checked","checked");
+                $(".pay-container__recurring").show();
+                $("#cvc2").val("");
+                clearPaySystem($("#card"));
+                card_input.removeClass('error').removeClass('good');
+            } else {
+                $("#cardholder").val("");
+                $("#EXP").val("");
+                $("#EXP_YEAR").val("");
+                $("#cvc2").val("");
+                $("#card").val("");
+                $("#card").trigger("focus");
+                if(!isMobileAndroid){
+                    ApplyMasks();
+                }
+                clearPaySystem($("#card"));
+                $("#card").attr("data-card-type","");
+                $("#card").focus();
+                card_input.removeClass('error').removeClass('good');
+                check();
+            }
+
+        });
+        
+    });
+
+    function check(e,event){
+        
+        //если быстрый платеж, то проверяем только cvv, поэтому вынесено вперед
+        var cvcfilter=/^[0-9]{3}$/i;
+        var cvc=jQuery("#cvc2").val();
+        var cvc2_input = $("#cvc2");
+        
+        var cvc2_value = cvc2_input.val();
+        if (cvc2_value.replace(' ','').length > 0 && cvcfilter.test(cvc))
+            cvc2_input.removeClass('error').addClass('good');
+        else if(!cvc2_input.is(":focus") && cvc2_value.length > 0 && !cvcfilter.test(cvc2_value))
+            cvc2_input.addClass('error').removeClass('good');
+        else if (cvc2_value.length >= 0 && cvc2_value.length < 3)
+            cvc2_input.removeClass('good').removeClass('error');
+        else if (cvc2_value.length == 3 && !cvcfilter.test(cvc))
+            cvc2_input.removeClass('good').addClass('error');
+        
+        var email=document.payform.email.value;
+        var cupp=document.payform.cupp.value;
+
+        var offert = ($("input[name='offert']").length == 0) || $("input[name='offert']:checked").length;
+        
+        if (email.length != 0){
+                if (email.indexOf('@') == -1)
+                    $(document.payform.email).removeClass('good').addClass('error');
+                else
+                    $(document.payform.email).removeClass('error').addClass('good');
+            }
+            else{
+                $(document.payform.email).removeClass('error').removeClass('good');
+            }
+            
+            var _email_is_ok = ($(document.payform.email).hasClass("good") || $(document.payform.email).attr("required") == undefined);
+
+
+        if(isFastPayment()){
+            $(".card-front").find(".noerror").removeClass("error").addClass("good");
+            
+            
+            if(cvc2_input.hasClass("good") && offert && _email_is_ok){
+                document.payform.button1.disabled=false;
+                $(document.payform.button1).removeClass('inactive').addClass('active');
+            }else{
+                document.payform.button1.disabled=true;
+                $(document.payform.button1).removeClass('active').addClass('inactive');
+            }
+            
+            //отдельно смотрим для applePay/samsungPay
+            if(_email_is_ok && offert){
+                $("#applePay, #samsungPay, .gpay-button").removeAttr("disabled");
+                $("#applePay, #samsungPay, .gpay-button").removeClass("inactive");
+            }
+            //или дизэйблим, если плохо
+            else{
+                $("#applePay, #samsungPay, .gpay-button").attr("disabled","disabled");
+                $("#applePay, #samsungPay, .gpay-button").addClass("inactive");
+            }
+            
+            return;
+        }
+        
+        var card=document.payform.CARD.value;
+        var exp=document.payform.EXP.value+document.payform.EXP_YEAR.value;
+        card=card.replace(/[^0-9]/g,"");
+
+        //var cardholderfilter=/^[A-Z.]{1,26}[ .\-\/\\,]{1,3}[A-Z.]{1,26}([ .\-\/\\,]{1,3}[A-Z.]{1,26})?$/i;
+        var cardholderfilter=/^[A-Z0-9.]{1,26}([\s.\-\/\\,]{1,3}[A-Z0-9.]{1,26}([ .\-\/\\,]{1,3}[A-Z0-9.]{1,26})?)?$/i;
+        
+        var cardfilter=/^[0-9]{16,19}$/i;
+        var expfilter=/^[0-9]{4}$/i;
+        var cuppfilter=/^[0-9]{9,15}$/i;
+
+        
+        var cardholder=document.payform.CARDHOLDER.value;
+        cardholder=$.trim(cardholder);
+        
+        var card_input = $(document.payform.CARD);
+        var cardholder_input = $(document.payform.CARDHOLDER);
+        var exp_input = $(document.payform.EXP);
+        var expyear_input = $(document.payform.EXP_YEAR);
+
+        var Luhn=card;
+        var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1,Luhn.length));
+        var LuhnLess = Luhn.substring(0,Luhn.length-1);
+        var LuhnDigitCalc=cl(LuhnLess);
+        /*if (card.length >= 16 && LuhnDigitCalc!=LuhnDigit){
+            card_input.removeClass('good').addClass('error');
+        }*/
+
+        if (cardholder.length<=26 && cardholderfilter.test(cardholder))
+            cardholder_input.removeClass('error').addClass('good');
+        else if(event !== undefined && event.type == "blur" && cardholder.length > 0 && !cardholderfilter.test(cardholder))
+            cardholder_input.removeClass('good').addClass('error');
+        else if(cardholder_input.hasClass('good'))
+            cardholder_input.removeClass('good').addClass('error');
+        else if(!cardholder_input.hasClass('error'))
+            cardholder_input.removeClass('good').removeClass('error');
+        else if(cardholder_input.val().length == 0)
+            cardholder_input.removeClass('good').removeClass('error');
+        
+        var month_now = exp_input.attr('data-now_value');
+        var year_now = expyear_input.attr('data-now_value');
+        
+        var month_val =exp_input.val().replace(/[_]/g,"");
+        var year_val = expyear_input.val().replace(/[_]/g,"");
+        
+        if (month_val.length == 2 && ((month_val == 0 || month_val > 12) /*|| (month_val < month_now-3 && year_val == year_now)*/ ))
+            exp_input.removeClass('good').addClass('error');
+        else if (month_val.length == 2 && (month_val > 0 && month_val <= 12))
+            exp_input.addClass('good').removeClass('error');
+        else if (month_val.length == 0)
+            exp_input.removeClass('error').removeClass('good');
+        else if(event !== undefined && event.type == "blur" && month_val.replace('_','').length < 2)
+            exp_input.removeClass('good').removeClass('error');
+        
+        /* if (year_val.length == 2 && year_val < year_now)
+            expyear_input.removeClass('good').addClass('error');
+        else */
+        if (year_val.length == 2 && year_val >= year_now)
+            expyear_input.addClass('good').removeClass('error');
+        else if (year_val.length == 0)
+            expyear_input.removeClass('error').removeClass('good');
+        else if(event !== undefined && event.type == "blur" && year_val.replace('_','').length < 2)
+            expyear_input.removeClass('good').removeClass('error');
+
+
+   
+        var email=document.payform.email.value;
+
+
+        if(cupp.length!=0) {
+         if (!cuppfilter.test(cupp))
+                $(document.payform.cupp).removeClass('good').addClass('error');
+            else
+                $(document.payform.cupp).removeClass('error').addClass('good');
+        }
+        else $(document.payform.cupp).removeClass('error').removeClass('good');
+
+        
+        if (email.length != 0){
+            if (email.indexOf('@') == -1)
+                $(document.payform.email).removeClass('good').addClass('error');
+            else
+                $(document.payform.email).removeClass('error').addClass('good');
+        }
+        else
+            $(document.payform.email).removeClass('error').removeClass('good');
+
+        if (cardfilter.test(card) && 
+            expfilter.test(exp) && 
+            cvcfilter.test(cvc) && 
+            card_input.hasClass("good") && 
+            exp_input.hasClass("good") && 
+            expyear_input.hasClass("good") && cvcfilter.test(cvc) && 
+            (cupp.length == 0 || cuppfilter.test(cupp)) &&
+            (cardholder_input.is(":hidden") || cardholderfilter.test(cardholder) && cardholder_input.hasClass("good")) && 
+            offert && 
+            ($(document.payform.email).hasClass("good") || $(document.payform.email).attr("required") == undefined) ) {
+                document.payform.button1.disabled=false;
+                $(document.payform.button1).removeClass('inactive').addClass('active');
+        }
+        else {
+            document.payform.button1.disabled=true;
+            $(document.payform.button1).removeClass('active').addClass('inactive');
+        }
+
+    //если с email ве хорошо энейблим ApplePay при наличии
+        if(offert && _email_is_ok){
+            $("#applePay, #samsungPay, .gpay-button").removeAttr("disabled");
+            $("#applePay, #samsungPay, .gpay-button").removeClass("method-inactive");
+        }
+        //или дизэйблим, если плохо
+        else{
+            $("#applePay, #samsungPay, .gpay-button").attr("disabled","disabled");
+            $("#applePay, #samsungPay, .gpay-button").addClass("method-inactive");
+        }
+        
+        //переключение на следующее поле для ММ и ГГ
+        if($(e).attr('name') == "EXP" && !$(e).hasClass('error') && event !== undefined && event.type == "keyup" && $(e).val().replace('_','').length == 2){
+            $(e).removeClass('error').addClass('good');
+            $("input[name='EXP_YEAR']").focus();
+        }
+        if($(e).attr('name') == "EXP_YEAR" && !$(e).hasClass('error') && event !== undefined && event.type == "keyup" && $(e).val().replace('_','').length == 2){
+            $(e).removeClass('error').addClass('good');
+            if ($("input[name='CARDHOLDER']").is(":visible") && window.innerWidth>=375) $("input[name='CARDHOLDER']").focus(); else $("input[name='CVC2']").focus();
+        }
+        if($(e).attr('name') == "CVC2" && !$(e).hasClass('error') && $(e).hasClass('good') && event !== undefined && event.type == "keyup" && $(e).val().replace('_','').length == 3){
+            //$(e).removeClass('error').addClass('good');
+            if ($("input[name='CARDHOLDER']").is(":visible") && window.innerWidth<375) $("input[name='CARDHOLDER']").focus();
+        }
+
+        //для мобильной/планшетной версии смотрим первую ошибку, отражаем соответствующий текст
+        if(window.screen.width < 376 || 1==1){
+            if($(".error").length > 0){
+                var error_name = $(".error").first().attr("name").toLowerCase() + "__err";
+                var _error_tip_toshow = $(".pay-container__error").addClass("active").find(".error-tip.show");
+                _error_tip_toshow.html($("." + error_name).html());
+            }else{
+                $(".pay-container__error").removeClass("active").find(".error-tip.show");
+            }
+        }
+        
+
+    }
+
+    function on_load(){
+                    document.payform.CARD.focus();
+        
+        check();
+    }
+
+    function s()
+    {
+        postSubmitActions();
+
+        var s;
+        if (typeof document.payform.CARD !== "undefined") {s=document.payform.CARD.value;
+        s=s.replace(/ /g,"");
+        document.payform.CARD.value=s;}
+        if (typeof document.payform.phone !== "undefined") {s=document.payform.phone.value;
+        s=s.replace(/[ \-()]/g,"");
+        if (s=="+" || s=="+7") s="";
+        document.payform.phone.value=s;}
+        if (typeof document.payform.email !== "undefined") document.payform.email.name="notify_email";
+        setTimeout(ss,5000);
+        return false;
+    }
+    function ss()
+    {
+        document.payform.submit();
+    }
+        </script>
+    </head>
+    <body
+        onload="on_load();"
+        alink="#007346"
+        vlink="#007346"
+        link="#007346"
+        curlang="ru"
+        class="mirPay samsungPay"
+    >
+        <form name="ruform" method="POST" action="https://paygates-demo.pscb.ru/finishPayment/back">
+            <input type="hidden" name="order" value="104443338">
+        </form>
+        <form
+            name="payform"
+            action="https://pay.pscb.ru/"
+            method="post"
+            onsubmit="return s();"
+            autocomplete="off"
+        >
+            <input
+                type="hidden"
+                name="AMOUNT"
+                id="AMOUNT"
+                value="1.17"
+            >
+            <input name="CURRENCY" value="RUR" type="hidden">
+            <input name="ORDER" value="104443338" type="hidden">
+            <input name="DESC" value="www.pscb.ru" type="hidden">
+            <input
+                name="TERMINAL"
+                size="8"
+                value="66666666"
+                type="hidden"
+            >
+            <input
+                name="MERCH_NAME"
+                size="15"
+                value="PSCB"
+                type="hidden"
+            >
+            <input
+                name="MERCH_URL"
+                size="15"
+                value="www.pscb.ru"
+                type="hidden"
+            >
+            <input
+                name="MERCHANT"
+                size="15"
+                value="42482601"
+                type="hidden"
+            >
+            <input
+                name="BACKREF"
+                size="30"
+                value=""
+                type="hidden"
+            >
+            <input
+                name="COUNTRY"
+                size="2"
+                value="RU"
+                type="hidden"
+            >
+            <input
+                name="TRTYPE"
+                size="1"
+                value="0"
+                type="hidden"
+            >
+            <input
+                name="TIMESTAMP"
+                size="25"
+                value="20230614082720"
+                type="hidden"
+            >
+            <input
+                name="MERCH_GMT"
+                size="3"
+                value="+4"
+                type="hidden"
+            >
+            <input type="hidden" name="operhash" value="1jlh3prufh14gvc65">
+            <input type="hidden" name="displayLanguage" value="">
+            <script language="JavaScript">if(parent!==window) document.write('<input type="hidden" name="ifp" id="ifp" value="1" />');</script>
+            <script language="JavaScript">
+                var d = new Date();
+                var userLang = navigator.language || navigator.userLanguage; 
+                var oBrowser = {
+                    brWidth:screen.width,
+                    brHeight:screen.height,
+                    brColorDepth:screen.pixelDepth,
+                    brTZ:d.getTimezoneOffset(),
+                    brLanguage:userLang,
+                    wWidth:window.innerWidth,
+                    wHeight:window.innerHeight,
+                    je:navigator.javaEnabled()
+                };
+                document.write('<input type="hidden" name="browserdata" id="browserdata" value="'+window.btoa(JSON.stringify(oBrowser))+'" />');
+            </script>
+            <input
+                type="hidden"
+                name="browserdata"
+                id="browserdata"
+                value="eyJicldpZHRoIjoxOTIwLCJickhlaWdodCI6MTA4MCwiYnJDb2xvckRlcHRoIjoyNCwiYnJUWiI6LTE4MCwiYnJMYW5ndWFnZSI6InJ1LVJVIiwid1dpZHRoIjoxOTIwLCJ3SGVpZ2h0Ijo5MzcsImplIjpmYWxzZX0="
+            >
+            <div class="pay-container__wrapper">
+                <div class="waiting-wrapper">
+                    <img src="/templates/oos2_iframe/img/loader-gray.svg" class="loader-img">
+                </div>
+                <div class="pay-container">
+                    <div class="pay-container__header">
+                        <div class="logo">
+                            <img
+                                data-lang-ru="oos2_pscb-logo.svg"
+                                data-lang-en="oos2_pscb-logo-en.svg"
+                                class="bank-logo"
+                                src="templates/oos2/img/oos2_pscb-logo.svg"
+                            >
+                        </div>
+                        <div class="payform-lang">
+                            <div class="lang-select">
+                                <select class="payform-select" prev="ru">
+                                    <option selected="" value="ru">RU</option>
+                                    <option value="en">EN</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="pay-container__main">
+                        <div class="pay-container__table">
+                            <table cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td class="param-name" data-lang-ru="Точка оплаты" data-lang-en="Merchant">
+                                            Точка оплаты
+                                        </td>
+                                        <td class="param" data-lang-ru="Демо магазин" data-lang-en="Demo Store">Демо магазин</td>
+                                    </tr>
+                                    <tr class="desktop-only">
+                                        <td class="param-name" data-lang-ru="Номер платежа" data-lang-en="Order id">
+                                            Номер платежа
+                                        </td>
+                                        <td class="param">
+                                            TEST-BY-PSCB-1686731234375
+                                        </td>
+                                    </tr>
+                                    <tr class="desktop-only">
+                                        <td class="param-name" data-lang-ru="Детали платежа" data-lang-en="Payment details">
+                                            Детали платежа
+                                        </td>
+                                        <td class="param">
+                                            Тестовый платеж от ПСКБ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="param-name sum" data-lang-ru="Сумма платежа" data-lang-en="Total">
+                                            Сумма платежа
+                                        </td>
+                                        <td class="param sum" data-lang-ru="RUB" data-lang-en="RUB">
+                                            <span class="sum-1">1</span>
+                                            <span class="sum-2">.</span>
+                                            <span class="sum-3">17</span>
+                                            <span class="sum-4">RUB</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clear:both"></div>
+                        <div class="pay-container__content">
+									<div class="pay-options-mobile mobile-only">
+										<div class="pay-container__offert">
+											<div>
+												 <input type="checkbox" name="offert" value="1">
+												 <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">Я соглашаюсь с <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" target="_blank" class="offert"> <span class="offert-text" data-lang-ru="офертой" data-lang-en="terms and conditions">офертой</span></a></label>
+											</div>
+									  </div>
+								  </div>
+									<div class="pay-container__token-mobile mobile-only">
+										<button id="mirPay_mobile" type="button" class="token-mobile__button" disabled></button>
+										<div class="token-mobile__text" data-lang-ru="или ввести данные карты" data-lang-en="or enter card data">
+											или ввести данные карты
+										</div>
+									</div>
+                            <div class="pay-container__cards">
+                                <div class="pay-container__card pay-container__card-front">
+                                    <div class="card-front no-cardholder">
+                                        <div class="card-front__card">
+                                            <label
+                                                class="card-front__label"
+                                                for="card"
+                                                data-lang-ru="Номер карты"
+                                                data-lang-en="Card number"
+                                            >
+                                                Номер карты
+                                            </label>
+                                            <input
+                                                class="card-front__input"
+                                                type="tel"
+                                                name="CARD"
+                                                id="card"
+                                                required=""
+                                                align="baseline"
+                                                value=""
+                                                placeholder=" "
+                                                maxlength="23"
+                                            >
+                                            <div class="card-front__action" title="Очистить данные карты"></div>
+                                        </div>
+                                        <div class="card-front__expiry-date">
+                                            <label
+                                                class="card-front__label card-front__label_exp_date"
+                                                for="EXP"
+                                                data-lang-ru="Срок действия"
+                                                data-lang-en="Valid thru"
+                                            >
+                                                Срок действия
+                                            </label>
+                                            <div class="card-front__select">
+                                                <input
+                                                    id="EXP"
+                                                    type="tel"
+                                                    name="EXP"
+                                                    autocomplete="off"
+                                                    maxlength="2"
+                                                    required=""
+                                                    align="baseline"
+                                                    value=""
+                                                    data-now_value="06"
+                                                    placeholder="ММ"
+                                                    data-lang-ru="ММ"
+                                                    data-lang-en="MM"
+                                                >
+                                                <span>/</span>
+                                                <input
+                                                    id="EXP_YEAR"
+                                                    type="tel"
+                                                    name="EXP_YEAR"
+                                                    autocomplete="off"
+                                                    maxlength="2"
+                                                    required=""
+                                                    align="baseline"
+                                                    value=""
+                                                    data-now_value="23"
+                                                    placeholder="ГГ"
+                                                    data-lang-ru="ГГ"
+                                                    data-lang-en="YY"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="card-front__cardholder">
+                                            <label
+                                                class="card-front__label"
+                                                for="cardholder"
+                                                data-lang-ru="Владелец карты"
+                                                data-lang-en="Name on card"
+                                            >
+                                                Владелец карты
+                                            </label>
+                                            <input
+                                                class="card-front__input"
+                                                autocomplete="off"
+                                                id="cardholder"
+                                                name="CARDHOLDER"
+                                                type="text"
+                                                align="baseline"
+                                                value=""
+                                                maxlength="26"
+                                                placeholder="IVAN IVANOV"
+                                            >
+                                        </div>
+                                        <div class="card-front__pslogo card-type">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pay-container__card pay-container__card-back">
+                                    <div class="card-back">
+                                        <div class="card-back__stripe"></div>
+                                        <label for="cvc2" class="card-back__label">CVV2/CVC2</label>
+                                        <div class="card-back__code">
+                                            <input style="display:none" type="password" name="fakepasswordremembered">
+                                            <input
+                                                autocomplete="off"
+                                                size="3"
+                                                id="cvc2"
+                                                name="CVC2"
+                                                type="password"
+                                                maxlength="3"
+                                                required=""
+                                                align="baseline"
+                                                value=""
+                                                placeholder="•••"
+                                            >
+                                        </div>
+                                        <div class="card-back__cvvdesc" data-lang-ru="Три последние цифры на обороте карты" data-lang-en="The last three digits on the reverse">
+                                            Три последние цифры на обороте карты
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ---------------------------------------------------- NEW -->
+                        <div class="pay-container__error">
+                            <div class="pay-container__error-box">
+                                <span class="error-tip show active"></span>
+                                <span class="error-tip info card__err" data-lang-ru="Номер карты введен некорректно" data-lang-en="Card number is invalid">Номер карты введен некорректно</span>
+                                <span class="error-tip info cardholder__err" data-lang-ru="Владелец введен некорректно" data-lang-en="Card holder is invalid">Владелец введен некорректно</span>
+                                <span class="error-tip info exp__err" data-lang-ru="Срок действия введен некорректно" data-lang-en="Expiration date is invalid">Срок действия введен некорректно</span>
+                                <span class="error-tip info exp_year__err" data-lang-ru="Срок действия введен некорректно" data-lang-en="Expiration date is invalid">Срок действия введен некорректно</span>
+                                <span class="error-tip info cvc2__err" data-lang-ru="CVV не заполнен" data-lang-en="CVV is not filled">CVV не заполнен</span>
+                                <span class="error-tip info email__err" data-lang-ru="Email некорректен" data-lang-en="Invalid cardholder email">Email некорректен</span>
+                            </div>
+                        </div>
+                        <div class="pay-options">
+                            <div class="pay-container__recurring">
+                                <div>
+                                    <input type="checkbox" name="fp_sc" value="1">
+                                    <label id="fp_savecard" data-lang-ru="Я разрешаю банку запомнить карту" data-lang-en="Save card data for the following payments">Я разрешаю банку запомнить карту</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pay-container__pay">
+                            <div class="email">
+                                <span class="email-label" data-lang-ru="E-mail для квитанции" data-lang-en="E-mail for receipt">
+                                    E-mail для квитанции
+                                </span>
+                                <input
+                                    autocomplete="off"
+                                    size="32"
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    onchange="check();"
+                                    onkeyup="check();"
+                                    align="baseline"
+                                    value=""
+                                    class=""
+                                >
+                            </div>
+                            <div class="pay-buttons">
+                                <input
+                                    class="pay-button inactive disablable-button"
+                                    type="submit"
+                                    value="Оплатить"
+                                    name="button1"
+                                    id="submit_button"
+                                    disabled=""
+                                    data-lang-ru="Оплатить"
+                                    data-lang-en="Pay"
+                                >
+                            </div>
+                            <div class="pay-token">
+                                <div class="pay-token__text" data-lang-ru="или оплатить через" data-lang-en="or pay with">
+                                    или оплатить через
+                                </div>
+                                <div class="pay-token__buttons-container">
+                                    <button id="mirPay" type="button" class="pay-token__button"></button>
+                                    <!-- <button id="applePay" type="button" class="apple-pay-button apple-pay-button-white disablable-button" style='display:none'></button>
+							<button id="googlePay" type="button" class="" style='display:none'></button>
+							<button id="samsungPay" type="button" class="samsungPay-button"></button>  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="pay-container__footer">
+                        <div class="security">
+                            <p class="provided" data-lang-ru="Ваш платеж защищен по международному стандарту PCI DSS." data-lang-en="This payment is protected in accordance with the requirements of the PCI DSS.">
+                                Ваш платеж защищен по международному стандарту PCI DSS.
+                            </p>
+                            <p class="provided" data-lang-ru="Сервис предоставляет " data-lang-en="The service is provided by ">
+                                Сервис предоставляет
+                                <a
+                                    class="about-the-bank"
+                                    href="https://www.pscb.ru"
+                                    data-lang-ru="https://www.pscb.ru"
+                                    data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php"
+                                    target="_blank"
+                                >
+                                    <b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b>
+                                </a>
+                                .
+                                <b id="supporttext" data-lang-ru="Служба&nbsp;поддержки" data-lang-en="Support">Служба&nbsp;поддержки</b>:
+                                <a href="mailto:support@pscb.ru">support@pscb.ru</a>
+                            </p>
+                        </div>
+                        <div class="certlogo"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Qwerty321 -->
+        <div id="scrnli_recorder_root"></div>
+        <iframe src="chrome-extension://ijejnggjjphlenbhmjhhgcdpehhacaal/audio-devices.html" allow="microphone" style="display: none;"></iframe>
+        <input
+            type="file"
+            id=""
+            name="file"
+            style="display: none;"
+        >
+        <div data-v-f3fb3dc8="">
+            <div data-v-f3fb3dc8="" class="container_selected_area" style="cursor: crosshair;"></div>
+            <div data-v-f3fb3dc8="" class="area" style="left: 0px; top: 0px; width: 0px; height: 0px;"></div>
+        </div>
+    </body>
+</html>

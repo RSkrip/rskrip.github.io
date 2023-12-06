@@ -1,0 +1,16 @@
+@font-face {
+font-family: "PFCentroSansPro";
+font-weight: bold;
+src: url("fonts/PFCentroSansPro-Black.otf") format("opentype");
+}
+
+@font-face {
+font-family: "PFCentroSansPro";
+src: url("fonts/PFCentroSansPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+font-family: "PFCentroSlabPro";
+font-weight: bold;
+src: url("fonts/PFCentroSlabPro-Black.otf") format("opentype");
+}
