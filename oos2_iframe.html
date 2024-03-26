@@ -853,20 +853,24 @@
 	<div class="contactless-wrapper" style="">
 		<div class="contactless__container">
 			<div class="payment-totals">
-
 				<div class="payment-totals__total">
-					<span class="param-name" data-lang-ru="Сумма платежа" data-lang-en="Total">Сумма платежа:
+					<span class="param-name" data-lang-ru="Сумма платежа" data-lang-en="Total">
+						Сумма платежа:
 					</span>
-
 					<span class="param sum" data-lang-ru="RUB" data-lang-en="RUB">
-						1.23 RUB </span>
+						102.00 RUB
+					</span>
 				</div>
 				<div class="payment-totals__fee">
 					<span class="param-name" data-lang-ru="Комиссия" data-lang-en="Bank fee">
 						Комиссия:
 					</span>
-					<span class="com-range" id="com-range-sum">0.00 – 0.02</span> <span class="com-range">RUB</span>
-
+					<div class="param">
+						<span id="com-range-sum">0.00 – 0.02</span>
+						<span data-lang-ru="RUB" data-lang-en="RUB">
+							2.00 RUB
+						</span>
+					</div>
 				</div>
 				<div class="payment-totals__fee-descr">
 					<span class="com-range-descr"
@@ -876,9 +880,9 @@
 				</div>
 				<div class="payment-totals__offert">
 					<input type="checkbox" name="offert" value="1">
-					<label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">Я
-						соглашаюсь с <a
-							href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf"
+					<label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">
+						Я соглашаюсь с
+						<a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf"
 							target="_blank" class="offert">
 							<span class="offert-text" data-lang-ru="офертой"
 								data-lang-en="terms and conditions">офертой</span>
@@ -886,12 +890,9 @@
 					</label>
 				</div>
 			</div>
-
 			<span class="contactless__pay-card real-card" data-lang-ru="Оплата картой" data-lang-en="Pay by card"
 				disabled="disabled">Оплата картой</span>
-
-
-
+			<button id="mirPay_widget" class="contactless__pay-card" disabled="disabled"></button>
 		</div>
 	</div>
 	<form name="ruform" method="POST" action="https://paygates.pscb.ru/bm/finishPayment/back">
