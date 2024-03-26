@@ -1528,3 +1528,21 @@ waitin wrapper
     opacity: 1;
   }
 }
+
+.com-range,
+.com-range-descr {
+    display: inline-block;
+}
+
+.com-range-descr {
+    font-size: 14px;
+    line-height: 16px;
+    opacity: 0.9;
+}
+
+@media screen and (max-width: 529px) {
+    .com-range-descr {
+        font-size: 12px;
+        line-height: 14px;
+    }
+}
