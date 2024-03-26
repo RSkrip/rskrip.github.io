@@ -905,17 +905,7 @@ body#upi_confirmation .card-front__input {
 }
 
 .contactless__container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 30px 35px;
+	padding: 30px 35px;
 }
 
 .contactless-wrapper #applePay {
@@ -1054,13 +1044,6 @@ body.applePay .contactless-wrapper #applePay {
 	text-align: center;
 }
 
-.payment-totals__fee-descr {
-    max-width: 300px;
-    font-size: 14px;
-    margin: 0.25rem auto 0;
-    text-align: center;
-}
-
 .payment-totals__offert {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -1107,4 +1090,11 @@ body.applePay .contactless-wrapper #applePay {
     100% {
         opacity: 1;
     }
+}
+
+.payment-totals__fee-descr {
+    width: 300px;
+    font-size: 14px;
+    margin-top: 0.25rem;
+    text-align: center;
 }
