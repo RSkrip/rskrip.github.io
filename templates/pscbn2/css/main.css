@@ -571,6 +571,10 @@ body.result-page.success .pay-container{
 	margin-top:5px;
 }
 
+.pay-tr .pay-buttons {
+	flex-basis: 50%;
+}
+
 .pay-button {
 	width: 100%;
 	max-width: 295px;
