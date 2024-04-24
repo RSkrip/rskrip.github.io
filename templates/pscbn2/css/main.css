@@ -1747,3 +1747,192 @@ waitin wrapper
 		 opacity: 1;
 	}
 }
+
+
+/* Sberpay styles */
+#sberpay-button-pay {
+	width: 100%;
+	height: 60px;
+	background-color: #21a038;
+	border-radius: 5px;
+	color: #fff;
+	font-family: inherit;
+	font-size: 1rem;
+	margin-top: 10px;
+}
+
+.popup-fade {
+	display: none;
+}
+
+.popup-fade:before {
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 999;
+	pointer-events: none;
+}
+
+.popup {
+	display: none;
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	padding: 30px;
+	width: 400px;
+	max-width: 100%;
+	margin-top: -60px;
+	margin-left: -200px;
+	background-color: #ffffff;
+	border-radius: 6px;
+	box-sizing: border-box;
+	z-index: 1000;
+	pointer-events: all;
+}
+
+.popup__header {
+	font-size: 1.4rem;
+	text-align: left;
+}
+
+.popup__tip {
+	color: #888;
+	font-size: 1rem;
+	margin: 1em 0;
+	text-align: left;
+}
+
+.popup__tip-accent {
+	color: #1f1f1f;
+	font-size: inherit;
+	font-weight: bold;
+}
+
+.popup__body {
+	margin-top: 1.25rem;
+}
+
+.sberpay-qr-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f4f4f4;
+}
+
+.sberpay-qr__img {
+	width: 200px;
+	padding: 30px;
+}
+
+.popup__button-group {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.popup__button-group>.popup__button {
+	margin-top: 10px;
+}
+
+.popup__button-group>.popup__button:nth-child(1) {
+	margin-top: 0;
+}
+
+#popup-sberpay .popup__body>.popup__button-group {
+	margin-top: 1.25rem;
+}
+
+.popup__button {
+	border-radius: 5px;
+   border: 1px solid #b3b3b3;
+   background-color: #fff;
+	background-image: none !important;
+	color: #4d4f53;
+	font-family: inherit;
+	font-size: 16px;
+	height: 50px;
+	box-shadow: none !important;
+    -webkit-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: background-image, background-color, color;
+    -o-transition-property: background-image, background-color, color;
+    transition-property: background-image, background-color, color;
+}
+
+.popup__button:hover {
+	background-color: #efefef;
+	cursor: pointer;
+}
+
+.sberpay-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sberpay-button>span {
+	display: inline-block;
+	margin-left: 8px;
+}
+
+#popup-sberpay-push {
+	display: none;
+}
+
+.sberpay-phone__label {
+	display: block;
+	font-size: 1rem;
+	margin-bottom: 5px;
+}
+
+.sberpay-phone__input {
+	border-radius: 5px;
+	border: 1px solid #b3b3b3;
+	font-size: 24px;
+	width: 100%;
+   height: 38px;
+   padding: 0 10px;
+}
+
+.sberpay-phone__input:hover {
+	border: 1px solid #b3b3b3;
+}
+
+.sberpay-phone__button {
+	width: 100%;
+	height: 50px;
+	border-width: 0px;
+	color: #4d4f53;
+	font-size: 16px;
+   background-color: #55ed00;
+	margin-top: 10px;
+   cursor: pointer;
+}
+
+.sberpay-phone__button:disabled {
+	opacity: 0.7;
+   filter: alpha(Opacity = 70);
+}
+
+.sberpay-phone__button:disabled:hover {
+	background-image: none;
+}
+
+.popup__alert {
+	/* display: none; */
+	position: relative;
+	color: #b92633;
+	background-color: #f8d7da;
+	border: 1px solid #f5c6cb;
+	border-radius: 5px;
+	font-size: 1rem;
+	padding: .75rem 1.25rem;
+	margin-top: 1.25rem;
+	text-align: left;
+}
+
+/* ---------/Sberpay styles */

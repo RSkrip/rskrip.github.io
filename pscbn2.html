@@ -952,6 +952,11 @@
                                                     data-lang-en="Pay"
                                                 >
                                             </div>
+                                            <div>
+                                                <button id="sberpay-button-pay" type="button" title="Оплатить Sberpay">
+                                                    <span>Оплатить&nbsp;Sberpay</span>
+                                                </button>
+                                            </div>
                                             <!-- <div>
                                                 <button
                                                     id="mirPay"
@@ -1061,6 +1066,92 @@
                         </div>
                     </div>
                 </div>
+                <div class="popup-fade">
+                    <div id="popup-sberpay" class="popup">
+                        <div id="popup-sberpay-qr" class="popup__content">
+                            <div class="popup__header">Отсканируйте QR-код, чтобы заплатить в&nbsp;СберБанк&nbsp;Онлайн</div>
+                            <div class="popup__tip">
+                                Используйте сканер кодов в приложении Сбербанка. Оплатите в течение
+                                <span class="popup__tip-accent">19:59</span>
+                                .
+                            </div>
+                            <div class="popup__body">
+                                <div class="sberpay-qr-container">
+                                    <div class="sberpay-qr">
+                                        <img class="sberpay-qr__img" alt="" src="codeImage.jpg">
+                                    </div>
+                                </div>
+                                <div class="popup__button-group">
+                                    <button id="js-sberpay-push-mode-button" class="popup__button sberpay-button sberpay-button-push">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="#4d4f53"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                        <span>Оплатить через пуш</span>
+                                    </button>
+                                    <button class="popup__button popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
+                                </div>
+                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
+                            </div>
+                        </div>
+                        <div id="popup-sberpay-push" class="popup__content">
+                            <div class="popup__header">Sberpay</div>
+                            <div class="popup__tip">
+                                Для оплаты отправим push-уведомление на номер телефона.
+                            </div>
+                            <div class="popup__body">
+                                <form action="">
+                                    <div class="sberpay-phone">
+                                        <label for="sberpay-phone" class="sberpay-phone__label">Номер телефона</label>
+                                        <input
+                                            id="sberpay-phone"
+                                            class="sberpay-phone__input"
+                                            type="tel"
+                                            name=""
+                                            id=""
+                                            autocomplete="off"
+                                            data-mask="phone"
+                                        >
+                                        <input
+                                            class="sberpay-phone__button inactive"
+                                            type="submit"
+                                            value="Отправить"
+                                            disabled="disabled"
+                                        >
+                                    </div>
+                                </form>
+                                <div class="popup__button-group">
+                                    <button id="js-sberpay-qr-mode-button" class="popup__button sberpay-button sberpay-button_qr">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path d="M3,3H6V6H3Z"/>
+                                            <path d="M9,0V9H0V0ZM7.5,1.5h-6v6h6ZM6,18H3v3H6Z"/>
+                                            <path d="M9,15v9H0V15ZM1.5,16.5v6h6v-6ZM18,3h3V6H18Z"/>
+                                            <path d="M15,0V9h9V0Zm7.5,1.5v6h-6v-6ZM12,1.5V0h1.5V3H12V6H10.5V1.5ZM12,9V6h1.5V9ZM9,12V10.5h1.5V9H12v3h1.5V10.5H21V12H15v1.5H10.5V12Zm0,0v1.5H3V12H1.5v1.5H0v-3H4.5V12Zm15,1.5H22.5v-3H24Zm-1.5,0H21v3h3V15H22.5Zm-6,0h3V15H18v1.5H16.5Zm3,4.5V16.5H18V18H16.5v1.5h-3V21H18V18Zm0,0H24v1.5H21V21H19.5Zm-6-1.5V18H15V15H10.5v1.5Z"/>
+                                            <path d="M10.5,18H12v4.5h6V24H10.5ZM24,21v3H19.5V22.5h3V21Z"/>
+                                        </svg>
+                                        <span>Оплатить по QR-коду</span>
+                                    </button>
+                                    <button class="popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
+                                </div>
+                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
             <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
         </center>
@@ -1089,5 +1180,39 @@
             </div>
             <iframe style="display: none;"></iframe>
         </div> -->
+        <script>
+			const sberPayButton = $("#sberpay-button-pay");
+			const sberPayModal = $("#popup-sberpay");
+			let sberpayQrScreen = $("#popup-sberpay-qr");
+			let sberpayPushScreen = $("#popup-sberpay-push");
+
+			if (sberPayButton) {
+				sberPayButton.on( "click", function() {
+					$(".popup-fade").show();
+					sberPayModal.show();
+				});
+			}
+
+			$(".sberpay-button-cancel").on( "click", function() {
+					$(".popup-fade").hide();
+					sberPayModal.hide();
+					sberpayPushScreen.hide();
+					sberpayQrScreen.show();
+				});
+
+			if (sberPayModal) {
+				$("#js-sberpay-push-mode-button").on( "click", function() {
+					sberpayQrScreen.hide();
+					sberpayPushScreen.show();
+				});
+			}
+
+			if (sberpayPushScreen) {
+				$("#js-sberpay-qr-mode-button").on( "click", function() {
+					sberpayPushScreen.hide();
+					sberpayQrScreen.show();
+				});
+			}
+        </script>
     </body>
 </html>
