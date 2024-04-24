@@ -17,20 +17,20 @@
         >
         <link
             media="screen"
-            href="templates/pscbn2/css/main.css?1680176929"
+            href="templates/pscbn2/css/main.css"
             type="text/css"
             rel="stylesheet"
         >
-        <script
+        <!-- <script
             type="text/javascript"
             async=""
             src="https://www.gstatic.com/recaptcha/releases/Xh5Zjh8Od10-SgxpI_tcSnHR/recaptcha__ru.js"
             crossorigin="anonymous"
             integrity="sha384-ItbUeZBowX7e2GHKqD9ZcRGtJbGbY8F22eXiSEH3I1Nz6lxTiVyBhwrNyr1/eDiN"
-        ></script>
+        ></script> -->
         <script src="templates/js/jquery-3.3.1.min.js"></script>
         <script src="templates/js/base64.js"></script>
-        <script src="templates/pscbn2/js/script.js?1680860253"></script>
+        <script src="templates/pscbn2/js/script.js"></script>
         <script language="JavaScript">
         user_agent = navigator.userAgent;
         //isMobileAndroid = user_agent.match(/android/i);
@@ -40,7 +40,7 @@
             jQuery("head").append("<script src='templates/js/jquery.mask.js'><\/script>");
         }
         </script>
-        <script src="templates/js/jquery.mask.js"></script>
+        <script src="/templates/js/jquery.mask.js"></script>
         <script language="JavaScript">
 
         function sleep(milliseconds) {
@@ -419,7 +419,7 @@
                 cvc2_inputs.removeClass('good').addClass('error');
             
 			var email=document.payform.email.value;
-            var cupp=document.payform.cupp.value;
+            // var cupp=document.payform.cupp.value;
 
             if(email.length==0) $(document.payform.email).removeClass('error').removeClass('good');
 
@@ -537,13 +537,13 @@
             else if(event !== undefined && event.type == "blur" && year_val.replace('_','').length < 2)
                 expyear_input.removeClass('good').removeClass('error');
 
-            if(cupp.length!=0) {
-             if (!cuppfilter.test(cupp))
-                    $(document.payform.cupp).removeClass('good').addClass('error');
-                else
-                    $(document.payform.cupp).removeClass('error').addClass('good');
-            }
-            else $(document.payform.cupp).removeClass('error').removeClass('good');
+            // if(cupp.length!=0) {
+            //  if (!cuppfilter.test(cupp))
+            //         $(document.payform.cupp).removeClass('good').addClass('error');
+            //     else
+            //         $(document.payform.cupp).removeClass('error').addClass('good');
+            // }
+            // else $(document.payform.cupp).removeClass('error').removeClass('good');
 
             
             if (email.length != 0){
@@ -913,7 +913,8 @@
                             <div class="pay-container__offert">
                                 <div>
                                     <input type="checkbox" name="offert" value="1">
-                                    <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">Я соглашаюсь с
+                                    <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">
+                                        Я соглашаюсь с
                                         <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" target="_blank" class="offert">
                                             <span class="offert-text" data-lang-ru="офертой" data-lang-en="terms and conditions">офертой</span>
                                         </a>
@@ -951,14 +952,19 @@
                                                     data-lang-en="Pay"
                                                 >
                                             </div>
-														  <div>
-															<button
-																 id="mirPay"
-																 type="button"
-																 class=""
-																 disabled="disabled"
-															></button>
-													  </div>
+                                            <div>
+                                                <button id="sberpay-button-pay" type="button" title="Оплатить Sberpay">
+                                                    <span>Оплатить&nbsp;Sberpay</span>
+                                                </button>
+                                            </div>
+                                            <!-- <div>
+                                                <button
+                                                    id="mirPay"
+                                                    type="button"
+                                                    class=""
+                                                    disabled="disabled"
+                                                ></button>
+                                            </div>
                                             <div>
                                                 <button
                                                     id="applePay"
@@ -975,7 +981,7 @@
                                                     class="samsungPay-button pay-button method-inactive inactive"
                                                     disabled="disabled"
                                                 ></button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -1060,11 +1066,96 @@
                         </div>
                     </div>
                 </div>
+                <div class="popup-fade">
+                    <div id="popup-sberpay" class="popup">
+                        <div id="popup-sberpay-qr" class="popup__content">
+                            <div class="popup__header">Отсканируйте QR-код, чтобы заплатить в&nbsp;СберБанк&nbsp;Онлайн</div>
+                            <div class="popup__tip">
+                                Используйте сканер кодов в приложении Сбербанка. Оплатите в течение
+                                <span class="popup__tip-accent">19:59</span>
+                                .
+                            </div>
+                            <div class="popup__body">
+                                <div class="sberpay-qr-container">
+                                    <div class="sberpay-qr">
+                                        <img class="sberpay-qr__img" alt="" src="codeImage.jpg">
+                                    </div>
+                                </div>
+                                <div class="popup__button-group">
+                                    <button id="js-sberpay-push-mode-button" class="popup__button sberpay-button sberpay-button-push">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="#4d4f53"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                        <span>Оплатить через пуш</span>
+                                    </button>
+                                    <button class="popup__button popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
+                                </div>
+                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
+                            </div>
+                        </div>
+                        <div id="popup-sberpay-push" class="popup__content">
+                            <div class="popup__header">Sberpay</div>
+                            <div class="popup__tip">
+                                Для оплаты отправим push-уведомление на номер телефона.
+                            </div>
+                            <div class="popup__body">
+                                <form action="">
+                                    <div class="sberpay-phone">
+                                        <label for="sberpay-phone" class="sberpay-phone__label">Номер телефона</label>
+                                        <input
+                                            id="sberpay-phone"
+                                            class="sberpay-phone__input"
+                                            type="tel"
+                                            name=""
+                                            id=""
+                                            autocomplete="off"
+                                            data-mask="phone"
+                                        >
+                                        <input
+                                            class="sberpay-phone__button inactive"
+                                            type="submit"
+                                            value="Отправить"
+                                            disabled="disabled"
+                                        >
+                                    </div>
+                                </form>
+                                <div class="popup__button-group">
+                                    <button id="js-sberpay-qr-mode-button" class="popup__button sberpay-button sberpay-button_qr">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path d="M3,3H6V6H3Z"/>
+                                            <path d="M9,0V9H0V0ZM7.5,1.5h-6v6h6ZM6,18H3v3H6Z"/>
+                                            <path d="M9,15v9H0V15ZM1.5,16.5v6h6v-6ZM18,3h3V6H18Z"/>
+                                            <path d="M15,0V9h9V0Zm7.5,1.5v6h-6v-6ZM12,1.5V0h1.5V3H12V6H10.5V1.5ZM12,9V6h1.5V9ZM9,12V10.5h1.5V9H12v3h1.5V10.5H21V12H15v1.5H10.5V12Zm0,0v1.5H3V12H1.5v1.5H0v-3H4.5V12Zm15,1.5H22.5v-3H24Zm-1.5,0H21v3h3V15H22.5Zm-6,0h3V15H18v1.5H16.5Zm3,4.5V16.5H18V18H16.5v1.5h-3V21H18V18Zm0,0H24v1.5H21V21H19.5Zm-6-1.5V18H15V15H10.5v1.5Z"/>
+                                            <path d="M10.5,18H12v4.5h6V24H10.5ZM24,21v3H19.5V22.5h3V21Z"/>
+                                        </svg>
+                                        <span>Оплатить по QR-коду</span>
+                                    </button>
+                                    <button class="popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
+                                </div>
+                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
-            <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script>
+            <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
         </center>
-        <div id="scrnli_recorder_root"></div>
-        <div>
+        <!-- <div>
             <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; position: fixed; visibility: hidden; display: block; transition: right 0.3s ease 0s; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
                 <div class="grecaptcha-logo">
                     <iframe
@@ -1088,17 +1179,40 @@
                 ></textarea>
             </div>
             <iframe style="display: none;"></iframe>
-        </div>
-        <iframe src="chrome-extension://ijejnggjjphlenbhmjhhgcdpehhacaal/audio-devices.html" allow="microphone" style="display: none;"></iframe>
-        <input
-            type="file"
-            id=""
-            name="file"
-            style="display: none;"
-        >
-        <div data-v-f3fb3dc8="">
-            <div data-v-f3fb3dc8="" class="container_selected_area" style="cursor: crosshair;"></div>
-            <div data-v-f3fb3dc8="" class="area" style="left: 0px; top: 0px; width: 0px; height: 0px;"></div>
-        </div>
+        </div> -->
+        <script>
+			const sberPayButton = $("#sberpay-button-pay");
+			const sberPayModal = $("#popup-sberpay");
+			let sberpayQrScreen = $("#popup-sberpay-qr");
+			let sberpayPushScreen = $("#popup-sberpay-push");
+
+			if (sberPayButton) {
+				sberPayButton.on( "click", function() {
+					$(".popup-fade").show();
+					sberPayModal.show();
+				});
+			}
+
+			$(".sberpay-button-cancel").on( "click", function() {
+					$(".popup-fade").hide();
+					sberPayModal.hide();
+					sberpayPushScreen.hide();
+					sberpayQrScreen.show();
+				});
+
+			if (sberPayModal) {
+				$("#js-sberpay-push-mode-button").on( "click", function() {
+					sberpayQrScreen.hide();
+					sberpayPushScreen.show();
+				});
+			}
+
+			if (sberpayPushScreen) {
+				$("#js-sberpay-qr-mode-button").on( "click", function() {
+					sberpayPushScreen.hide();
+					sberpayQrScreen.show();
+				});
+			}
+        </script>
     </body>
 </html>
