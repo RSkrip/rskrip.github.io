@@ -17,20 +17,20 @@
         >
         <link
             media="screen"
-            href="templates/pscbn2/css/main.css?1680176929"
+            href="templates/pscbn2/css/main.css"
             type="text/css"
             rel="stylesheet"
         >
-        <script
+        <!-- <script
             type="text/javascript"
             async=""
             src="https://www.gstatic.com/recaptcha/releases/Xh5Zjh8Od10-SgxpI_tcSnHR/recaptcha__ru.js"
             crossorigin="anonymous"
             integrity="sha384-ItbUeZBowX7e2GHKqD9ZcRGtJbGbY8F22eXiSEH3I1Nz6lxTiVyBhwrNyr1/eDiN"
-        ></script>
+        ></script> -->
         <script src="templates/js/jquery-3.3.1.min.js"></script>
         <script src="templates/js/base64.js"></script>
-        <script src="templates/pscbn2/js/script.js?1680860253"></script>
+        <script src="templates/pscbn2/js/script.js"></script>
         <script language="JavaScript">
         user_agent = navigator.userAgent;
         //isMobileAndroid = user_agent.match(/android/i);
@@ -40,7 +40,7 @@
             jQuery("head").append("<script src='templates/js/jquery.mask.js'><\/script>");
         }
         </script>
-        <script src="templates/js/jquery.mask.js"></script>
+        <script src="/templates/js/jquery.mask.js"></script>
         <script language="JavaScript">
 
         function sleep(milliseconds) {
@@ -419,7 +419,7 @@
                 cvc2_inputs.removeClass('good').addClass('error');
             
 			var email=document.payform.email.value;
-            var cupp=document.payform.cupp.value;
+            // var cupp=document.payform.cupp.value;
 
             if(email.length==0) $(document.payform.email).removeClass('error').removeClass('good');
 
@@ -537,13 +537,13 @@
             else if(event !== undefined && event.type == "blur" && year_val.replace('_','').length < 2)
                 expyear_input.removeClass('good').removeClass('error');
 
-            if(cupp.length!=0) {
-             if (!cuppfilter.test(cupp))
-                    $(document.payform.cupp).removeClass('good').addClass('error');
-                else
-                    $(document.payform.cupp).removeClass('error').addClass('good');
-            }
-            else $(document.payform.cupp).removeClass('error').removeClass('good');
+            // if(cupp.length!=0) {
+            //  if (!cuppfilter.test(cupp))
+            //         $(document.payform.cupp).removeClass('good').addClass('error');
+            //     else
+            //         $(document.payform.cupp).removeClass('error').addClass('good');
+            // }
+            // else $(document.payform.cupp).removeClass('error').removeClass('good');
 
             
             if (email.length != 0){
@@ -1062,10 +1062,9 @@
                     </div>
                 </div>
             </form>
-            <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script>
+            <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
         </center>
-        <div id="scrnli_recorder_root"></div>
-        <div>
+        <!-- <div>
             <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; position: fixed; visibility: hidden; display: block; transition: right 0.3s ease 0s; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
                 <div class="grecaptcha-logo">
                     <iframe
@@ -1089,17 +1088,6 @@
                 ></textarea>
             </div>
             <iframe style="display: none;"></iframe>
-        </div>
-        <iframe src="chrome-extension://ijejnggjjphlenbhmjhhgcdpehhacaal/audio-devices.html" allow="microphone" style="display: none;"></iframe>
-        <input
-            type="file"
-            id=""
-            name="file"
-            style="display: none;"
-        >
-        <div data-v-f3fb3dc8="">
-            <div data-v-f3fb3dc8="" class="container_selected_area" style="cursor: crosshair;"></div>
-            <div data-v-f3fb3dc8="" class="area" style="left: 0px; top: 0px; width: 0px; height: 0px;"></div>
-        </div>
+        </div> -->
     </body>
 </html>
