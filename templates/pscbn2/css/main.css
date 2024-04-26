@@ -181,10 +181,10 @@ input[type="password"]:focus {
 
 
 /*Добавляются к input, когда заполнено корректно
- input[type="text"] {background-color: rgb(204, 255, 204)}
- input[type="email"] {background-color: rgb(204, 255, 204)}
- input[type="password"] {background-color: rgb(204, 255, 204)}
- */
+input[type="text"] {background-color: rgb(204, 255, 204)}
+input[type="email"] {background-color: rgb(204, 255, 204)}
+input[type="password"] {background-color: rgb(204, 255, 204)}
+*/
 
 input[type="text"].good {
     background-color: rgb(204, 255, 204)
@@ -204,16 +204,16 @@ input[type="password"].good {
 
 
 /*Добавляются к input, когда заполнено НЕКОРРЕКТНО
- input[type="text"] {background-color: rgb(255, 204, 204)}
- input[type="text"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- input[type="text"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- input[type="email"] {background-color: rgb(255, 204, 204)}
- input[type="email"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- input[type="email"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- input[type="password"] {background-color: rgb(255, 204, 204)}
- input[type="password"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- input[type="password"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
- */
+input[type="text"] {background-color: rgb(255, 204, 204)}
+input[type="text"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+input[type="text"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+input[type="email"] {background-color: rgb(255, 204, 204)}
+input[type="email"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+input[type="email"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+input[type="password"] {background-color: rgb(255, 204, 204)}
+input[type="password"]:focus {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+input[type="password"]:hover {box-shadow: 0px 0px 1pt 2pt rgb(255,102,102); border:1px solid transparent; outline:none; background-color: rgb(255, 204, 204)}
+*/
 
 input[type="text"].error {
     background-color: rgb(255, 204, 204)
@@ -287,13 +287,8 @@ input[type="password"].error:hover {
     background-color: rgb(255, 204, 204)
 }
 
-input[type="submit"]:hover {
-    background-image: -moz-linear-gradient(top, #55e300, #55cf00);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#55e300), to(#55cf00));
-    background-image: -webkit-linear-gradient(top, #55e300, #55cf00);
-    background-image: -o-linear-gradient(top, #55e300, #55cf00);
-    background-image: linear-gradient(to bottom, #55e300, #55cf00);
-    background-repeat: repeat-x;
+input[type="submit"]:not(.inactive):active {
+    background-color: #55cf00;
 }
 
 table {
@@ -380,7 +375,8 @@ body.result-page.success .pay-container {
     border-radius: 0 0 5px 5px;
 }
 
-.payform-lang li:active {
+.payform-lang li:active,
+.payform-lang li.active {
     color: #fff;
     background-color: #55e300;
     padding: 6px;
@@ -703,7 +699,7 @@ body.result-page.success .pay-container {
 
 .pay-tr {
     display: flex;
-    flex-wrap: wrap;
+    column-gap: 5%;
     justify-content: space-between;
 }
 
@@ -740,43 +736,30 @@ body.result-page.success .pay-container {
     background-color: #55ed00;
     border: 0px;
     border-radius: 5px;
-    color: #444;
-    font-size: 20px;
+    color: #4d4f53;
+    font-size: 17px;
     font-family: PFCentroSansPro, Sans, Arial;
-    text-transform: uppercase;
-    font-weight: bold;
     padding: 0;
     cursor: pointer;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease;
+    -webkit-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
+    outline: none !important;
 }
 
-.nfc {
-    display: none;
-    height: 55px;
-    margin-left: 10px;
-    margin-bottom: -22px;
+.pay-button.active {
+    background-color: #55cf00;
 }
 
-.pay-button.active,
-.payform-lang li.active {
-    color: #fff !important;
-    cursor: pointer;
-    background-image: -moz-linear-gradient(top, #55e300, #55e300);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#55e300), to(#55e300));
-    background-image: -webkit-linear-gradient(top, #55e300, #55e300);
-    background-image: -o-linear-gradient(top, #55e300, #55e300);
-    background-image: linear-gradient(to bottom, #55e300, #55e300);
-    background-repeat: repeat-x;
-}
-
-.pay-button.inactive:not(#samsungPay) {
-    color: #888;
-    background-image: -moz-linear-gradient(top, #ddd, #ddd) !important;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ddd), to(#ddd)) !important;
-    background-image: -webkit-linear-gradient(top, #ddd, #ddd) !important;
-    background-image: -o-linear-gradient(top, #ddd, #ddd) !important;
-    background-image: linear-gradient(to bottom, #ddd, #ddd) !important;
-    background-repeat: repeat-x;
-    cursor: not-allowed;
+.inactive,
+.button-inactive {
+    opacity: 0.7;
+    filter: alpha(Opacity=70);
 }
 
 .email {
@@ -836,12 +819,12 @@ body.result-page.success .pay-container {
 
 .pay-container__result-actions-line .button-do-repeat {
     /*
-	background: url(/templates/pscbn/img/repeat_button.png) left 0px;
-	width: 220px;
-	height: 48px;
-	border: 0;
-	color: white;
-	*/
+background: url(/templates/pscbn/img/repeat_button.png) left 0px;
+width: 220px;
+height: 48px;
+border: 0;
+color: white;
+*/
     width: 400px;
     height: 65px;
     border: 0px;
@@ -854,12 +837,12 @@ body.result-page.success .pay-container {
 
 .pay-container__result-actions-line .button-do-return {
     /*
-	background: url(/templates/pscb/img/return_ru.png) left 0px;
-	width: 220px;
-	height: 48px;
-	border: 0;
-	color: white;
-	*/
+background: url(/templates/pscb/img/return_ru.png) left 0px;
+width: 220px;
+height: 48px;
+border: 0;
+color: white;
+*/
     width: 300px;
     height: 50px;
     border: 0px;
@@ -1051,8 +1034,8 @@ body.redirect-page {
 
 
 /*
- styles for mobile version
- */
+styles for mobile version
+*/
 
 @media screen and (max-device-width: 610px) {
     body {
@@ -1193,12 +1176,12 @@ body.redirect-page {
     .pay-container__table .pt_amounts .param-name {
         padding-left: 12px;
         padding-right: 12px;
-        font-size: 1.15em;
-        line-height: 1.15em;
+        font-size: 18px;
+        line-height: 100%;
     }
     .pay-container__table .pt_amounts .param {
-        font-size: 1.15em;
-        line-height: 1.15em;
+        font-size: 18px;
+        line-height: 100%;
     }
     .pay-container__content {
         min-height: auto;
@@ -1377,9 +1360,8 @@ body.redirect-page {
         background-color: rgba(245, 246, 247, 0);
     }
     .pay-container__pay {
-        max-width: 295px;
-        padding: 0;
-        margin: 20px auto;
+        padding-bottom: 0;
+        margin: 16px 10px;
     }
     .pay-container__result-actions,
     .pay-container__pay .pay-table {
@@ -1408,6 +1390,7 @@ body.redirect-page {
         text-transform: none;
     }
     .pay-tr .email {
+        max-width: 100%;
         margin-bottom: 20px;
     }
     body.applePay .pay-table .pay-tr {
@@ -1497,9 +1480,6 @@ body.redirect-page {
     button#applePay {
         flex-direction: column-reverse !important;
     }
-    .pay-tr .email .email-label {
-        font-size: 16px;
-    }
     .pay-tr .email .email-label.required:after {
         content: "*";
         color: rgb(255, 102, 102);
@@ -1510,7 +1490,7 @@ body.redirect-page {
         width: 100%;
         margin-top: 10px;
         height: 40px;
-        border: 1px solid #ddd;
+        border: 1px solid #b3b3b3;
         border-radius: 5px;
         margin-top: 10px;
     }
@@ -1590,8 +1570,8 @@ body.redirect-page {
         position: relative;
     }
     /*
-	changes for applePay button fitting in
-	*/
+changes for applePay button fitting in
+*/
     body.applePay {
         padding: 0px;
     }
@@ -1658,13 +1638,13 @@ body.redirect-page {
         margin: 0px;
     }
     /*.pay-container__content-redirect{
-		width:100%;
-		height:100%;
-		border: 1px solid #cccccc;
-		border-radius: 8px;
-		padding: 0px;
-		margin-top:0;
-	}*/
+width:100%;
+height:100%;
+border: 1px solid #cccccc;
+border-radius: 8px;
+padding: 0px;
+margin-top:0;
+}*/
     .pay-container__content-redirect {
         text-align: center;
         /*padding-top:50%;*/
@@ -1734,11 +1714,11 @@ div.waiting-wrapper img {
     width: 100px;
 }
 
- :-webkit-autofill {
+:-webkit-autofill {
     animation-name: onAutoFillStart;
 }
 
- :not(:-webkit-autofill) {
+:not(:-webkit-autofill) {
     animation-name: onAutoFillCancel;
 }
 
@@ -1777,8 +1757,8 @@ div.waiting-wrapper img {
 
 
 /*
- error container
- */
+error container
+*/
 
 .pay-container__error {
     display: none !important;
@@ -1831,8 +1811,8 @@ div.waiting-wrapper img {
 
 
 /*
- waitin wrapper
- */
+waitin wrapper
+*/
 
 .waiting-wrapper {
     position: fixed;
@@ -1890,19 +1870,29 @@ div.waiting-wrapper img {
 
 /* Sberpay styles */
 
-#sberpay-button-pay {
-    width: 100%;
-    height: 60px;
+.pay-button_sberpay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #21a038;
     border-radius: 5px;
     color: #fff;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 17px;
     margin-top: 10px;
 }
 
+.pay-button_sberpay>svg {
+    width: 60px;
+    height: 20px;
+    margin-left: 8px;
+}
+
 .popup-fade {
-    display: none;
+    position: relative;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s, z-index 0s 0.2s;
 }
 
 .popup-fade:before {
@@ -1917,8 +1907,14 @@ div.waiting-wrapper img {
     pointer-events: none;
 }
 
+.popup-fade_visible {
+    position: relative;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
 .popup {
-    display: none;
     position: fixed;
     top: 20%;
     left: 50%;
@@ -1932,6 +1928,18 @@ div.waiting-wrapper img {
     box-sizing: border-box;
     z-index: 1000;
     pointer-events: all;
+}
+
+#popup-sberpay-push {
+    display: none;
+}
+
+#popup-sberpay-push-result {
+    display: none;
+}
+
+#popup-sberpay-mobile {
+    display: none;
 }
 
 .popup__header {
@@ -1954,6 +1962,12 @@ div.waiting-wrapper img {
 
 .popup__body {
     margin-top: 1.25rem;
+}
+
+.popup__text-block {
+    font-size: 1rem;
+    margin: 1rem 0;
+    text-align: left;
 }
 
 .sberpay-qr-container {
@@ -1986,14 +2000,19 @@ div.waiting-wrapper img {
 }
 
 .popup__button {
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #b3b3b3;
+    border-radius: 5px;
     background-color: #fff;
     background-image: none !important;
     color: #4d4f53;
     font-family: inherit;
     font-size: 16px;
+    width: 100%;
     height: 50px;
+    margin-top: 1.5rem;
     box-shadow: none !important;
     -webkit-transition: 0.2s ease-in-out;
     -o-transition: 0.2s ease-in-out;
@@ -2001,26 +2020,20 @@ div.waiting-wrapper img {
     -webkit-transition-property: background-image, background-color, color;
     -o-transition-property: background-image, background-color, color;
     transition-property: background-image, background-color, color;
+    cursor: pointer;
 }
 
 .popup__button:hover {
     background-color: #efefef;
-    cursor: pointer;
 }
 
-.sberpay-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sberpay-button>span {
+.popup__button_with-img>span {
     display: inline-block;
     margin-left: 8px;
 }
 
-#popup-sberpay-push {
-    display: none;
+#popup-sberpay-qr .popup__button_with-img>span {
+    margin-left: 6px;
 }
 
 .sberpay-phone__label {
@@ -2053,15 +2066,6 @@ div.waiting-wrapper img {
     cursor: pointer;
 }
 
-.sberpay-phone__button:disabled {
-    opacity: 0.7;
-    filter: alpha(Opacity=70);
-}
-
-.sberpay-phone__button:disabled:hover {
-    background-image: none;
-}
-
 .popup__alert {
     /* display: none; */
     position: relative;
@@ -2073,6 +2077,12 @@ div.waiting-wrapper img {
     padding: .75rem 1.25rem;
     margin-top: 1.25rem;
     text-align: left;
+}
+
+@media screen and (max-device-width: 610px) {
+    .popup-fade {
+        display: none !important;
+    }
 }
 
 
