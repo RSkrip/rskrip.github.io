@@ -1,274 +1,287 @@
 <html>
-    <head>
-        <title data-lang-ru="Оплата банковскими картами" data-lang-en="Payment bank cards">
-            Оплата банковскими картами
-        </title>
-        <meta name="Generator" content="EditPlus">
-        <meta name="Author" content="">
-        <meta name="Keywords" content="">
-        <meta name="Description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <link
-            media="screen"
-            href="templates/pscbn2/css/fonts.css"
-            type="text/css"
-            rel="stylesheet"
-        >
-        <link
-            media="screen"
-            href="templates/pscbn2/css/main.css"
-            type="text/css"
-            rel="stylesheet"
-        >
-        <!-- <script
+<head>
+	<title data-lang-en="Payment bank cards"
+        data-lang-ru="Оплата банковскими картами">
+		Оплата банковскими картами
+	</title>
+	<meta content="EditPlus" name="Generator" />
+	<meta content name="Author" />
+	<meta content name="Keywords" />
+	<meta content name="Description" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+       name="viewport" />
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<link href="templates/pscbn2/css/fonts.css"
+       media="screen"
+       rel="stylesheet"
+       type="text/css" />
+	<link href="templates/pscbn2/css/main.css"
+       media="screen"
+       rel="stylesheet"
+       type="text/css" />
+	<!-- <script
             type="text/javascript"
             async=""
             src="https://www.gstatic.com/recaptcha/releases/Xh5Zjh8Od10-SgxpI_tcSnHR/recaptcha__ru.js"
             crossorigin="anonymous"
             integrity="sha384-ItbUeZBowX7e2GHKqD9ZcRGtJbGbY8F22eXiSEH3I1Nz6lxTiVyBhwrNyr1/eDiN"
-        ></script> -->
-        <script src="templates/js/jquery-3.3.1.min.js"></script>
-        <script src="templates/js/base64.js"></script>
-        <script src="templates/pscbn2/js/script.js"></script>
-        <script language="JavaScript">
-        user_agent = navigator.userAgent;
-        //isMobileAndroid = user_agent.match(/android/i);
-        isMobileAndroid = false;
+	></script>-->
+	<script src="templates/js/jquery-3.3.1.min.js"></script>
+	<script src="templates/js/base64.js"></script>
+	<script src="templates/pscbn2/js/script.js"></script>
+	<script language="JavaScript">
+      user_agent = navigator.userAgent
+      //isMobileAndroid = user_agent.match(/android/i);
+      isMobileAndroid = false
 
-        if(!isMobileAndroid){
-            jQuery("head").append("<script src='templates/js/jquery.mask.js'><\/script>");
-        }
-        </script>
-        <script src="/templates/js/jquery.mask.js"></script>
-        <script language="JavaScript">
+      if (!isMobileAndroid) {
+        jQuery('head').append(
+          "<script src='templates/js/jquery.mask.js'><\/script>"
+        )
+      }
+    </script>
+	<script src="/templates/js/jquery.mask.js"></script>
+	<script language="JavaScript">
+      function sleep(milliseconds) {
+        const date = Date.now()
+        let currentDate = null
+        do {
+          currentDate = Date.now()
+        } while (currentDate - date < milliseconds)
+      }
 
-        function sleep(milliseconds) {
-          const date = Date.now();
-          let currentDate = null;
-          do {
-            currentDate = Date.now();
-          } while (currentDate - date < milliseconds);
-        }
-
-        function postSubmitActions(){
-            /*if(!isMobileAndroid){
+      function postSubmitActions() {
+        /*if(!isMobileAndroid){
                 $("#card").unmask();
                 $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
             }*/
-            $(".pay-container__wrapper .pay-container").addClass("pay-in-progress");
-            $("input.pay-button").attr("disabled","disabled");
-            $("input.pay-button").addClass("inactive");
-            $(".waiting-wrapper").addClass("active");
-            setTimeout(s, 10);
-            return false;
+        $('.pay-container__wrapper .pay-container').addClass('pay-in-progress')
+        $('input.pay-button').attr('disabled', 'disabled')
+        $('input.pay-button').addClass('inactive')
+        $('.waiting-wrapper').addClass('active')
+        setTimeout(s, 10)
+        return false
+      }
+
+      $(document).ready(function () {
+        if (user_agent.match(/mobile/i)) {
+          if (isMobileAndroid) {
+            //ограничиваем ввод цифрами
+            return
+            $('#card, #exp, #exp_year').on('keypress', function (e) {
+              if (!String.fromCharCode(e.keyCode).match(/[0-9]/)) {
+                e.preventDefault()
+                e.stopPropagation()
+              }
+            })
+          }
+
+          //меняем тип поля у cvc (через attr это сделать нельзя, только так)
+          $('#cvc2').remove()
+          $('.card-back__code').append(
+            '<input autocomplete="off" size="3" id="cvc2" name="CVC2" type="tel" maxlength="3" required align="baseline" value="" placeholder="•••"> '
+          )
         }
 
-        
-        $(document).ready(function(){
+        //для мобильных экранов дублируем сумму к оплате на кнопку "Оплатить"
+        if ($(window).width() <= 650) {
+          //if(true){
 
-            if(user_agent.match(/mobile/i)){
+          var submit_button = $('input.pay-button')
+          var payment_sum_to_append =
+            '\xA0' + $('td.param.sum').html().replace(' ', '\xA0').trim()
+          var com_sum_to_append = ''
+          if ($('td.param.com').html() != undefined)
+            com_sum_to_append = $('td.param.com')
+              .html()
+              .replace(' ', '\xA0')
+              .trim()
+          /*if(com_sum_to_append!="" && com_sum_to_append!=undefined) com_sum_to_append=", в\xA0т.ч.\xA0комиссия\xA0"+com_sum_to_append;*/
+          $('input.pay-button').each(function () {
+            $.each(this.attributes, function (i, attrib) {
+              var name = attrib.name
+              if (name.match('^data-lang-[A-z]{2}$'))
+                submit_button.attr(
+                  name,
+                  submit_button.attr(name) + payment_sum_to_append
+                )
+            })
+          })
+          submit_button.val(
+            submit_button.val() + payment_sum_to_append /* + com_sum_to_append*/
+          )
+          //submit_button.val(submit_button.val() + payment_sum_to_append);
+        }
 
-                if(isMobileAndroid){
-                    //ограничиваем ввод цифрами
-                    return;
-                    $("#card, #exp, #exp_year").on("keypress",function(e){
-                        if(!String.fromCharCode(e.keyCode).match(/[0-9]/)){
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }
-                    });
-                }
-                
-                //меняем тип поля у cvc (через attr это сделать нельзя, только так)
-                $("#cvc2").remove();
-                $(".card-back__code").append('<input autocomplete="off" size="3" id="cvc2" name="CVC2" type="tel" maxlength="3" required align="baseline" value="" placeholder="•••"> ');
-            }
+        function setSelectionRange(input, selectionStart, selectionEnd) {
+          if (input.setSelectionRange) {
+            input.focus()
+            input.setSelectionRange(selectionStart, selectionEnd)
+          } else if (input.createTextRange) {
+            var range = input.createTextRange()
+            range.collapse(true)
+            range.moveEnd('character', selectionEnd)
+            range.moveStart('character', selectionStart)
+            range.select()
+          }
+        }
 
-            //для мобильных экранов дублируем сумму к оплате на кнопку "Оплатить"
-            if($(window).width() <= 650){
-            //if(true){
-                
-                var submit_button = $("input.pay-button");
-                var payment_sum_to_append = "\xA0" + $("td.param.sum").html().replace(" ","\xA0").trim();
-                var com_sum_to_append="";
-                if($("td.param.com").html()!=undefined) com_sum_to_append=$("td.param.com").html().replace(" ",'\xA0').trim();
-                /*if(com_sum_to_append!="" && com_sum_to_append!=undefined) com_sum_to_append=", в\xA0т.ч.\xA0комиссия\xA0"+com_sum_to_append;*/
-                $("input.pay-button").each(function(){
-                    $.each(this.attributes,function(i,attrib){
-                        var name = attrib.name;
-                        if(name.match("^data-lang-[A-z]{2}$"))
-                            submit_button.attr(name,submit_button.attr(name) + payment_sum_to_append);
-                    });
-                });
-                submit_button.val(submit_button.val() + payment_sum_to_append/* + com_sum_to_append*/);
-                //submit_button.val(submit_button.val() + payment_sum_to_append);
-            }
-            
-            function setSelectionRange(input, selectionStart, selectionEnd) {
-              if (input.setSelectionRange) {
-                input.focus();
-                input.setSelectionRange(selectionStart, selectionEnd);
-              }
-              else if (input.createTextRange) {
-                var range = input.createTextRange();
-                range.collapse(true);
-                range.moveEnd('character', selectionEnd);
-                range.moveStart('character', selectionStart);
-                range.select();
-              }
-            }
+        function setCaretToPos(input, pos) {
+          return true
+          setSelectionRange(input, pos, pos)
+          return true
+        }
+        function trickMI(event) {
+          setTimeout(moveCursor, 50, event)
+        }
+        function moveCursor(event) {
+          var o = event.target
+          var a = $.trim(o.value)
+          /*if(o.selectionStart>a.length) setCaretToPos(o,a.length);*/
+          if (a == '') setCaretToPos(o, 0)
+          check(o, event)
+          return true
+        }
+        $('#card, #cvc2, #phone').focus(function (event) {
+          return trickMI(event)
+        })
+        $('#card, #cvc2, #phone').click(function (event) {
+          return trickMI(event)
+        })
 
-            function setCaretToPos (input, pos) {
-                return true;
-              setSelectionRange(input, pos, pos);
-              return true;
-            }
-            function trickMI (event)
-            {
-                setTimeout(moveCursor, 50, event);
-            }
-            function moveCursor(event)
-            {
-                var o=event.target;
-                var a=$.trim(o.value);
-                                /*if(o.selectionStart>a.length) setCaretToPos(o,a.length);*/
-                if(a=="")  setCaretToPos(o,0);
-                check(o, event);
-                return true;
-            }
-            $("#card, #cvc2, #phone").focus(function(event) {return trickMI(event);});
-            $("#card, #cvc2, #phone").click(function(event) {return trickMI(event);});
-            
-           
-            /**
-            * переключаем язык на элементах с загруженным переводом
-            */
-            $(".payform-lang li").on("click",function(){
-                if($(this).hasClass('active')) return true;
-                switch_language_to($(this).html().toLowerCase());
-                $(this).addClass('active').siblings().removeClass('active');
-            });
-            
-            $("#offert-accept").on("click",function(e){
-                var _checkbox = $(this).siblings("input[type='checkbox']");
-                if(_checkbox.attr("checked") == undefined){
-                    _checkbox.attr("checked","checked");
-                }else{
-                    _checkbox.removeAttr("checked");
-                }
-                check(this,e);
-                
-            });
-            $("#fp_savecard").on("click",function(e){
-            var _checkbox = $(this).siblings("input[type='checkbox']");
-            if(_checkbox.attr("checked") == undefined){
-                _checkbox.attr("checked","checked");
-            }else{
-                _checkbox.removeAttr("checked");
-            }
-            check(this,e);
-            
-            });            
-            
-            $(".pay-container__offert span").on('click',function(){
-                $(this).siblings("input").trigger("click");
-            });
-            
-            $(".payform-lang-mobile .language-switcher").on("click",function(){
-                $(".payform-lang li:not(.active)").trigger("click");
-            });
-            
-            $("input[name='offert']").on("keyup blur change",function(e){
-                check(this,e);
-            });
-            
-            $("input[name='CARD']").on("keyup",function(e){
-                var card_input = $(document.payform.CARD);
-                var card=document.payform.CARD.value;
-                card=card.replace(/[^0-9]/g,"");
-                if(card.length > 0){
-                    var card_type = get_card_type(card_input.val().replace(/[^0-9]/g,''));
-                    markPaySystem(card_input,card_type);
-                    oCuppDiv=document.getElementById("cuppdiv");
-                    if(1==0 && (card.substring(0,2)=="62" || card.substring(0,2)=="81") && oCuppDiv.style.display=="none") 
-                    {/*
+        /**
+         * переключаем язык на элементах с загруженным переводом
+         */
+        $('.payform-lang li').on('click', function () {
+          if ($(this).hasClass('active')) return true
+          switch_language_to($(this).html().toLowerCase())
+          $(this).addClass('active').siblings().removeClass('active')
+        })
+
+        $('#offert-accept').on('click', function (e) {
+          var _checkbox = $(this).siblings("input[type='checkbox']")
+          if (_checkbox.attr('checked') == undefined) {
+            _checkbox.attr('checked', 'checked')
+          } else {
+            _checkbox.removeAttr('checked')
+          }
+          check(this, e)
+        })
+        $('#fp_savecard').on('click', function (e) {
+          var _checkbox = $(this).siblings("input[type='checkbox']")
+          if (_checkbox.attr('checked') == undefined) {
+            _checkbox.attr('checked', 'checked')
+          } else {
+            _checkbox.removeAttr('checked')
+          }
+          check(this, e)
+        })
+
+        $('.pay-container__offert span').on('click', function () {
+          $(this).siblings('input').trigger('click')
+        })
+
+        $('.payform-lang-mobile .language-switcher').on('click', function () {
+          $('.payform-lang li:not(.active)').trigger('click')
+        })
+
+        $("input[name='offert']").on('keyup blur change', function (e) {
+          check(this, e)
+        })
+
+        $("input[name='CARD']").on('keyup', function (e) {
+          var card_input = $(document.payform.CARD)
+          var card = document.payform.CARD.value
+          card = card.replace(/[^0-9]/g, '')
+          if (card.length > 0) {
+            var card_type = get_card_type(
+              card_input.val().replace(/[^0-9]/g, '')
+            )
+            markPaySystem(card_input, card_type)
+            oCuppDiv = document.getElementById('cuppdiv')
+            if (
+              1 == 0 &&
+              (card.substring(0, 2) == '62' || card.substring(0, 2) == '81') &&
+              oCuppDiv.style.display == 'none'
+            ) {
+              /*
                         oCuppDiv.style.display="inline-block";
                         $("#cupp").prop('required',true);
                         */
-                $("#cupp").prop('required',true);
-                $("#cuppdiv").css("display","flex");
-                $("#cuppdiv").css("flex-direction","column");
-                $("div.pay-buttons").css("margin-top","0");
-                //$("div.pay-buttons").css("align-items","flex-end");
-                $(".pay-buttons > div").css("align-self","center");
-
-                    }
-                    if(card.substring(0,2)!="62" && card.substring(0,2)!="81" && oCuppDiv.style.display!="none") 
-                    {
-                        /*oCuppDiv.style.display="none";
+              $('#cupp').prop('required', true)
+              $('#cuppdiv').css('display', 'flex')
+              $('#cuppdiv').css('flex-direction', 'column')
+              $('div.pay-buttons').css('margin-top', '0')
+              //$("div.pay-buttons").css("align-items","flex-end");
+              $('.pay-buttons > div').css('align-self', 'center')
+            }
+            if (
+              card.substring(0, 2) != '62' &&
+              card.substring(0, 2) != '81' &&
+              oCuppDiv.style.display != 'none'
+            ) {
+              /*oCuppDiv.style.display="none";
                         $("#cupp").prop('required',false);
                         if(typeof document.payform.cupp !== "undefined") document.payform.cupp.value="";*/
-                oCuppDiv.style.display="none";
-                $("#cupp").prop('required',false);
-                $("div.pay-buttons").css("margin-top","");
-                $("div.pay-buttons").css("align-items","");
-                $("#cuppdiv").css("display","none");
-                $("#cuppdiv").css("flex-direction","");
-                $(".pay-buttons > div").css("align-self","");
-
-                    }
-
-                }
-            });
-
-            function checkCardInput()
-            {
-                var card_input = $(document.payform.CARD);
-                var card=document.payform.CARD.value;
-                card=card.replace(/[^0-9]/g,"");
-                var Luhn=card;
-                var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1,Luhn.length));
-                var LuhnLess = Luhn.substring(0,Luhn.length-1);
-                var LuhnDigitCalc=cl(LuhnLess);
-                
-                if (card.length > 0 && LuhnDigitCalc!=LuhnDigit){
-                    card_input.removeClass('good').addClass('error');
-                }
-                else{
-                    if (card.length > 0 && card.length<16){
-                        card_input.addClass('error').removeClass('good');
-                    }
-                    else{
-                        if(card.length > 0){
-                            card_input.removeClass('error').addClass('good');
-                        }else{
-                            card_input.removeClass('error').removeClass('good');
-                        }
-                    }
-                }                
+              oCuppDiv.style.display = 'none'
+              $('#cupp').prop('required', false)
+              $('div.pay-buttons').css('margin-top', '')
+              $('div.pay-buttons').css('align-items', '')
+              $('#cuppdiv').css('display', 'none')
+              $('#cuppdiv').css('flex-direction', '')
+              $('.pay-buttons > div').css('align-self', '')
             }
-            function checkCardInputInterval()
-            {
-                var card_input = $(document.payform.CARD);
-                if(card_input.length==0) return;
-                if(card_input.is(":focus") || card_input.hasClass("good") || card_input.hasClass("error")) return;
-                checkCardInput();
+          }
+        })
+
+        function checkCardInput() {
+          var card_input = $(document.payform.CARD)
+          var card = document.payform.CARD.value
+          card = card.replace(/[^0-9]/g, '')
+          var Luhn = card
+          var LuhnDigit = parseInt(Luhn.substring(Luhn.length - 1, Luhn.length))
+          var LuhnLess = Luhn.substring(0, Luhn.length - 1)
+          var LuhnDigitCalc = cl(LuhnLess)
+
+          if (card.length > 0 && LuhnDigitCalc != LuhnDigit) {
+            card_input.removeClass('good').addClass('error')
+          } else {
+            if (card.length > 0 && card.length < 16) {
+              card_input.addClass('error').removeClass('good')
+            } else {
+              if (card.length > 0) {
+                card_input.removeClass('error').addClass('good')
+              } else {
+                card_input.removeClass('error').removeClass('good')
+              }
             }
+          }
+        }
+        function checkCardInputInterval() {
+          var card_input = $(document.payform.CARD)
+          if (card_input.length == 0) return
+          if (
+            card_input.is(':focus') ||
+            card_input.hasClass('good') ||
+            card_input.hasClass('error')
+          )
+            return
+          checkCardInput()
+        }
 
-            setInterval(checkCardInputInterval, 500);
+        setInterval(checkCardInputInterval, 500)
 
-            
-            $("input[name='CARD']").on("blur",function(e){
-                checkCardInput();
-                check(this,e);
-            });
-            
-            $("input[name='CARD']").on("focus",function(e){
-                $(this).removeClass("good").removeClass("error");
-            });
-            
-            $("input[name='CARD']").on("keyup",function(e){/*
+        $("input[name='CARD']").on('blur', function (e) {
+          checkCardInput()
+          check(this, e)
+        })
+
+        $("input[name='CARD']").on('focus', function (e) {
+          $(this).removeClass('good').removeClass('error')
+        })
+
+        $("input[name='CARD']").on('keyup', function (e) {
+          /*
                 var card_input = $(document.payform.CARD);
                 var card=document.payform.CARD.value;
                 card=card.replace(/[^0-9]/g,"");
@@ -293,200 +306,222 @@
                     }
                 }
                 check(this,e);*/
-            });
-            
-            $("input[name='CARDHOLDER']").on("keyup blur change click",function(e){
-                check(this,e);
-            });
-            $("input[name='EXP']").on("keyup blur change",function(e){
-                check(this,e);
-            });
-            $("input[name='EXP_YEAR']").on("keyup blur change",function(e){
-                check(this,e);
-            });
-            //через делегат из-за возможности смены типа поля
-            $(document).on("keyup blur change","input[name='CVC2']",function(e){
-                check(this,e);
-            });
-            
-            //ограничиваем ввод в cardholder
-            $(document).on("keypress","input[name='CARDHOLDER'].card-front__input",function(e){
-                //if(event.key.match(/[a-z]|\s|\.|\-|\\|\,/) == null){
-                if(e.key.match(/[a-z0-9]|\s|\-|\./i) == null){
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            });
-            
-            if(!isMobileAndroid){
-                
-                $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
-                $("#EXP").mask("99",{autoclear: true});
-                $("#EXP_YEAR").mask("99",{autoclear: true});
-                
-                $("#phone").mask("+9 (999) 999-9999",{placeholder:" "});
-                
-                $(document).on("submit","form[name='payform']",function(){
-                    $("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
-                });
-                
-                $(document).on("keydown","input[name='EXP'], input[name='EXP_YEAR']",function(e){
-                    
-                    var clear_value = $(this).val().replace('_','');
-                    if(clear_value.length < 2){
-                        var new_value = 0;
-                    }
-                    else if(!parseInt(event.key) >= 0){
-                        return true;
-                    }
-                    else if(clear_value.length == 2){
-                        $(this).unmask();
-                        $(this).val(e.key);
-                        $(this).mask("99",{autoclear:true});
-                        $(this).get(0).setSelectionRange(1,1);
-                    }
-                });
+        })
+
+        $("input[name='CARDHOLDER']").on(
+          'keyup blur change click',
+          function (e) {
+            check(this, e)
+          }
+        )
+        $("input[name='EXP']").on('keyup blur change', function (e) {
+          check(this, e)
+        })
+        $("input[name='EXP_YEAR']").on('keyup blur change', function (e) {
+          check(this, e)
+        })
+        //через делегат из-за возможности смены типа поля
+        $(document).on('keyup blur change', "input[name='CVC2']", function (e) {
+          check(this, e)
+        })
+
+        //ограничиваем ввод в cardholder
+        $(document).on(
+          'keypress',
+          "input[name='CARDHOLDER'].card-front__input",
+          function (e) {
+            //if(event.key.match(/[a-z]|\s|\.|\-|\\|\,/) == null){
+            if (e.key.match(/[a-z0-9]|\s|\-|\./i) == null) {
+              e.preventDefault()
+              e.stopPropagation()
             }
-            
-            //если это быстрый платеж, нужно сразу установить значения полей
-            if(isFastPayment()){
-                
-                $("#card").unmask();
-                $("#card").val("**** **** **** ");
-                $("#card").after('<div class="card-front__change"></div>');
-                $("#cardholder").val("****** ****");
-                $("#EXP").unmask();
-                $("#EXP").val("**");
-                $("#EXP_YEAR").unmask();
-                $("#EXP_YEAR").val("**");
-                
-                
-                makeFieldFake($("#card"));
-                makeFieldFake($("#cardholder"));
-                makeFieldFake($("#EXP"));
-                makeFieldFake($("#EXP_YEAR"));
-                
-                markPaySystem($("#card_fake"),"");
-                
-                //сразу фокус на cvc2
-                $("#cvc2").focus();
-                
-                //действие для "сменить карту"
-                $(document).on("click",".card-front__change",function(){
+          }
+        )
 
-                    if(document.forms.payform.SOURCE!=undefined) document.forms.payform.SOURCE.value="";
-                    //$("#card").remove();
-                    //$(".card-front__label[for='card']").after('<input class="card-front__input" type="tel" name="CARD" id="card" maxlength="19" required="" align="baseline" value="" placeholder="1234 5678 9876 5432">');
-                    //$("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
-                    makeFieldActual($("#card_fake"));
-                    makeFieldActual($("#cardholder_fake"));
-                    makeFieldActual($("#EXP_fake"));
-                    makeFieldActual($("#EXP_YEAR_fake"));
-					if(!isMobileAndroid){
-						ApplyMasks();
-					}
-					clearPaySystem($("#card"));
-                    $("#cvc2").val("");
-			
-                    $("#card").attr("data-card-type","");
-                    $("#card").focus();
-                    $(this).remove();
-                    $(".fast-payment").remove();
+        if (!isMobileAndroid) {
+          $('#card').mask('0000 0000 0000 0000 999', { placeholder: ' ' })
+          $('#EXP').mask('99', { autoclear: true })
+          $('#EXP_YEAR').mask('99', { autoclear: true })
 
-                    $(".pay-container__recurring").css("display","block");
-                });
+          $('#phone').mask('+9 (999) 999-9999', { placeholder: ' ' })
+
+          $(document).on('submit', "form[name='payform']", function () {
+            $('#card').mask('0000 0000 0000 0000 999', { placeholder: ' ' })
+          })
+
+          $(document).on(
+            'keydown',
+            "input[name='EXP'], input[name='EXP_YEAR']",
+            function (e) {
+              var clear_value = $(this).val().replace('_', '')
+              if (clear_value.length < 2) {
+                var new_value = 0
+              } else if (!parseInt(event.key) >= 0) {
+                return true
+              } else if (clear_value.length == 2) {
+                $(this).unmask()
+                $(this).val(e.key)
+                $(this).mask('99', { autoclear: true })
+                $(this).get(0).setSelectionRange(1, 1)
+              }
             }
-            
-        });
+          )
+        }
 
-        function check(e,event){
-            
-            //если быстрый платеж, то проверяем только cvv, поэтому вынесено вперед
-            var cvcfilter=/^[0-9]{3}$/i;
-            var cvc = jQuery("#cvc2").val();
-            var cvc2_inputs = $("#cvc2");
-            var cvc2_input = $("#cvc2");
-            var cvc2_value = cvc2_inputs.val();
-            
-            var cvc2_value = cvc2_input.val();
-            if (cvc2_value.replace(' ','').length > 0 && cvcfilter.test(cvc2_value))
-                cvc2_inputs.removeClass('error').addClass('good');
-            else if(!cvc2_inputs.is(":focus") && cvc2_value.length > 0 && !cvcfilter.test(cvc2_value))
-                cvc2_inputs.addClass('error').removeClass('good');
-            else if (cvc2_value.length >= 0 && cvc2_value.length < 3)
-                cvc2_inputs.removeClass('good').removeClass('error');
-            else if (cvc2_value.length == 3 && !cvcfilter.test(cvc2_value))
-                cvc2_inputs.removeClass('good').addClass('error');
-            
-			var email=document.payform.email.value;
-            // var cupp=document.payform.cupp.value;
+        //если это быстрый платеж, нужно сразу установить значения полей
+        if (isFastPayment()) {
+          $('#card').unmask()
+          $('#card').val('**** **** **** ')
+          $('#card').after('<div class="card-front__change"></div>')
+          $('#cardholder').val('****** ****')
+          $('#EXP').unmask()
+          $('#EXP').val('**')
+          $('#EXP_YEAR').unmask()
+          $('#EXP_YEAR').val('**')
 
-            if(email.length==0) $(document.payform.email).removeClass('error').removeClass('good');
+          makeFieldFake($('#card'))
+          makeFieldFake($('#cardholder'))
+          makeFieldFake($('#EXP'))
+          makeFieldFake($('#EXP_YEAR'))
 
-            var offert = ($("input[name='offert']").length == 0) || $("input[name='offert']:checked").length;
-            var _email_is_ok = ($(document.payform.email).hasClass("good") || $(document.payform.email).attr("required") == undefined);            
-			
-            if(isFastPayment()){
-                $(".card-front").find(".noerror").removeClass("error").addClass("good");
-				
-				if (email.length != 0){
-					if (email.indexOf('@') == -1)
-						$(document.payform.email).removeClass('good').addClass('error');
-					else
-						$(document.payform.email).removeClass('error').addClass('good');
-				}
-				else{
-					$(document.payform.email).removeClass('error').removeClass('good');
-				}
-				
-				
-				
-                if(cvc2_input.hasClass("good") && offert && _email_is_ok){
-                    document.payform.button1.disabled=false;
-                    $(document.payform.button1).removeClass('inactive').addClass('active');
-                }else{
-					document.payform.button1.disabled=true;
-					$(document.payform.button1).removeClass('active').addClass('inactive');
-				}
-				
-				//отдельно смотрим для applePay/samsungPay
-				if(_email_is_ok && offert){
-					$("#applePay, #samsungPay, .gpay-button").removeAttr("disabled");
-			                $("#applePay, #samsungPay, .gpay-button").removeClass("inactive");
-				}
-				//или дизэйблим, если плохо
-				else{
-					$("#applePay, #samsungPay, .gpay-button").attr("disabled","disabled");
-                    			$("#applePay, #samsungPay, .gpay-button").addClass("inactive");
-				}
-				
-                return;
+          markPaySystem($('#card_fake'), '')
+
+          //сразу фокус на cvc2
+          $('#cvc2').focus()
+
+          //действие для "сменить карту"
+          $(document).on('click', '.card-front__change', function () {
+            if (document.forms.payform.SOURCE != undefined)
+              document.forms.payform.SOURCE.value = ''
+            //$("#card").remove();
+            //$(".card-front__label[for='card']").after('<input class="card-front__input" type="tel" name="CARD" id="card" maxlength="19" required="" align="baseline" value="" placeholder="1234 5678 9876 5432">');
+            //$("#card").mask("0000 0000 0000 0000 999",{placeholder:" "});
+            makeFieldActual($('#card_fake'))
+            makeFieldActual($('#cardholder_fake'))
+            makeFieldActual($('#EXP_fake'))
+            makeFieldActual($('#EXP_YEAR_fake'))
+            if (!isMobileAndroid) {
+              ApplyMasks()
             }
-            
-            var card=document.payform.CARD.value;
-            var exp=document.payform.EXP.value+document.payform.EXP_YEAR.value;
-            card=card.replace(/[^0-9]/g,"");
+            clearPaySystem($('#card'))
+            $('#cvc2').val('')
 
-            var cardholderfilter=/^[A-Z0-9.]{1,26}([\s.\-\/\\,]{1,3}[A-Z0-9.]{1,26}([ .\-\/\\,]{1,3}[A-Z0-9.]{1,26})?)?$/i;
-            
-            var cardfilter=/^[0-9]{16,19}$/i;
-            var cuppfilter=/^[0-9]{9,15}$/i;
-            var expfilter=/^[0-9]{4}$/i;
+            $('#card').attr('data-card-type', '')
+            $('#card').focus()
+            $(this).remove()
+            $('.fast-payment').remove()
 
-            var cardholder=document.payform.CARDHOLDER.value;
-            cardholder=$.trim(cardholder);
+            $('.pay-container__recurring').css('display', 'block')
+          })
+        }
+      })
 
-            var Luhn=card;
-            var LuhnDigit = parseInt(Luhn.substring(Luhn.length-1,Luhn.length));
-            var LuhnLess = Luhn.substring(0,Luhn.length-1);
-            var LuhnDigitCalc=cl(LuhnLess);
-            
-            var card_input = $(document.payform.CARD);
-            var cardholder_input = $(document.payform.CARDHOLDER);
-            var exp_input = $(document.payform.EXP);
-            var expyear_input = $(document.payform.EXP_YEAR);
+      function check(e, event) {
+        //если быстрый платеж, то проверяем только cvv, поэтому вынесено вперед
+        var cvcfilter = /^[0-9]{3}$/i
+        var cvc = jQuery('#cvc2').val()
+        var cvc2_inputs = $('#cvc2')
+        var cvc2_input = $('#cvc2')
+        var cvc2_value = cvc2_inputs.val()
 
-            /*if (card.length >= 16 && LuhnDigitCalc!=LuhnDigit){
+        var cvc2_value = cvc2_input.val()
+        if (
+          cvc2_value.replace(' ', '').length > 0 &&
+          cvcfilter.test(cvc2_value)
+        )
+          cvc2_inputs.removeClass('error').addClass('good')
+        else if (
+          !cvc2_inputs.is(':focus') &&
+          cvc2_value.length > 0 &&
+          !cvcfilter.test(cvc2_value)
+        )
+          cvc2_inputs.addClass('error').removeClass('good')
+        else if (cvc2_value.length >= 0 && cvc2_value.length < 3)
+          cvc2_inputs.removeClass('good').removeClass('error')
+        else if (cvc2_value.length == 3 && !cvcfilter.test(cvc2_value))
+          cvc2_inputs.removeClass('good').addClass('error')
+
+        var email = document.payform.email.value
+        // var cupp=document.payform.cupp.value;
+
+        if (email.length == 0)
+          $(document.payform.email).removeClass('error').removeClass('good')
+
+        var offert =
+          $("input[name='offert']").length == 0 ||
+          $("input[name='offert']:checked").length
+        var _email_is_ok =
+          $(document.payform.email).hasClass('good') ||
+          $(document.payform.email).attr('required') == undefined
+
+        if (isFastPayment()) {
+          $('.card-front')
+            .find('.noerror')
+            .removeClass('error')
+            .addClass('good')
+
+          if (email.length != 0) {
+            if (email.indexOf('@') == -1)
+              $(document.payform.email).removeClass('good').addClass('error')
+            else $(document.payform.email).removeClass('error').addClass('good')
+          } else {
+            $(document.payform.email).removeClass('error').removeClass('good')
+          }
+
+          if (cvc2_input.hasClass('good') && offert && _email_is_ok) {
+            document.payform.button1.disabled = false
+            $(document.payform.button1)
+              .removeClass('inactive')
+              .addClass('active')
+          } else {
+            document.payform.button1.disabled = true
+            $(document.payform.button1)
+              .removeClass('active')
+              .addClass('inactive')
+          }
+
+          //отдельно смотрим для applePay/samsungPay
+          if (_email_is_ok && offert) {
+            $('#applePay, #samsungPay, .gpay-button').removeAttr('disabled')
+            $('#applePay, #samsungPay, .gpay-button').removeClass('inactive')
+          }
+          //или дизэйблим, если плохо
+          else {
+            $('#applePay, #samsungPay, .gpay-button').attr(
+              'disabled',
+              'disabled'
+            )
+            $('#applePay, #samsungPay, .gpay-button').addClass('inactive')
+          }
+
+          return
+        }
+
+        var card = document.payform.CARD.value
+        var exp = document.payform.EXP.value + document.payform.EXP_YEAR.value
+        card = card.replace(/[^0-9]/g, '')
+
+        var cardholderfilter =
+          /^[A-Z0-9.]{1,26}([\s.\-\/\\,]{1,3}[A-Z0-9.]{1,26}([ .\-\/\\,]{1,3}[A-Z0-9.]{1,26})?)?$/i
+
+        var cardfilter = /^[0-9]{16,19}$/i
+        var cuppfilter = /^[0-9]{9,15}$/i
+        var expfilter = /^[0-9]{4}$/i
+
+        var cardholder = document.payform.CARDHOLDER.value
+        cardholder = $.trim(cardholder)
+
+        var Luhn = card
+        var LuhnDigit = parseInt(Luhn.substring(Luhn.length - 1, Luhn.length))
+        var LuhnLess = Luhn.substring(0, Luhn.length - 1)
+        var LuhnDigitCalc = cl(LuhnLess)
+
+        var card_input = $(document.payform.CARD)
+        var cardholder_input = $(document.payform.CARDHOLDER)
+        var exp_input = $(document.payform.EXP)
+        var expyear_input = $(document.payform.EXP_YEAR)
+
+        /*if (card.length >= 16 && LuhnDigitCalc!=LuhnDigit){
                 card_input.removeClass('good').addClass('error');
             }
             else{
@@ -504,460 +539,829 @@
                 }
             }*/
 
-            
-            if (cardholder.length<=26 && cardholderfilter.test(cardholder))
-                cardholder_input.removeClass('error').addClass('good');
-            else if(event !== undefined && event.type == "blur" && cardholder.length > 0 && !cardholderfilter.test(cardholder))
-                cardholder_input.removeClass('good').addClass('error');
-            else if(cardholder_input.hasClass('good'))
-                cardholder_input.removeClass('good').addClass('error');
-            else if(!cardholder_input.hasClass('error'))
-                cardholder_input.removeClass('good').removeClass('error');
-            else if(cardholder_input.val().length == 0)
-                cardholder_input.removeClass('good').removeClass('error');
-            
-            var month_now = exp_input.attr('data-now_value');
-            var year_now = expyear_input.attr('data-now_value');
-            
-            var month_val =exp_input.val();
-            var year_val = expyear_input.val();
-            
-            if (month_val.length == 2 && ((month_val == 0 || month_val > 12) /*|| (month_val < month_now-3 && year_val == year_now)*/ ))
-                exp_input.removeClass('good').addClass('error');
-            else if (month_val.length == 2 && (month_val > 0 && month_val <= 12))
-                exp_input.addClass('good').removeClass('error');
-            else if(event !== undefined && event.type == "blur" && month_val.replace('_','').length < 2)
-                exp_input.removeClass('good').removeClass('error');
-            
-            /*if (year_val.length == 2 && year_val < year_now)
+        if (cardholder.length <= 26 && cardholderfilter.test(cardholder))
+          cardholder_input.removeClass('error').addClass('good')
+        else if (
+          event !== undefined &&
+          event.type == 'blur' &&
+          cardholder.length > 0 &&
+          !cardholderfilter.test(cardholder)
+        )
+          cardholder_input.removeClass('good').addClass('error')
+        else if (cardholder_input.hasClass('good'))
+          cardholder_input.removeClass('good').addClass('error')
+        else if (!cardholder_input.hasClass('error'))
+          cardholder_input.removeClass('good').removeClass('error')
+        else if (cardholder_input.val().length == 0)
+          cardholder_input.removeClass('good').removeClass('error')
+
+        var month_now = exp_input.attr('data-now_value')
+        var year_now = expyear_input.attr('data-now_value')
+
+        var month_val = exp_input.val()
+        var year_val = expyear_input.val()
+
+        if (
+          month_val.length == 2 &&
+          (month_val == 0 ||
+            month_val >
+              12) /*|| (month_val < month_now-3 && year_val == year_now)*/
+        )
+          exp_input.removeClass('good').addClass('error')
+        else if (month_val.length == 2 && month_val > 0 && month_val <= 12)
+          exp_input.addClass('good').removeClass('error')
+        else if (
+          event !== undefined &&
+          event.type == 'blur' &&
+          month_val.replace('_', '').length < 2
+        )
+          exp_input.removeClass('good').removeClass('error')
+
+        /*if (year_val.length == 2 && year_val < year_now)
                 expyear_input.removeClass('good').addClass('error');
             else*/
-            if (year_val.length == 2 && year_val >= year_now)
-                expyear_input.addClass('good').removeClass('error');
-            else if(event !== undefined && event.type == "blur" && year_val.replace('_','').length < 2)
-                expyear_input.removeClass('good').removeClass('error');
+        if (year_val.length == 2 && year_val >= year_now)
+          expyear_input.addClass('good').removeClass('error')
+        else if (
+          event !== undefined &&
+          event.type == 'blur' &&
+          year_val.replace('_', '').length < 2
+        )
+          expyear_input.removeClass('good').removeClass('error')
 
-            // if(cupp.length!=0) {
-            //  if (!cuppfilter.test(cupp))
-            //         $(document.payform.cupp).removeClass('good').addClass('error');
-            //     else
-            //         $(document.payform.cupp).removeClass('error').addClass('good');
-            // }
-            // else $(document.payform.cupp).removeClass('error').removeClass('good');
+        // if(cupp.length!=0) {
+        //  if (!cuppfilter.test(cupp))
+        //         $(document.payform.cupp).removeClass('good').addClass('error');
+        //     else
+        //         $(document.payform.cupp).removeClass('error').addClass('good');
+        // }
+        // else $(document.payform.cupp).removeClass('error').removeClass('good');
 
-            
-            if (email.length != 0){
-                if (email.indexOf('@') == -1)
-                    $(document.payform.email).removeClass('good').addClass('error');
-                else
-                    $(document.payform.email).removeClass('error').addClass('good');
-            }
-            else
-                $(document.payform.email).removeClass('error').removeClass('good');
+        if (email.length != 0) {
+          if (email.indexOf('@') == -1)
+            $(document.payform.email).removeClass('good').addClass('error')
+          else $(document.payform.email).removeClass('error').addClass('good')
+        } else
+          $(document.payform.email).removeClass('error').removeClass('good')
 
-            if (cardfilter.test(card) && 
-                expfilter.test(exp) && 
-                cvcfilter.test(cvc) && 
-                card_input.hasClass("good") && 
-                exp_input.hasClass("good") && 
-                expyear_input.hasClass("good") && cvcfilter.test(cvc) && 
-                (cupp.length == 0 || cuppfilter.test(cupp)) &&
-                (cardholder_input.is(":hidden") || cardholderfilter.test(cardholder) && cardholder_input.hasClass("good")) && 
-                offert && 
-                ($(document.payform.email).hasClass("good") || $(document.payform.email).attr("required") == undefined) ) {
-                    document.payform.button1.disabled=false;
-                    $(document.payform.button1).removeClass('inactive').addClass('active');
-            }
-            else {
-                document.payform.button1.disabled=true;
-                $(document.payform.button1).removeClass('active').addClass('inactive');
-            }
-
-            //если с email ве хорошо энейблим ApplePay при наличии
-			if(offert && _email_is_ok){
-				$("#applePay, #samsungPay, .gpay-button").removeAttr("disabled");
-                		$("#applePay, #samsungPay, .gpay-button").removeClass("method-inactive").removeClass("inactive");
-			}
-			//или дизэйблим, если плохо
-			else{
-				$("#applePay, #samsungPay, .gpay-button").attr("disabled","disabled");
-                		$("#applePay, #samsungPay, .gpay-button").addClass("method-inactive").addClass("inactive");
-			}
-            
-            //переключение на следующее поле для ММ и ГГ
-            if($(e).attr('name') == "EXP" && !$(e).hasClass('error') && event !== undefined && event.type == "keyup" && $(e).val().replace('_','').length == 2){
-                $(e).removeClass('error').addClass('good');
-                $("input[name='EXP_YEAR']").focus();
-            }
-            if($(e).attr('name') == "EXP_YEAR" && !$(e).hasClass('error') && event !== undefined && event.type == "keyup" && $(e).val().replace('_','').length == 2){
-                $(e).removeClass('error').addClass('good');
-                $("input[name='CVC2']").focus();
-            }
-            
-            
-            //для мобильной/планшетной версии смотрим первую ошибку, отражаем соответствующий текст
-            if(window.screen.width < 376 || 1==1){
-                if($(".error").length > 0){
-                    var error_name = $(".error").first().attr("name").toLowerCase() + "__err";
-                    var _error_tip_toshow = $(".pay-container__error").addClass("active").find(".error-tip.show");
-                    _error_tip_toshow.html($("." + error_name).html());
-                }else{
-                    $(".pay-container__error").removeClass("active").find(".error-tip.show");
-                }
-            }
+        if (
+          cardfilter.test(card) &&
+          expfilter.test(exp) &&
+          cvcfilter.test(cvc) &&
+          card_input.hasClass('good') &&
+          exp_input.hasClass('good') &&
+          expyear_input.hasClass('good') &&
+          cvcfilter.test(cvc) &&
+          (cupp.length == 0 || cuppfilter.test(cupp)) &&
+          (cardholder_input.is(':hidden') ||
+            (cardholderfilter.test(cardholder) &&
+              cardholder_input.hasClass('good'))) &&
+          offert &&
+          ($(document.payform.email).hasClass('good') ||
+            $(document.payform.email).attr('required') == undefined)
+        ) {
+          document.payform.button1.disabled = false
+          $(document.payform.button1).removeClass('inactive').addClass('active')
+        } else {
+          document.payform.button1.disabled = true
+          $(document.payform.button1).removeClass('active').addClass('inactive')
         }
 
-        function on_load()
-        {
-                            document.payform.CARD.focus();
-            
-            check();
+        //если с email ве хорошо энейблим ApplePay при наличии
+        if (offert && _email_is_ok) {
+          $('#applePay, #samsungPay, .gpay-button').removeAttr('disabled')
+          $('#applePay, #samsungPay, .gpay-button')
+            .removeClass('method-inactive')
+            .removeClass('inactive')
         }
+        //или дизэйблим, если плохо
+        else {
+          $('#applePay, #samsungPay, .gpay-button').attr('disabled', 'disabled')
+          $('#applePay, #samsungPay, .gpay-button')
+            .addClass('method-inactive')
+            .addClass('inactive')
+        }
+
+        //переключение на следующее поле для ММ и ГГ
+        if (
+          $(e).attr('name') == 'EXP' &&
+          !$(e).hasClass('error') &&
+          event !== undefined &&
+          event.type == 'keyup' &&
+          $(e).val().replace('_', '').length == 2
+        ) {
+          $(e).removeClass('error').addClass('good')
+          $("input[name='EXP_YEAR']").focus()
+        }
+        if (
+          $(e).attr('name') == 'EXP_YEAR' &&
+          !$(e).hasClass('error') &&
+          event !== undefined &&
+          event.type == 'keyup' &&
+          $(e).val().replace('_', '').length == 2
+        ) {
+          $(e).removeClass('error').addClass('good')
+          $("input[name='CVC2']").focus()
+        }
+
+        //для мобильной/планшетной версии смотрим первую ошибку, отражаем соответствующий текст
+        if (window.screen.width < 376 || 1 == 1) {
+          if ($('.error').length > 0) {
+            var error_name =
+              $('.error').first().attr('name').toLowerCase() + '__err'
+            var _error_tip_toshow = $('.pay-container__error')
+              .addClass('active')
+              .find('.error-tip.show')
+            _error_tip_toshow.html($('.' + error_name).html())
+          } else {
+            $('.pay-container__error')
+              .removeClass('active')
+              .find('.error-tip.show')
+          }
+        }
+      }
+
+      function on_load() {
+        document.payform.CARD.focus()
+
+        check()
+      }
+    </script>
+	<style type="text/css">
+      button.btn[data-v-f3fb3dc8] {
+        display: inline-block;
+        font-weight: 300;
+        line-height: 1.25;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: all 0.15s ease;
+      }
+      button.btn.btn-sm[data-v-f3fb3dc8] {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 0.2rem;
+      }
+      button.btn.btn-primary[data-v-f3fb3dc8] {
+        color: #fff;
+        background-color: #45c8f1;
+        border-color: #45c8f1;
+      }
+      button.btn.btn-outline-primary[data-v-f3fb3dc8] {
+        color: #45c8f1;
+        background-color: transparent;
+        border-color: #45c8f1;
+      }
+      button.btn.btn-danger[data-v-f3fb3dc8] {
+        color: #fff;
+        background-color: #ff4949;
+        border-color: #ff4949;
+      }
+      .text-muted[data-v-f3fb3dc8] {
+        color: #8492a6;
+      }
+      .text-center[data-v-f3fb3dc8] {
+        text-align: center;
+      }
+      .drop-down-enter[data-v-f3fb3dc8],
+      .drop-down-leave-to[data-v-f3fb3dc8] {
+        transform: translateX(0) translateY(-20px);
+        transition-timing-function: cubic-bezier(0.74, 0.04, 0.26, 1.05);
+        opacity: 0;
+      }
+      .drop-down-enter-active[data-v-f3fb3dc8],
+      .drop-down-leave-active[data-v-f3fb3dc8] {
+        transition: all 0.15s;
+      }
+      .move-left-enter[data-v-f3fb3dc8],
+      .move-left-leave-to[data-v-f3fb3dc8] {
+        transform: translateY(0) translateX(-80px);
+        transition-timing-function: cubic-bezier(0.74, 0.04, 0.26, 1.05);
+        opacity: 0;
+      }
+      .move-left-enter-active[data-v-f3fb3dc8],
+      .move-left-leave-active[data-v-f3fb3dc8] {
+        transition: all 0.15s;
+      }
+      .no-tr[data-v-f3fb3dc8] {
+        transition: none !important;
+      }
+      .no-tr *[data-v-f3fb3dc8] {
+        transition: none !important;
+      }
+      .overlay[data-v-f3fb3dc8] {
+        position: fixed;
+        background: rgba(220, 220, 220, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: all 0.2s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+      .overlay .modal[data-v-f3fb3dc8] {
+        transition: all 0.2s ease;
+        opacity: 0;
+        transform: scale(0.6);
+        overflow: hidden;
+      }
+      .overlay.show[data-v-f3fb3dc8] {
+        opacity: 1;
+        visibility: visible;
+      }
+      .overlay.show .modal[data-v-f3fb3dc8] {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .panel[data-v-f3fb3dc8] {
+        padding: 6px 10px;
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        align-items: center;
+        border-radius: 6px;
+        position: relative;
+        border: 1px solid #eaf7ff;
+        background: #f7fcff;
+        outline: none;
+        transition: all 0.07s ease-in-out;
+      }
+      .btn[data-v-f3fb3dc8] {
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+      .light-btn[data-v-f3fb3dc8] {
+        padding: 10px 12px;
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        align-items: center;
+        border-radius: 6px;
+        position: relative;
+        border: 1px solid #eaf7ff;
+        background: #f7fcff;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.07s ease-in-out;
+      }
+      .light-btn[data-v-f3fb3dc8]:hover {
+        background: #e0f4ff;
+        border-color: #8acfff;
+      }
+      .primary-btn[data-v-f3fb3dc8] {
+        background: #239bf5;
+        color: white;
+        border-radius: 6px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s ease;
+        font-size: 14px;
+        font-family: 'Didact Gothic Regular', sans-serif;
+      }
+      .primary-btn[data-v-f3fb3dc8]:hover {
+        background: #40a8f6;
+        color: white;
+        text-decoration: none;
+      }
+      .shake[data-v-f3fb3dc8] {
+        animation: shake-f3fb3dc8 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97)
+          both;
+        transform: translate3d(0, 0, 0);
+      }
+      @keyframes shake-f3fb3dc8 {
+        10%,
+        90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+        20%,
+        80% {
+          transform: translate3d(2px, 0, 0);
+        }
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-4px, 0, 0);
+        }
+        40%,
+        60% {
+          transform: translate3d(4px, 0, 0);
+        }
+      }
+      .pulse[data-v-f3fb3dc8] {
+        animation: pulse-f3fb3dc8 2s ease infinite;
+      }
+      @keyframes pulse-f3fb3dc8 {
+        0% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 0.4;
+        }
+        100% {
+          opacity: 0.7;
+        }
+      }
+      .flash-once[data-v-f3fb3dc8] {
+        animation: flash-once 3.5s ease 1;
+      }
+      @keyframes fade-up-f3fb3dc8 {
+        0% {
+          transform: translate3d(0, 10px, 0);
+          opacity: 0;
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+          opacity: 1;
+        }
+      }
+      .fade-in[data-v-f3fb3dc8] {
+        animation: fade-in-f3fb3dc8 0.3s ease-in-out;
+      }
+      @keyframes fade-in-f3fb3dc8 {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .spin[data-v-f3fb3dc8] {
+        animation-name: spin-f3fb3dc8;
+        animation-duration: 2000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+      @keyframes spin-f3fb3dc8 {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .bounceIn[data-v-f3fb3dc8] {
+        animation-name: bounceIn-f3fb3dc8;
+        transform-origin: center bottom;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        animation-iteration-count: 1;
+      }
+      @keyframes bounceIn-f3fb3dc8 {
+        0%,
+        20%,
+        40%,
+        60%,
+        80%,
+        100% {
+          -webkit-transition-timing-function: cubic-bezier(
+            0.215,
+            0.61,
+            0.355,
+            1
+          );
+          transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        0% {
+          opacity: 1;
+          -webkit-transform: scale3d(0.8, 0.8, 0.8);
+          transform: scale3d(0.8, 0.8, 0.8);
+        }
+        20% {
+          -webkit-transform: scale3d(1.1, 1.1, 1.1);
+          transform: scale3d(1.1, 1.1, 1.1);
+        }
+        40% {
+          -webkit-transform: scale3d(0.9, 0.9, 0.9);
+          transform: scale3d(0.9, 0.9, 0.9);
+        }
+        60% {
+          opacity: 1;
+          -webkit-transform: scale3d(1.03, 1.03, 1.03);
+          transform: scale3d(1.03, 1.03, 1.03);
+        }
+        80% {
+          -webkit-transform: scale3d(0.97, 0.97, 0.97);
+          transform: scale3d(0.97, 0.97, 0.97);
+        }
+        100% {
+          opacity: 1;
+          -webkit-transform: scale3d(1, 1, 1);
+          transform: scale3d(1, 1, 1);
+        }
+      }
+      @keyframes dots-f3fb3dc8 {
+        0%,
+        20% {
+          color: rgba(0, 0, 0, 0);
+          text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        40% {
+          color: #8492a6;
+          text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        60% {
+          text-shadow: 0.25em 0 0 #8492a6, 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        80%,
+        100% {
+          text-shadow: 0.25em 0 0 #8492a6, 0.5em 0 0 #8492a6;
+        }
+      }
+      @keyframes recording-f3fb3dc8 {
+        0% {
+          box-shadow: 0px 0px 5px 0px rgba(173, 0, 0, 0.3);
+        }
+        65% {
+          box-shadow: 0px 0px 5px 5px rgba(173, 0, 0, 0.3);
+        }
+        90% {
+          box-shadow: 0px 0px 5px 5px rgba(173, 0, 0, 0);
+        }
+      }
+      @font-face {
+        font-family: 'Didact Gothic Regular';
+        src: url(data:font/woff2;base64,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)
+          format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+      body[data-v-f3fb3dc8] {
+        margin: 0;
+        font-size: 100%;
+        color: #3c4858;
+      }
+      a[data-v-f3fb3dc8] {
+        text-decoration: none;
+        color: #45c8f1;
+      }
+      h1[data-v-f3fb3dc8],
+      h2[data-v-f3fb3dc8],
+      h3[data-v-f3fb3dc8],
+      h4[data-v-f3fb3dc8] {
+        margin-top: 0;
+      }
+      svg[data-v-f3fb3dc8] {
+        outline: none;
+      }
+      .container_selected_area[data-v-f3fb3dc8] {
+        display: none;
+        visibility: hidden;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2147483647;
+      }
+      .container_selected_area.active[data-v-f3fb3dc8] {
+        visibility: visible;
+        display: block;
+      }
+      .container_selected_area .label[data-v-f3fb3dc8] {
+        font-family: 'Didact Gothic Regular', sans-serif;
+        font-size: 22px;
+        text-align: center;
+        padding-top: 15px;
+      }
+      .area[data-v-f3fb3dc8] {
+        display: none;
+        position: absolute;
+        z-index: 2147483647;
+        pointer-events: none;
+        border: 1px solid #1e83ff;
+        background: rgba(30, 131, 255, 0.1);
+        box-sizing: border-box;
+      }
+      .area.active[data-v-f3fb3dc8] {
+        display: block;
+        top: 0;
+        left: 0;
+      }
+      .hide[data-v-f3fb3dc8] {
+        display: none;
+      }
+    </style>
+</head>
+<body alink="#007346" link="#007346" onload="on_load();" vlink="#007346">
+	<form action="https://www.pscb.ru/paybycard//back" method="POST" name="ruform">
+		<input name="order" type="hidden" value="104459543" />
+	</form>
+	<center>
+		<form action="https://pay.pscb.ru/"
+        autocomplete="off"
+        method="post"
+        name="payform"
+        onsubmit="return postSubmitActions();">
+			<input id="AMOUNT" name="AMOUNT" type="hidden" value="10.20" />
+			<input name="CURRENCY" type="hidden" value="RUR" />
+			<input name="ORDER" type="hidden" value="104459543" />
+			<input name="DESC" type="hidden" value="www.pscb.ru" />
+			<input name="TERMINAL" size="8" type="hidden" value="20001827" />
+			<input name="MERCH_NAME" size="15" type="hidden" value="PSCB" />
+			<input name="MERCH_URL" size="15" type="hidden" value="www.pscb.ru" />
+			<input name="MERCHANT" size="15" type="hidden" value="42482601" />
+			<input name="BACKREF" size="30" type="hidden" value />
+			<input name="COUNTRY" size="2" type="hidden" value="RU" />
+			<input name="TRTYPE" size="1" type="hidden" value="0" />
+			<input name="TIMESTAMP" size="25" type="hidden" value="20230615084544" />
+			<input name="MERCH_GMT" size="3" type="hidden" value="+4" />
+			<input name="operhash" type="hidden" value="1jlh3prufh14gvc65" />
+			<input name="displayLanguage" type="hidden" value />
+			<script language="JavaScript">
+          if (parent !== window)
+            document.write(
+              '<input type="hidden" name="ifp" id="ifp" value="1" />'
+            )
         </script>
-        <style type="text/css">button.btn[data-v-f3fb3dc8]{display:inline-block;font-weight:300;line-height:1.25;text-align:center;white-space:nowrap;vertical-align:middle;user-select:none;border:1px solid transparent;cursor:pointer;letter-spacing:1px;transition:all 0.15s ease}button.btn.btn-sm[data-v-f3fb3dc8]{padding:0.4rem 0.8rem;font-size:0.8rem;border-radius:0.2rem}button.btn.btn-primary[data-v-f3fb3dc8]{color:#fff;background-color:#45c8f1;border-color:#45c8f1}button.btn.btn-outline-primary[data-v-f3fb3dc8]{color:#45c8f1;background-color:transparent;border-color:#45c8f1}button.btn.btn-danger[data-v-f3fb3dc8]{color:#fff;background-color:#ff4949;border-color:#ff4949}.text-muted[data-v-f3fb3dc8]{color:#8492a6}.text-center[data-v-f3fb3dc8]{text-align:center}.drop-down-enter[data-v-f3fb3dc8],.drop-down-leave-to[data-v-f3fb3dc8]{transform:translateX(0) translateY(-20px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0}.drop-down-enter-active[data-v-f3fb3dc8],.drop-down-leave-active[data-v-f3fb3dc8]{transition:all 0.15s}.move-left-enter[data-v-f3fb3dc8],.move-left-leave-to[data-v-f3fb3dc8]{transform:translateY(0) translateX(-80px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0}.move-left-enter-active[data-v-f3fb3dc8],.move-left-leave-active[data-v-f3fb3dc8]{transition:all 0.15s}.no-tr[data-v-f3fb3dc8]{transition:none !important}.no-tr *[data-v-f3fb3dc8]{transition:none !important}.overlay[data-v-f3fb3dc8]{position:fixed;background:rgba(220,220,220,0.8);display:flex;align-items:center;justify-content:center;top:0;left:0;right:0;bottom:0;transition:all 0.2s ease;opacity:0;visibility:hidden}.overlay .modal[data-v-f3fb3dc8]{transition:all 0.2s ease;opacity:0;transform:scale(0.6);overflow:hidden}.overlay.show[data-v-f3fb3dc8]{opacity:1;visibility:visible}.overlay.show .modal[data-v-f3fb3dc8]{opacity:1;transform:scale(1)}.panel[data-v-f3fb3dc8]{padding:6px 10px;display:flex;width:100%;box-sizing:border-box;align-items:center;border-radius:6px;position:relative;border:1px solid #eaf7ff;background:#f7fcff;outline:none;transition:all 0.07s ease-in-out}.btn[data-v-f3fb3dc8]{cursor:pointer;box-sizing:border-box}.light-btn[data-v-f3fb3dc8]{padding:10px 12px;display:flex;width:100%;box-sizing:border-box;align-items:center;border-radius:6px;position:relative;border:1px solid #eaf7ff;background:#f7fcff;outline:none;cursor:pointer;transition:all 0.07s ease-in-out}.light-btn[data-v-f3fb3dc8]:hover{background:#e0f4ff;border-color:#8acfff}.primary-btn[data-v-f3fb3dc8]{background:#239bf5;color:white;border-radius:6px;height:46px;display:flex;align-items:center;justify-content:center;transition:0.2s ease;font-size:14px;font-family:"Didact Gothic Regular",sans-serif}.primary-btn[data-v-f3fb3dc8]:hover{background:#40a8f6;color:white;text-decoration:none}.shake[data-v-f3fb3dc8]{animation:shake-f3fb3dc8 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;transform:translate3d(0, 0, 0)}@keyframes shake-f3fb3dc8{10%,90%{transform:translate3d(-1px, 0, 0)}20%,80%{transform:translate3d(2px, 0, 0)}30%,50%,70%{transform:translate3d(-4px, 0, 0)}40%,60%{transform:translate3d(4px, 0, 0)}}.pulse[data-v-f3fb3dc8]{animation:pulse-f3fb3dc8 2s ease infinite}@keyframes pulse-f3fb3dc8{0%{opacity:0.7}50%{opacity:0.4}100%{opacity:0.7}}.flash-once[data-v-f3fb3dc8]{animation:flash-once 3.5s ease 1}@keyframes fade-up-f3fb3dc8{0%{transform:translate3d(0, 10px, 0);opacity:0}100%{transform:translate3d(0, 0, 0);opacity:1}}.fade-in[data-v-f3fb3dc8]{animation:fade-in-f3fb3dc8 0.3s ease-in-out}@keyframes fade-in-f3fb3dc8{0%{opacity:0}100%{opacity:1}}.spin[data-v-f3fb3dc8]{animation-name:spin-f3fb3dc8;animation-duration:2000ms;animation-iteration-count:infinite;animation-timing-function:linear}@keyframes spin-f3fb3dc8{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}.bounceIn[data-v-f3fb3dc8]{animation-name:bounceIn-f3fb3dc8;transform-origin:center bottom;animation-duration:1s;animation-fill-mode:both;animation-iteration-count:1}@keyframes bounceIn-f3fb3dc8{0%,20%,40%,60%,80%,100%{-webkit-transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1);transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1)}0%{opacity:1;-webkit-transform:scale3d(0.8, 0.8, 0.8);transform:scale3d(0.8, 0.8, 0.8)}20%{-webkit-transform:scale3d(1.1, 1.1, 1.1);transform:scale3d(1.1, 1.1, 1.1)}40%{-webkit-transform:scale3d(0.9, 0.9, 0.9);transform:scale3d(0.9, 0.9, 0.9)}60%{opacity:1;-webkit-transform:scale3d(1.03, 1.03, 1.03);transform:scale3d(1.03, 1.03, 1.03)}80%{-webkit-transform:scale3d(0.97, 0.97, 0.97);transform:scale3d(0.97, 0.97, 0.97)}100%{opacity:1;-webkit-transform:scale3d(1, 1, 1);transform:scale3d(1, 1, 1)}}@keyframes dots-f3fb3dc8{0%,20%{color:rgba(0,0,0,0);text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)}40%{color:#8492a6;text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)}60%{text-shadow:0.25em 0 0 #8492a6,0.5em 0 0 rgba(0,0,0,0)}80%,100%{text-shadow:0.25em 0 0 #8492a6, 0.5em 0 0 #8492a6}}@keyframes recording-f3fb3dc8{0%{box-shadow:0px 0px 5px 0px rgba(173,0,0,0.3)}65%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0.3)}90%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0)}}@font-face{font-family:'Didact Gothic Regular';src:url(data:font/woff2;base64,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) format("woff");font-weight:normal;font-style:normal}body[data-v-f3fb3dc8]{margin:0;font-size:100%;color:#3c4858}a[data-v-f3fb3dc8]{text-decoration:none;color:#45c8f1}h1[data-v-f3fb3dc8],h2[data-v-f3fb3dc8],h3[data-v-f3fb3dc8],h4[data-v-f3fb3dc8]{margin-top:0}svg[data-v-f3fb3dc8]{outline:none}.container_selected_area[data-v-f3fb3dc8]{display:none;visibility:hidden;padding:0;position:fixed;top:0;left:0;right:0;bottom:0;z-index:2147483647}.container_selected_area.active[data-v-f3fb3dc8]{visibility:visible;display:block}.container_selected_area .label[data-v-f3fb3dc8]{font-family:"Didact Gothic Regular",sans-serif;font-size:22px;text-align:center;padding-top:15px}.area[data-v-f3fb3dc8]{display:none;position:absolute;z-index:2147483647;pointer-events:none;border:1px solid #1e83ff;background:rgba(30,131,255,0.1);box-sizing:border-box}.area.active[data-v-f3fb3dc8]{display:block;top:0;left:0}.hide[data-v-f3fb3dc8]{display:none}
-        </style>
-    </head>
-    <body
-        onload="on_load();"
-        alink="#007346"
-        vlink="#007346"
-        link="#007346"
-    >
-        <form name="ruform" method="POST" action="https://www.pscb.ru/paybycard//back">
-            <input type="hidden" name="order" value="104459543">
-        </form>
-        <center>
-            <form
-                name="payform"
-                action="https://pay.pscb.ru/"
-                method="post"
-                onsubmit="return postSubmitActions();"
-                autocomplete="off"
-            >
-                <input
-                    type="hidden"
-                    name="AMOUNT"
-                    id="AMOUNT"
-                    value="10.20"
-                >
-                <input name="CURRENCY" value="RUR" type="hidden">
-                <input name="ORDER" value="104459543" type="hidden">
-                <input name="DESC" value="www.pscb.ru" type="hidden">
-                <input
-                    name="TERMINAL"
-                    size="8"
-                    value="20001827"
-                    type="hidden"
-                >
-                <input
-                    name="MERCH_NAME"
-                    size="15"
-                    value="PSCB"
-                    type="hidden"
-                >
-                <input
-                    name="MERCH_URL"
-                    size="15"
-                    value="www.pscb.ru"
-                    type="hidden"
-                >
-                <input
-                    name="MERCHANT"
-                    size="15"
-                    value="42482601"
-                    type="hidden"
-                >
-                <input
-                    name="BACKREF"
-                    size="30"
-                    value=""
-                    type="hidden"
-                >
-                <input
-                    name="COUNTRY"
-                    size="2"
-                    value="RU"
-                    type="hidden"
-                >
-                <input
-                    name="TRTYPE"
-                    size="1"
-                    value="0"
-                    type="hidden"
-                >
-                <input
-                    name="TIMESTAMP"
-                    size="25"
-                    value="20230615084544"
-                    type="hidden"
-                >
-                <input
-                    name="MERCH_GMT"
-                    size="3"
-                    value="+4"
-                    type="hidden"
-                >
-                <input type="hidden" name="operhash" value="1jlh3prufh14gvc65">
-                <input type="hidden" name="displayLanguage" value="">
-                <script language="JavaScript">if(parent!==window) document.write('<input type="hidden" name="ifp" id="ifp" value="1" />');</script>
-                <script language="JavaScript">
-				var d = new Date();
-				var userLang = navigator.language || navigator.userLanguage; 
-				var oBrowser = {
-					brWidth:screen.width,
-					brHeight:screen.height,
-					brColorDepth:screen.pixelDepth,
-					brTZ:d.getTimezoneOffset(),
-					brLanguage:userLang,
-					wWidth:window.innerWidth,
-					wHeight:window.innerHeight,
-					je:navigator.javaEnabled()
-				};
-				document.write('<input type="hidden" name="browserdata" id="browserdata" value="'+window.btoa(JSON.stringify(oBrowser))+'" />');
-                </script>
-                <input
-                    type="hidden"
-                    name="browserdata"
-                    id="browserdata"
-                    value="eyJicldpZHRoIjoxNTM2LCJickhlaWdodCI6ODY0LCJickNvbG9yRGVwdGgiOjI0LCJiclRaIjotMTgwLCJickxhbmd1YWdlIjoicnUtUlUiLCJ3V2lkdGgiOjE1MzYsIndIZWlnaHQiOjcyMiwiamUiOmZhbHNlfQ=="
-                >
-                <div class="pay-container__wrapper">
-                    <div class="waiting-wrapper">
-                        <img src="/templates/oos2_iframe/img/loader-gray.svg" class="loader-img">
-                    </div>
-                    <div class="pay-container">
-                        <div class="pay-container__header">
-                            <div class="merchant-logo">
-                                <img src="data:image/png;base64,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">
-                            </div>
-                            <div class="merchant-name">
-                                МТС / Номер телефона 9110000000
-                            </div>
-                            <div class="payform-lang desktop-only">
-                                <ul>
-                                    <li class="active">RU</li>
-                                    <li>EN</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div style="clear:both"></div>
-                        <div class="pay-container__main">
-                            <div class="pay-container__table">
-                                <table cellpadding="5" cellspacing="0" style="width:100%; border:0;">
-                                    <tbody>
-                                        <tr class="pt_amounts">
-                                            <td class="param-name" data-lang-ru="Сумма платежа" data-lang-en="Total">
-                                                Сумма платежа
-                                            </td>
-                                            <td
-                                                class="param"
-                                                data-lang-ru="RUB"
-                                                data-lang-en="RUB"
-                                                data-info="total"
-                                            >
-                                                10.00 RUB
-                                            </td>
-                                        </tr>
-                                        <tr class="pt_amounts">
-                                            <td class="param-name" data-lang-ru="Комиссия" data-lang-en="Bank fee">
-                                                Комиссия
-                                            </td>
-                                            <td
-                                                class="param com"
-                                                data-lang-ru="RUB"
-                                                data-lang-en="RUB"
-                                                data-info="comission"
-                                            >
-                                                0.20 RUB
-                                            </td>
-                                        </tr>
-                                        <tr class="pt_amounts">
-                                            <td class="param-name sum" data-lang-ru="Сумма платежа" data-lang-en="Total">
-                                                Сумма платежа
-                                            </td>
-                                            <td class="param sum" data-lang-ru="RUB" data-lang-en="RUB">
-                                                10.20 RUB
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="clear:both"></div>
-                            <div class="pay-container__content">
-                                <div class="pay-container__cards">
-                                    <div class="pay-container__card pay-container__card-front">
-                                        <div class="card-front no-cardholder">
-                                            <label
-                                                class="card-front__label"
-                                                for="card"
-                                                data-lang-ru="Номер карты"
-                                                data-lang-en="Card number"
-                                            >
-                                                Номер карты
-                                            </label>
-                                            <input
-                                                class="card-front__input"
-                                                type="tel"
-                                                name="CARD"
-                                                id="card"
-                                                required=""
-                                                align="baseline"
-                                                value=""
-                                                placeholder=" "
-                                                maxlength="23"
-                                            >
-                                            <label
-                                                class="card-front__label"
-                                                for="cardholder"
-                                                data-lang-ru="Владелец карты"
-                                                data-lang-en="Name on card"
-                                            >
-                                                Владелец карты
-                                            </label>
-                                            <input
-                                                class="card-front__input"
-                                                autocomplete="off"
-                                                id="cardholder"
-                                                name="CARDHOLDER"
-                                                type="text"
-                                                style="text-transform:uppercase"
-                                                align="baseline"
-                                                value=""
-                                                maxlength="26"
-                                                placeholder="IVAN IVANOV"
-                                            >
-                                            <div class="card-front__expiry-date">
-                                                <label
-                                                    class="card-front__label card-front__label_exp_date"
-                                                    for="EXP"
-                                                    data-lang-ru="Срок действия"
-                                                    data-lang-en="Valid thru"
-                                                >
-                                                    Срок действия
-                                                </label>
-                                                <div class="card-front__select">
-                                                    <input
-                                                        id="EXP"
-                                                        type="tel"
-                                                        name="EXP"
-                                                        autocomplete="off"
-                                                        maxlength="2"
-                                                        required=""
-                                                        align="baseline"
-                                                        value=""
-                                                        data-now_value="06"
-                                                        placeholder="ММ"
-                                                        data-lang-ru="ММ"
-                                                        data-lang-en="MM"
-                                                    >
-                                                    <span>/</span>
-                                                    <input
-                                                        id="EXP_YEAR"
-                                                        type="tel"
-                                                        name="EXP_YEAR"
-                                                        autocomplete="off"
-                                                        maxlength="2"
-                                                        required=""
-                                                        align="baseline"
-                                                        value=""
-                                                        data-now_value="23"
-                                                        placeholder="ГГ"
-                                                        data-lang-ru="ГГ"
-                                                        data-lang-en="YY"
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="card-front__pslogo desktop-only">
-                                                <img src="templates/pscbn2/img/cards.svg">
-                                            </div>
-                                            <div class="card-front__pslogo__cover desktop-only">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                    <div class="pay-container__card pay-container__card-back">
-                                        <div class="card-back">
-                                            <div class="card-back__stripe"></div>
-                                            <label for="cvc2" class="card-back__label">CVV2/CVC2</label>
-                                            <div class="card-back__code">
-                                                <input style="display:none" type="password" name="fakepasswordremembered">
-                                                <input
-                                                    autocomplete="off"
-                                                    size="3"
-                                                    id="cvc2"
-                                                    name="CVC2"
-                                                    type="password"
-                                                    maxlength="3"
-                                                    required=""
-                                                    align="baseline"
-                                                    value=""
-                                                    placeholder="•••"
-                                                >
-                                            </div>
-                                            <div class="card-back__cvvdesc" data-lang-ru="Три последние цифры на обороте карты" data-lang-en="The last three digits on the reverse">
-                                                Три последние цифры на обороте карты
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pay-container__error">
-                                    <div class="pay-container__error-box">
-                                        <span class="error-tip show active"></span>
-                                        <span class="error-tip info card__err" data-lang-ru="Номер карты введен некорректно" data-lang-en="Card number is invalid">Номер карты введен некорректно</span>
-                                        <span class="error-tip info cardholder__err" data-lang-ru="Владелец введен некорректно" data-lang-en="Card holder is invalid">Владелец введен некорректно</span>
-                                        <span class="error-tip info exp__err" data-lang-ru="Срок действия введен некорректно" data-lang-en="Expiration date is invalid">Срок действия введен некорректно</span>
-                                        <span class="error-tip info exp_year__err" data-lang-ru="Срок действия введен некорректно" data-lang-en="Expiration date is invalid">Срок действия введен некорректно</span>
-                                        <span class="error-tip info cvc2__err" data-lang-ru="CVV не заполнен" data-lang-en="CVV is not filled">CVV не заполнен</span>
-                                        <span class="error-tip info email__err" data-lang-ru="Email некорректен" data-lang-en="Invalid cardholder email">Email некорректен</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pay-container__offert">
-                                <div>
-                                    <input type="checkbox" name="offert" value="1">
-                                    <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">
-                                        Я соглашаюсь с
-                                        <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" target="_blank" class="offert">
-                                            <span class="offert-text" data-lang-ru="офертой" data-lang-en="terms and conditions">офертой</span>
-                                        </a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pay-container__pay">
-                                <div class="pay-table">
-                                    <div class="pay-tr">
-                                        <div class="email">
-                                            <span class="email-label data-lang-ru='E-mail для квитанции' data-lang-en='E-mail for receipt'">
-                                                E-mail для квитанции
-                                            </span>
-                                            <input
-                                                autocomplete="off"
-                                                size="32"
-                                                id="email"
-                                                name="email"
-                                                type="email"
-                                                onchange="check();"
-                                                onkeyup="check();"
-                                                align="baseline"
-                                                value=""
-                                            >
-                                        </div>
-                                        <div class="pay-buttons">
-                                            <div>
-                                                <input
-                                                    class="pay-button inactive"
-                                                    type="submit"
-                                                    value="Оплатить"
-                                                    name="button1"
-                                                    disabled=""
-                                                    data-lang-ru="Оплатить"
-                                                    data-lang-en="Pay"
-                                                >
-                                            </div>
-                                            <div>
-                                                <button id="sberpay-button-pay" type="button" title="Оплатить Sberpay">
-                                                    <span>Оплатить&nbsp;Sberpay</span>
-                                                </button>
-                                            </div>
-                                            <!-- <div>
+			<script language="JavaScript">
+          var d = new Date()
+          var userLang = navigator.language || navigator.userLanguage
+          var oBrowser = {
+            brWidth: screen.width,
+            brHeight: screen.height,
+            brColorDepth: screen.pixelDepth,
+            brTZ: d.getTimezoneOffset(),
+            brLanguage: userLang,
+            wWidth: window.innerWidth,
+            wHeight: window.innerHeight,
+            je: navigator.javaEnabled()
+          }
+          document.write(
+            '<input type="hidden" name="browserdata" id="browserdata" value="' +
+              window.btoa(JSON.stringify(oBrowser)) +
+              '" />'
+          )
+        </script>
+			<input id="browserdata"
+          name="browserdata"
+          type="hidden"
+          value="eyJicldpZHRoIjoxNTM2LCJickhlaWdodCI6ODY0LCJickNvbG9yRGVwdGgiOjI0LCJiclRaIjotMTgwLCJickxhbmd1YWdlIjoicnUtUlUiLCJ3V2lkdGgiOjE1MzYsIndIZWlnaHQiOjcyMiwiamUiOmZhbHNlfQ==" />
+			<div class="pay-container__wrapper">
+				<div class="waiting-wrapper">
+					<img class="loader-img" src="/templates/oos2_iframe/img/loader-gray.svg" />
+				</div>
+				<div class="pay-container">
+					<div class="pay-container__header">
+						<div class="merchant-logo">
+							<img src="data:image/png;base64,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" />
+						</div>
+						<div class="merchant-name">МТС / Номер телефона 9110000000</div>
+						<div class="payform-lang desktop-only">
+							<ul>
+								<li class="active">RU</li>
+								<li>EN</li>
+							</ul>
+						</div>
+					</div>
+					<div style="clear: both"></div>
+					<div class="pay-container__main">
+						<div class="pay-container__table">
+							<table cellpadding="5" cellspacing="0" style="width: 100%; border: 0">
+								<tbody>
+									<tr class="pt_amounts">
+										<td class="param-name"
+              data-lang-en="Total"
+              data-lang-ru="Сумма платежа">
+											Сумма платежа
+										</td>
+										<td class="param"
+              data-info="total"
+              data-lang-en="RUB"
+              data-lang-ru="RUB">
+											10.00 RUB
+										</td>
+									</tr>
+									<tr class="pt_amounts">
+										<td class="param-name"
+              data-lang-en="Bank fee"
+              data-lang-ru="Комиссия">
+											Комиссия
+										</td>
+										<td class="param com"
+              data-info="comission"
+              data-lang-en="RUB"
+              data-lang-ru="RUB">
+											0.20 RUB
+										</td>
+									</tr>
+									<tr class="pt_amounts">
+										<td class="param-name sum"
+              data-lang-en="Total"
+              data-lang-ru="Сумма платежа">
+											Сумма платежа
+										</td>
+										<td class="param sum" data-lang-en="RUB" data-lang-ru="RUB">
+											10.20 RUB
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="clear:both"></div>
+						<div class="pay-container__content">
+							<div class="pay-container__cards">
+								<div class="pay-container__card pay-container__card-front">
+									<div class="card-front no-cardholder">
+										<label class="card-front__label"
+                 data-lang-en="Card number"
+                 data-lang-ru="Номер карты"
+                 for="card">
+											Номер карты
+										</label>
+										<input align="baseline"
+                 class="card-front__input"
+                 id="card"
+                 maxlength="23"
+                 name="CARD"
+                 placeholder=" "
+                 required
+                 type="tel"
+                 value />
+										<label class="card-front__label"
+                 data-lang-en="Name on card"
+                 data-lang-ru="Владелец карты"
+                 for="cardholder">
+											Владелец карты
+										</label>
+										<input align="baseline"
+                 autocomplete="off"
+                 class="card-front__input"
+                 id="cardholder"
+                 maxlength="26"
+                 name="CARDHOLDER"
+                 placeholder="IVAN IVANOV"
+                 style="text-transform: uppercase"
+                 type="text"
+                 value />
+										<div class="card-front__expiry-date">
+											<label class="card-front__label card-front__label_exp_date"
+                  data-lang-en="Valid thru"
+                  data-lang-ru="Срок действия"
+                  for="EXP">
+												Срок действия
+											</label>
+											<div class="card-front__select">
+												<input align="baseline"
+                   autocomplete="off"
+                   data-lang-en="MM"
+                   data-lang-ru="ММ"
+                   data-now_value="06"
+                   id="EXP"
+                   maxlength="2"
+                   name="EXP"
+                   placeholder="ММ"
+                   required
+                   type="tel"
+                   value />
+												<span>/</span>
+												<input align="baseline"
+                   autocomplete="off"
+                   data-lang-en="YY"
+                   data-lang-ru="ГГ"
+                   data-now_value="23"
+                   id="EXP_YEAR"
+                   maxlength="2"
+                   name="EXP_YEAR"
+                   placeholder="ГГ"
+                   required
+                   type="tel"
+                   value />
+											</div>
+										</div>
+										<div class="card-front__pslogo desktop-only">
+											<img src="templates/pscbn2/img/cards.svg" />
+										</div>
+										<div class="card-front__pslogo__cover desktop-only">&nbsp;</div>
+									</div>
+								</div>
+								<div class="pay-container__card pay-container__card-back">
+									<div class="card-back">
+										<div class="card-back__stripe"></div>
+										<label class="card-back__label" for="cvc2">CVV2/CVC2</label>
+										<div class="card-back__code">
+											<input name="fakepasswordremembered"
+                  style="display: none"
+                  type="password" />
+											<input align="baseline"
+                  autocomplete="off"
+                  id="cvc2"
+                  maxlength="3"
+                  name="CVC2"
+                  placeholder="•••"
+                  required
+                  size="3"
+                  type="password"
+                  value />
+										</div>
+										<div class="card-back__cvvdesc"
+               data-lang-en="The last three digits on the reverse"
+               data-lang-ru="Три последние цифры на обороте карты">
+											Три последние цифры на обороте карты
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="pay-container__error">
+								<div class="pay-container__error-box">
+									<span class="error-tip show active"></span>
+									<span class="error-tip info card__err"
+               data-lang-en="Card number is invalid"
+               data-lang-ru="Номер карты введен некорректно">
+										Номер карты введен некорректно
+									</span>
+									<span class="error-tip info cardholder__err"
+               data-lang-en="Card holder is invalid"
+               data-lang-ru="Владелец введен некорректно">
+										Владелец введен некорректно
+									</span>
+									<span class="error-tip info exp__err"
+               data-lang-en="Expiration date is invalid"
+               data-lang-ru="Срок действия введен некорректно">
+										Срок действия введен некорректно
+									</span>
+									<span class="error-tip info exp_year__err"
+               data-lang-en="Expiration date is invalid"
+               data-lang-ru="Срок действия введен некорректно">
+										Срок действия введен некорректно
+									</span>
+									<span class="error-tip info cvc2__err"
+               data-lang-en="CVV is not filled"
+               data-lang-ru="CVV не заполнен">
+										CVV не заполнен
+									</span>
+									<span class="error-tip info email__err"
+               data-lang-en="Invalid cardholder email"
+               data-lang-ru="Email некорректен">
+										Email некорректен
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="pay-container__offert">
+							<div>
+								<input name="offert" type="checkbox" value="1" />
+								<label data-lang-en="I agree with the"
+               data-lang-ru="Я соглашаюсь с "
+               id="offert-accept">
+									Я соглашаюсь с
+									<a class="offert"
+            href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf"
+            target="_blank">
+										<span class="offert-text"
+                data-lang-en="terms and conditions"
+                data-lang-ru="офертой">
+											офертой
+										</span>
+									</a>
+								</label>
+							</div>
+						</div>
+						<div class="pay-container__pay">
+							<div class="pay-table">
+								<div class="pay-tr">
+									<div class="email">
+										<span class="email-label data-lang-ru='E-mail для квитанции' data-lang-en='E-mail for receipt'">
+											E-mail для квитанции
+										</span>
+										<input align="baseline"
+                 autocomplete="off"
+                 id="email"
+                 name="email"
+                 onchange="check();"
+                 onkeyup="check();"
+                 size="32"
+                 type="email"
+                 value />
+									</div>
+									<div class="pay-buttons">
+										<div>
+											<input class="pay-button inactive"
+                  data-lang-en="Pay"
+                  data-lang-ru="Оплатить"
+                  disabled
+                  name="button1"
+                  type="submit"
+                  value="Оплатить" />
+										</div>
+										<div>
+											<button id="sberpay-button-pay"
+                   title="Оплатить Sberpay"
+                   type="button">
+												<span>Оплатить&nbsp;Sberpay</span>
+											</button>
+										</div>
+										<!-- <div>
                                                 <button
                                                     id="mirPay"
                                                     type="button"
@@ -981,181 +1385,195 @@
                                                     class="samsungPay-button pay-button method-inactive inactive"
                                                     disabled="disabled"
                                                 ></button>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="clear:both"></div>
-                        <div class="pay-container__footer">
-                            <div class="security">
-                                <p class="provided desktop-only" data-lang-ru="Безопасность платежей обеспечивается в соответствии с требованиями стандарта PCI DSS, применением протоколов 3D Secure и SSL. Сервис предоставляет " data-lang-en="Safety of payments is provided by ">
-                                    Безопасность платежей обеспечивается в соответствии с требованиями стандарта PCI DSS, применением протоколов 3D Secure и SSL. Сервис предоставляет
-                                    <a
-                                        class="about-the-bank"
-                                        href="https://www.pscb.ru"
-                                        data-lang-ru="https://www.pscb.ru"
-                                        data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php"
-                                        target="_blank"
-                                    >
-                                        <b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b>
-                                    </a>
-                                    .
-                                </p>
-                                <p class="provided-mobile mobile-only" data-lang-ru="Безопасность платежей гарантирует " data-lang-en="Safety of payments is provided by ">
-                                    Безопасность платежей гарантирует
-                                    <a
-                                        class="about-the-bank"
-                                        href="https://www.pscb.ru"
-                                        data-lang-ru="https://www.pscb.ru"
-                                        data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php"
-                                        target="_blank"
-                                    >
-                                        <b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b>
-                                    </a>
-                                    .
-                                </p>
-                                <p>
-                                    <b data-lang-ru="Служба&nbsp;поддержки" data-lang-en="Support">
-                                        Служба&nbsp;поддержки
-                                    </b>
-                                    <span class="support-contacts">
-                                        <a
-                                            class="phone-link"
-                                            href="tel:88002003565"
-                                            data-lang-ru="8-800-200-35-65"
-                                            data-lang-en="8-800-200-35-65"
-                                        >8-800-200-35-65</a>
-                                        |
-                                        <a href="mailto:support@pscb.ru">support@pscb.ru</a>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="payform-lang-mobile mobile-only">
-                                <p class="language-switcher"></p>
-                                <p class="language-switcher">
-                                    <img data-lang-ru="templates/oos2/img/eng.svg" data-lang-en="templates/oos2/img/rus.svg" src="templates/oos2/img/eng.svg">
-                                    <span data-lang-ru="English version" data-lang-en="Русская версия">
-                                        English version
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="certlogo desktop-only">
-                                <img src="templates/pscbn2/img/verified-by-visa.png" border="0" alt="">
-                                <img
-                                    src="templates/pscbn2/img/mastercard-securecode2.png"
-                                    style="padding-bottom:3px"
-                                    border="0"
-                                    alt=""
-                                >
-                                <img src="templates/pscbn2/img/mir.png" border="0" alt="">
-                                <img
-                                    src="templates/pscbn2/img/credibility_pci-logo.png"
-                                    style="padding-top:5px"
-                                    border="0"
-                                    alt=""
-                                >
-                                <img
-                                    src="templates/pscbn2/img/ssl-secure.png"
-                                    style="padding-bottom:7px;margin-right:0"
-                                    border="0"
-                                    alt=""
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="popup-fade">
-                    <div id="popup-sberpay" class="popup">
-                        <div id="popup-sberpay-qr" class="popup__content">
-                            <div class="popup__header">Отсканируйте QR-код, чтобы заплатить в&nbsp;СберБанк&nbsp;Онлайн</div>
-                            <div class="popup__tip">
-                                Используйте сканер кодов в приложении Сбербанка. Оплатите в течение
-                                <span class="popup__tip-accent">19:59</span>
-                                .
-                            </div>
-                            <div class="popup__body">
-                                <div class="sberpay-qr-container">
-                                    <div class="sberpay-qr">
-                                        <img class="sberpay-qr__img" alt="" src="codeImage.jpg">
-                                    </div>
-                                </div>
-                                <div class="popup__button-group">
-                                    <button id="js-sberpay-push-mode-button" class="popup__button sberpay-button sberpay-button-push">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="#4d4f53"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                        </svg>
-                                        <span>Оплатить через пуш</span>
-                                    </button>
-                                    <button class="popup__button popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
-                                </div>
-                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
-                            </div>
-                        </div>
-                        <div id="popup-sberpay-push" class="popup__content">
-                            <div class="popup__header">Sberpay</div>
-                            <div class="popup__tip">
-                                Для оплаты отправим push-уведомление на номер телефона.
-                            </div>
-                            <div class="popup__body">
-                                <form action="">
-                                    <div class="sberpay-phone">
-                                        <label for="sberpay-phone" class="sberpay-phone__label">Номер телефона</label>
-                                        <input
-                                            id="sberpay-phone"
-                                            class="sberpay-phone__input"
-                                            type="tel"
-                                            name=""
-                                            id=""
-                                            autocomplete="off"
-                                            data-mask="phone"
-                                        >
-                                        <input
-                                            class="sberpay-phone__button inactive"
-                                            type="submit"
-                                            value="Отправить"
-                                            disabled="disabled"
-                                        >
-                                    </div>
-                                </form>
-                                <div class="popup__button-group">
-                                    <button id="js-sberpay-qr-mode-button" class="popup__button sberpay-button sberpay-button_qr">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M3,3H6V6H3Z"/>
-                                            <path d="M9,0V9H0V0ZM7.5,1.5h-6v6h6ZM6,18H3v3H6Z"/>
-                                            <path d="M9,15v9H0V15ZM1.5,16.5v6h6v-6ZM18,3h3V6H18Z"/>
-                                            <path d="M15,0V9h9V0Zm7.5,1.5v6h-6v-6ZM12,1.5V0h1.5V3H12V6H10.5V1.5ZM12,9V6h1.5V9ZM9,12V10.5h1.5V9H12v3h1.5V10.5H21V12H15v1.5H10.5V12Zm0,0v1.5H3V12H1.5v1.5H0v-3H4.5V12Zm15,1.5H22.5v-3H24Zm-1.5,0H21v3h3V15H22.5Zm-6,0h3V15H18v1.5H16.5Zm3,4.5V16.5H18V18H16.5v1.5h-3V21H18V18Zm0,0H24v1.5H21V21H19.5Zm-6-1.5V18H15V15H10.5v1.5Z"/>
-                                            <path d="M10.5,18H12v4.5h6V24H10.5ZM24,21v3H19.5V22.5h3V21Z"/>
-                                        </svg>
-                                        <span>Оплатить по QR-коду</span>
-                                    </button>
-                                    <button class="popup__button sberpay-button-cancel">Вернуться к способам оплаты</button>
-                                </div>
-                                <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
-        </center>
-        <!-- <div>
+										</div>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="clear: both"></div>
+					<div class="pay-container__footer">
+						<div class="security">
+							<p class="provided desktop-only"
+          data-lang-en="Safety of payments is provided by "
+          data-lang-ru="Безопасность платежей обеспечивается в соответствии с требованиями стандарта PCI DSS, применением протоколов 3D Secure и SSL. Сервис предоставляет ">
+								Безопасность платежей обеспечивается в соответствии с
+								требованиями стандарта PCI DSS, применением протоколов 3D
+								Secure и SSL. Сервис предоставляет
+								<a class="about-the-bank"
+           data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php"
+           data-lang-ru="https://www.pscb.ru"
+           href="https://www.pscb.ru"
+           target="_blank">
+									<b data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”"
+            data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”">
+										АО&nbsp;Банк&nbsp;”ПСКБ”
+									</b>
+								</a>
+								.
+							</p>
+							<p class="provided-mobile mobile-only"
+          data-lang-en="Safety of payments is provided by "
+          data-lang-ru="Безопасность платежей гарантирует ">
+								Безопасность платежей гарантирует
+								<a class="about-the-bank"
+           data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php"
+           data-lang-ru="https://www.pscb.ru"
+           href="https://www.pscb.ru"
+           target="_blank">
+									<b data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”"
+            data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”">
+										АО&nbsp;Банк&nbsp;”ПСКБ”
+									</b>
+								</a>
+								.
+							</p>
+							<p>
+								<b data-lang-en="Support" data-lang-ru="Служба&nbsp;поддержки">
+									Служба&nbsp;поддержки
+								</b>
+								<span class="support-contacts">
+									<a class="phone-link"
+            data-lang-en="8-800-200-35-65"
+            data-lang-ru="8-800-200-35-65"
+            href="tel:88002003565">
+										8-800-200-35-65
+									</a>
+									|
+									<a href="mailto:support@pscb.ru">support@pscb.ru</a>
+								</span>
+							</p>
+						</div>
+						<div class="payform-lang-mobile mobile-only">
+							<p class="language-switcher"></p>
+							<p class="language-switcher">
+								<img data-lang-en="templates/oos2/img/rus.svg"
+             data-lang-ru="templates/oos2/img/eng.svg"
+             src="templates/oos2/img/eng.svg" />
+								<span data-lang-en="Русская версия" data-lang-ru="English version">
+									English version
+								</span>
+							</p>
+						</div>
+						<div class="certlogo desktop-only">
+							<img alt border="0" src="templates/pscbn2/img/verified-by-visa.png" />
+							<img alt
+            border="0"
+            src="templates/pscbn2/img/mastercard-securecode2.png"
+            style="padding-bottom: 3px" />
+							<img alt border="0" src="templates/pscbn2/img/mir.png" />
+							<img alt
+            border="0"
+            src="templates/pscbn2/img/credibility_pci-logo.png"
+            style="padding-top: 5px" />
+							<img alt
+            border="0"
+            src="templates/pscbn2/img/ssl-secure.png"
+            style="padding-bottom: 7px; margin-right: 0" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="popup-fade">
+				<div class="popup" id="popup-sberpay">
+					<div class="popup__content" id="popup-sberpay-qr">
+						<div class="popup__header">
+							Отсканируйте QR-код, чтобы заплатить в&nbsp;СберБанк&nbsp;Онлайн
+						</div>
+						<div class="popup__tip">
+							Используйте сканер кодов в приложении Сбербанка. Оплатите в
+							течение
+							<span class="popup__tip-accent">
+								19:59
+							</span>
+							.
+						</div>
+						<div class="popup__body">
+							<div class="sberpay-qr-container">
+								<div class="sberpay-qr">
+									<img alt class="sberpay-qr__img" src="codeImage.jpg" />
+								</div>
+							</div>
+							<div class="popup__button-group">
+								<button class="popup__button sberpay-button sberpay-button-push"
+                id="js-sberpay-push-mode-button">
+									<svg fill="none"
+              height="24"
+              stroke="#4d4f53"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg">
+										<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+										
+									</svg>
+									<span>Оплатить через пуш</span>
+								</button>
+								<button class="popup__button popup__button sberpay-button-cancel">
+									Вернуться к способам оплаты
+								</button>
+							</div>
+							<div class="popup__alert">
+								Я - текст, который вы видите, потому что что-то пошло не так
+							</div>
+						</div>
+					</div>
+					<div class="popup__content" id="popup-sberpay-push">
+						<div class="popup__header">Sberpay</div>
+						<div class="popup__tip">
+							Для оплаты отправим push-уведомление на номер телефона.
+						</div>
+						<div class="popup__body">
+							<form action>
+								<div class="sberpay-phone">
+									<label class="sberpay-phone__label" for="sberpay-phone">
+										Номер телефона
+									</label>
+									<input autocomplete="off"
+                class="sberpay-phone__input"
+                data-mask="phone"
+                id
+                name
+                type="tel" />
+									<input class="sberpay-phone__button inactive"
+                disabled="disabled"
+                type="submit"
+                value="Отправить" />
+								</div>
+							</form>
+							<div class="popup__button-group">
+								<button class="popup__button sberpay-button sberpay-button_qr"
+                id="js-sberpay-qr-mode-button">
+									<svg height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg">
+										<path d="M3,3H6V6H3Z" />
+										<path d="M9,0V9H0V0ZM7.5,1.5h-6v6h6ZM6,18H3v3H6Z" />
+										<path d="M9,15v9H0V15ZM1.5,16.5v6h6v-6ZM18,3h3V6H18Z" />
+										<path d="M15,0V9h9V0Zm7.5,1.5v6h-6v-6ZM12,1.5V0h1.5V3H12V6H10.5V1.5ZM12,9V6h1.5V9ZM9,12V10.5h1.5V9H12v3h1.5V10.5H21V12H15v1.5H10.5V12Zm0,0v1.5H3V12H1.5v1.5H0v-3H4.5V12Zm15,1.5H22.5v-3H24Zm-1.5,0H21v3h3V15H22.5Zm-6,0h3V15H18v1.5H16.5Zm3,4.5V16.5H18V18H16.5v1.5h-3V21H18V18Zm0,0H24v1.5H21V21H19.5Zm-6-1.5V18H15V15H10.5v1.5Z" />
+										
+										<path d="M10.5,18H12v4.5h6V24H10.5ZM24,21v3H19.5V22.5h3V21Z" />
+									</svg>
+									<span>Оплатить по QR-коду</span>
+								</button>
+								<button class="popup__button sberpay-button-cancel">
+									Вернуться к способам оплаты
+								</button>
+							</div>
+							<div class="popup__alert">
+								Я - текст, который вы видите, потому что что-то пошло не так
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
+	</center>
+	<!-- <div>
             <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; position: fixed; visibility: hidden; display: block; transition: right 0.3s ease 0s; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
                 <div class="grecaptcha-logo">
                     <iframe
@@ -1179,40 +1597,40 @@
                 ></textarea>
             </div>
             <iframe style="display: none;"></iframe>
-        </div> -->
-        <script>
-			const sberPayButton = $("#sberpay-button-pay");
-			const sberPayModal = $("#popup-sberpay");
-			let sberpayQrScreen = $("#popup-sberpay-qr");
-			let sberpayPushScreen = $("#popup-sberpay-push");
+	</div>-->
+	<script>
+      const sberPayButton = $('#sberpay-button-pay')
+      const sberPayModal = $('#popup-sberpay')
+      let sberpayQrScreen = $('#popup-sberpay-qr')
+      let sberpayPushScreen = $('#popup-sberpay-push')
 
-			if (sberPayButton) {
-				sberPayButton.on( "click", function() {
-					$(".popup-fade").show();
-					sberPayModal.show();
-				});
-			}
+      if (sberPayButton) {
+        sberPayButton.on('click', function () {
+          $('.popup-fade').show()
+          sberPayModal.show()
+        })
+      }
 
-			$(".sberpay-button-cancel").on( "click", function() {
-					$(".popup-fade").hide();
-					sberPayModal.hide();
-					sberpayPushScreen.hide();
-					sberpayQrScreen.show();
-				});
+      $('.sberpay-button-cancel').on('click', function () {
+        $('.popup-fade').hide()
+        sberPayModal.hide()
+        sberpayPushScreen.hide()
+        sberpayQrScreen.show()
+      })
 
-			if (sberPayModal) {
-				$("#js-sberpay-push-mode-button").on( "click", function() {
-					sberpayQrScreen.hide();
-					sberpayPushScreen.show();
-				});
-			}
+      if (sberPayModal) {
+        $('#js-sberpay-push-mode-button').on('click', function () {
+          sberpayQrScreen.hide()
+          sberpayPushScreen.show()
+        })
+      }
 
-			if (sberpayPushScreen) {
-				$("#js-sberpay-qr-mode-button").on( "click", function() {
-					sberpayPushScreen.hide();
-					sberpayQrScreen.show();
-				});
-			}
-        </script>
-    </body>
+      if (sberpayPushScreen) {
+        $('#js-sberpay-qr-mode-button').on('click', function () {
+          sberpayPushScreen.hide()
+          sberpayQrScreen.show()
+        })
+      }
+    </script>
+</body>
 </html>
