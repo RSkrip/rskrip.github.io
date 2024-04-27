@@ -300,6 +300,10 @@ label {
     text-align: left;
 }
 
+p {
+    margin: 0 0 1rem 0;
+}
+
 .pay-container__wrapper {}
 
 .pay-container {
@@ -771,6 +775,7 @@ body.result-page.success .pay-container {
     margin-right: 50px
 }
 
+.footer-terms>p,
 .security {
     text-align: left;
     font-size: 14px;
@@ -778,11 +783,10 @@ body.result-page.success .pay-container {
 
 .security .provided {
     display: block;
-    margin: 0;
 }
 
 .security .provided-mobile {
-    display: none;
+    display: none !important;
 }
 
 .certlogo {
@@ -1508,6 +1512,10 @@ styles for mobile version
     }
     .pay-container__footer {
         padding: 15px 15px 0;
+    }
+    .footer-terms>p {
+        margin-bottom: 5px;
+        text-align: center;
     }
     .security {
         display: block;
