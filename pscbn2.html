@@ -1188,7 +1188,7 @@
                                             <input class="pay-button pay-button_primary inactive" type="submit" value="Оплатить" name="button1" disabled="" data-lang-ru="Оплатить" data-lang-en="Pay">
                                         </div>
                                         <div>
-                                            <button id="sberpay-button-pay" class="pay-button pay-button_sberpay inactive" type="button" title="Оплатить SberPay">
+                                            <button id="sberpay-button-pay" class="pay-button pay-button_sberpay" type="button" title="Оплатить SberPay">
                                                     <span data-lang-ru="Оплатить" data-lang-en="Pay by">Оплатить</span>
 																	 <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -1303,15 +1303,19 @@
             </div>
             <div class="popup-fade">
                 <div id="popup-sberpay" class="popup">
+                    <div id="js-popup-close-btn" class="popup__close-btn">
+                        <span>Закрыть</span>
+                    </div>
                     <div id="popup-sberpay-qr" class="popup__content">
                         <div class="popup__header" data-lang-ru="Отсканируйте QR-код, чтобы заплатить в СберБанк Онлайн" data-lang-en="Scan QR-code to pay in Sberbank Online">Отсканируйте QR-код, чтобы заплатить в СберБанк Онлайн</div>
                         <div class="popup__tip" data-lang-ru="Используйте сканер кодов в приложении Сбербанка. Оплатите в течение " data-lang-en="Scan QR-code via Sberbank mobile app. Pay within ">
-                            Используйте сканер кодов в приложении Сбербанка. Оплатите в течение <span class="popup__tip-accent">19:59</span>.
+                            Используйте сканер кодов в приложении Сбербанка. Оплатите в течение <span class="popup__tip-accent">04:59</span>.
                         </div>
                         <div class="popup__body">
                             <div class="sberpay-qr-container">
                                 <div class="sberpay-qr">
-                                    <img class="sberpay-qr__img" alt="" src="codeImage.jpg">
+                                    <img class="sberpay-qr__img" alt="sberpay-qr" src="codeImage.jpg">
+                                    <img class="sberpay-qr__logo" alt="sberpay-logo" src="sberpay_logo.png">
                                 </div>
                             </div>
                             <div class="popup__button-group">
@@ -1420,6 +1424,13 @@
         let sberpayPushScreen = $("#popup-sberpay-push");
         let sberpayResultScreen = $("#popup-sberpay-push-result");
 
+        function closePopup() {
+            $(".popup-fade").removeClass("popup-fade_visible");
+            sberPayModal.hide();
+            sberpayPushScreen.hide();
+            sberpayQrScreen.show();
+        }
+
         if (sberPayButton) {
             sberPayButton.on("click", function() {
                 if (user_agent.match(/mobile/i)) {
@@ -1432,10 +1443,11 @@
         }
 
         $(".sberpay-button-cancel").on("click", function() {
-            $(".popup-fade").removeClass("popup-fade_visible");
-            sberPayModal.hide();
-            sberpayPushScreen.hide();
-            sberpayQrScreen.show();
+            closePopup();
+        });
+
+        $("#js-popup-close-btn").on("click", function() {
+            closePopup();
         });
 
         if (sberPayModal) {
