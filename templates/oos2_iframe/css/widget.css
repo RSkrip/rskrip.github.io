@@ -1,119 +1,122 @@
 html {
-	height: 100%;
+    height: 100%;
 }
 
-body, td, input, select {
-	font-size: 15px;
-	font-family: montserrat, -apple-system, Helvetica, Arial;
-	color: #1f2329;
-	margin: 0;
+body,
+td,
+input,
+select {
+    font-size: 15px;
+    font-family: montserrat, -apple-system, Helvetica, Arial;
+    color: #1f2329;
+    margin: 0;
 }
 
 body.thin {
-	overflow-x: hidden;
-	-webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 body.overflow-hidden {
-	overflow: hidden;
+    overflow: hidden;
 }
 
-input[type="submit"], input[type="button"] {
-	font-size: 1em;
+input[type="submit"],
+input[type="button"] {
+    font-size: 1em;
 }
 
 input[name="savecard"] {
-	display: none;
+    display: none;
 }
 
 input.email-special,
 input.cupp-input {
-	height: 33px;
-	line-height: 1;
-	font-size: 21px;
-	margin-top: 3px;
+    height: 33px;
+    line-height: 1;
+    font-size: 21px;
+    margin-top: 3px;
 }
 
 .btn_green {}
 
 .waiting-wrapper {
-	position: absolute;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 10000;
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
 }
 
 .waiting-wrapper.active {
-	display: flex;
+    display: flex;
 }
 
 .pay-container__wrapper {
-	height: 100%;
-	position: relative;
+    height: 100%;
+    position: relative;
 }
 
 body.cupp .pay-container__wrapper {
-	overflow: visible;
+    overflow: visible;
 }
 
 .pay-container {
-	width: 100%;
-	max-width: 639px;
-	min-width: unset;
-	padding: 30px 35px;
-	background-color: #fff;
-	box-sizing: border-box;
+    width: 100%;
+    max-width: 639px;
+    min-width: unset;
+    padding: 30px 35px;
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
 .pay-container.pay-in-progress::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 9999;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
 }
 
 .loader-img {
-  width: 100px;
-  margin: 0 auto;
+    width: 100px;
+    margin: 0 auto;
 }
 
 .logo {
-	-webkit-box-flex: 0;
-	-ms-flex-positive: 0;
-	flex-grow: 0;
-	height: auto;
-	max-height: unset;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    height: auto;
+    max-height: unset;
 }
 
 .logo img {
-	height: 46px;
+    height: 46px;
 }
 
-
 .pay-container__close {
-	display: none;
-	position: relative;
-	height: 20px;
-	width: 20px;
-	margin-bottom: 15px;
-	background-image: url(/templates/oos2_iframe/img/btn-close.svg);
-	background-repeat: no-repeat;
-	background-size: contain;
-	opacity: 0.4;
-	cursor: pointer;
+    display: none;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    margin-bottom: 15px;
+    background-image: url(/templates/oos2_iframe/img/btn-close.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.4;
+    cursor: pointer;
 }
 
 .pay-container__close:hover {
-	opacity: 0.9;
+    opacity: 0.9;
 }
 
 .pay-container__pretext,
@@ -121,109 +124,109 @@ body.cupp .pay-container__wrapper {
 .pay-container__offert,
 .pay-container__recurring,
 .pay-container__pay {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .pay-container__main {
-	display: flex;
-	flex-direction: column;
-	min-height: 361px;
-	justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    min-height: 361px;
+    justify-content: flex-start;
 }
 
 .pay-container__content {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .pay-container__cards {
-	height: 242px;
-	min-height: 242px;
+    height: 242px;
+    min-height: 242px;
 }
 
 .pay-container__card {
-	width: 65%;
+    width: 65%;
 }
 
-.pay-container__card-front input, .pay-container__card-back input {
-	height: 45px;
-	font-size: 19px;
+.pay-container__card-front input,
+.pay-container__card-back input {
+    height: 45px;
+    font-size: 19px;
 }
 
 .card-front,
 .card-back {
-	padding-top: 18px;
-	padding-bottom: 18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
 }
 
 .card-front {
-	padding-left: 18px;
-	padding-right: 18px;
-	-webkit-box-shadow: none;
-	box-shadow: none;
+    padding-left: 18px;
+    padding-right: 18px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .card-front__card {
-	position: relative;
+    position: relative;
 }
 
 @media (min-width: 630px) {
-	.card-front__action {
-		width: 16px;
-		height: 16px;
-		top: 64px;
-		left: auto;
-		right: 9px;
-		background-size: auto;
-		background-position: -12px -329px;
-	}
-
-	.card-front__action.change {
-		width: 23px;
-		height: 23px;
-		top: 60px;
-		background-position: -9px -170px;
-	}
+    .card-front__action {
+        width: 16px;
+        height: 16px;
+        top: 64px;
+        left: auto;
+        right: 9px;
+        background-size: auto;
+        background-position: -12px -329px;
+    }
+    .card-front__action.change {
+        width: 23px;
+        height: 23px;
+        top: 60px;
+        background-position: -9px -170px;
+    }
 }
 
 .card-back {
-	height: 204px;
+    height: 204px;
 }
 
 .card-front__label,
 .card-back__label {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .card-front__label[for="card"] {
-	margin-top: 29px;
+    margin-top: 29px;
 }
 
 .card-back__stripe {
-	height: 42px;
-	margin-bottom: 11px;
+    height: 42px;
+    margin-bottom: 11px;
 }
 
 .contactless__pay-card.real-card,
 .pay-button.active,
 .button-do-close.active,
 .button-do-repeat.active {
-	color: #444;
+    color: #444;
 }
 
 .contactless__pay-card.real-card:active:not([disabled]),
 .pay-button.active:active,
 .button-do-close.active:active,
 .button-do-repeat.active:active {
-	background-color: #55cf00 !important;
+    background-color: #55cf00 !important;
 }
 
 .pay-container__offert {
-  display: none;
+    display: none;
 }
 
 .pay-container__recurring {
-  -webkit-animation: display-none-transition 0.2s ease;
-  animation: display-none-transition 0.2s ease;
+    -webkit-animation: display-none-transition 0.2s ease;
+    animation: display-none-transition 0.2s ease;
 }
 
 .pay-options>div+div {
@@ -231,203 +234,204 @@ body.cupp .pay-container__wrapper {
 }
 
 .pay-container__error {
-  display: none !important; 
-  margin-top: 20px;
-  -webkit-animation: display-none-transition 0.2s ease;
-  animation: display-none-transition 0.2s ease;
+    display: none !important;
+    margin-top: 20px;
+    -webkit-animation: display-none-transition 0.2s ease;
+    animation: display-none-transition 0.2s ease;
 }
 
 .pay-container__error .error-tip {
-	position: relative;
-  color: #ee1500;
-  line-height: 20px;
-  text-align: left;
+    position: relative;
+    color: #ee1500;
+    line-height: 20px;
+    text-align: left;
 }
 
 .pay-container__error .error-tip.info {
-	display: none !important;
+    display: none !important;
 }
 
 .pay-container__error.active {
-	display: block !important;
+    display: block !important;
 }
 
 .pay-container__error-box {
-	white-space: nowrap;
-	text-align: center;
-	min-height: 20px;
-	line-height: 1;
-	opacity: 0;
+    white-space: nowrap;
+    text-align: center;
+    min-height: 20px;
+    line-height: 1;
+    opacity: 0;
 }
 
 .pay-container__error .error-tip.active {
-	opacity: 1;
-	line-height: 20px;
-	padding-left: 30px;
-	display: block;
+    opacity: 1;
+    line-height: 20px;
+    padding-left: 30px;
+    display: block;
 }
 
 .pay-container__error .error-tip.active:after {
-	content: "";
-	background-image: url(../img/err.svg);
-	position: absolute;
-	display: block;
-	height: 20px;
-	width: 20px;
-	left: 0px;
-	top: 0px;
+    content: "";
+    background-image: url(../img/err.svg);
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 20px;
+    left: 0px;
+    top: 0px;
 }
 
 .pay-container__error.active .pay-container__error-box {
-	opacity: 1;
+    opacity: 1;
 }
 
 .pay-container__footer {
-	padding-top: 0;
-	margin-top: 20px;
-	border-top: none;
+    padding-top: 0;
+    margin-top: 20px;
+    border-top: none;
 }
 
 .security {
-	display: none;
+    display: none;
 }
 
 .certlogo {
-  background-image: url('../img/oos2-footer.svg');
-	height: 25px;
-	margin-top: 0 !important;
-	background-position-x: 0;
-	-webkit-filter: grayscale(100%);
-	-moz-filter: grayscale(100%);
-	-ms-filter: grayscale(100%);
-	-o-filter: grayscale(100%);
-	filter: grayscale(100%);
-	filter: gray;
-	opacity: 0.85;
+    background-image: url('../img/oos2-footer.svg');
+    height: 25px;
+    margin-top: 0 !important;
+    background-position-x: 0;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+    opacity: 0.85;
 }
+
 
 /*
 * result page styles
 */
 
 body.redirect-page {
-	font-family: montserrat, -apple-system, Helvetica, Arial;
+    font-family: montserrat, -apple-system, Helvetica, Arial;
 }
 
 body.result-page .pay-container,
 body.redirect-page .pay-container {
-  width: 100%;
-	height: 100%;
-	display: flex;
-	flex-flow: column wrap;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
 }
 
 body.result-page .pay-container__main,
-body.redirect-page .pay-container__main{
-	flex-grow: 1;
-	min-height: unset;
-	justify-content: center;
-	margin-top: 0;
-	padding: 0;
+body.redirect-page .pay-container__main {
+    flex-grow: 1;
+    min-height: unset;
+    justify-content: center;
+    margin-top: 0;
+    padding: 0;
 }
 
 body.redirect-page .pay-container__content-redirect {
-  width: 100%;
-  padding: 0;
+    width: 100%;
+    padding: 0;
 }
 
 .result-page .pay-container__result-actions.margined {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 .result-page .pay-container__result-actions.margined {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 body.result-page .pay-container__table,
 body.result-page .pay-container__footer {
-	display: none;
+    display: none;
 }
 
 body.result-page .pay-container__content-result {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 body.result-page .pay-container__content-result.error {
-	background: url(../img/pscb-fail-01.svg) no-repeat top center;
-	background-size: 100px;
+    background: url(../img/pscb-fail-01.svg) no-repeat top center;
+    background-size: 100px;
 }
 
 body.result-page .pay-container__content-result.success {
-	background: url(../img/pscb-ok-01.svg) no-repeat top center;
-	background-size: 100px;
+    background: url(../img/pscb-ok-01.svg) no-repeat top center;
+    background-size: 100px;
 }
 
 body.result-page .result-name,
 body.redirect-page .redirect-name,
 body.result-page .result-desc,
-body.redirect-page .redirect-desc{
-	text-align: center;
+body.redirect-page .redirect-desc {
+    text-align: center;
 }
 
 body.result-page .result-name,
-body.redirect-page .redirect-name
-{
-	font-size: 24px;
-	font-family: montserrat_m;
-	color: #444;
+body.redirect-page .redirect-name {
+    font-size: 24px;
+    font-family: montserrat_m;
+    color: #444;
 }
 
 body.result-page .result-name {
-  padding: 130px 0 0;
-  margin: 0 0 20px 0;
+    padding: 130px 0 0;
+    margin: 0 0 20px 0;
 }
 
 body.redirect-page .redirect-name {
-  margin: 35px 0 20px 0;
+    margin: 35px 0 20px 0;
 }
 
 body.result-page .result-desc,
-body.redirect-page .redirect-desc{
-	font-size: 16px;
-	margin: 0 0 1rem 0;
+body.redirect-page .redirect-desc {
+    font-size: 16px;
+    margin: 0 0 1rem 0;
 }
 
 body.result-page .result-name {
-  padding: 130px 0 0;
-  margin: 0 0 20px 0;
+    padding: 130px 0 0;
+    margin: 0 0 20px 0;
 }
 
 body.result-page .pay-container__result-actions {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 body.result-page .pay-container__result-actions-line {
-	height: 60px;
-	text-align: center;
+    height: 60px;
+    text-align: center;
 }
 
 body.result-page .button-do-repeat.active,
 body.result-page .button-do-close.active {
-	max-width: 300px;
-	background-color: #55ed00;
-	margin: 0 auto;
+    max-width: 300px;
+    background-color: #55ed00;
+    margin: 0 auto;
 }
 
 body.result-page .pay-container__result-actions-line.return {
-	display: none;
+    display: none;
 }
 
 .pay-container__content-result.success .result-desc {
-	display: none;
+    display: none;
 }
 
 @media screen and (max-width: 630px) {
-body.redirect-page .pay-container__content-redirect {
-  width: auto;
-  padding: 0;
+    body.redirect-page .pay-container__content-redirect {
+        width: auto;
+        padding: 0;
+    }
 }
-}
+
 
 /*
 * ---/result page styles
@@ -437,471 +441,421 @@ body.redirect-page .pay-container__content-redirect {
 /* UnionPay confirmation styles */
 
 body#upi_confirmation .pay-container__content {
-	height: auto;
-	min-height: auto;
+    height: auto;
+    min-height: auto;
 }
 
 body#upi_confirmation .merchant-logo {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 body#upi_confirmation .upi {
-	font-size: 36px;
+    font-size: 36px;
 }
 
 body#upi_confirmation .upi_text {
-	font-size: 18px;
-	margin: 30px 0 15px;
-	text-align: left;
+    font-size: 18px;
+    margin: 30px 0 15px;
+    text-align: left;
 }
 
 body#upi_confirmation .card-front__input {
-	margin-top: 5px;
-	margin-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 601px) {
-	body#upi_confirmation .pay-container {
-		padding: 20px;
-	}
-
-	body#upi_confirmation .pay-container__pay {
-		margin-top: 20px;
-	}
-
-	body#upi_confirmation .merchant-logo img {
-		min-width: auto;
-	}
-
-	body#upi_confirmation .upi {
-		font-size: 28px;
-	}
-
-	body#upi_confirmation .pay-tr div.email {
-		width: auto;
-		height: auto;
-	}
+    body#upi_confirmation .pay-container {
+        padding: 20px;
+    }
+    body#upi_confirmation .pay-container__pay {
+        margin-top: 20px;
+    }
+    body#upi_confirmation .merchant-logo img {
+        min-width: auto;
+    }
+    body#upi_confirmation .upi {
+        font-size: 28px;
+    }
+    body#upi_confirmation .pay-tr div.email {
+        width: auto;
+        height: auto;
+    }
 }
 
 @media screen and (max-width: 375px) {
-	body#upi_confirmation .pay-container {
-		width: auto !important;
-		padding: 20px !important;
-	}
-
-	body#upi_confirmation .pay-container__pay {
-		width: auto !important;
-		margin-top: 20px !important;
-	}
-
-	body#upi_confirmation .card-front__input {
-		padding: 0 8px !important;
-	}
-
-	body#upi_confirmation .pay-container__pay .pay-table .pay-tr {
-		flex-direction: column !important;
-	}
-
-	body#upi_confirmation .pay-tr div.pay-buttons {
-		margin-top: 20px !important;
-	}
+    body#upi_confirmation .pay-container {
+        width: auto !important;
+        padding: 20px !important;
+    }
+    body#upi_confirmation .pay-container__pay {
+        width: auto !important;
+        margin-top: 20px !important;
+    }
+    body#upi_confirmation .card-front__input {
+        padding: 0 8px !important;
+    }
+    body#upi_confirmation .pay-container__pay .pay-table .pay-tr {
+        flex-direction: column !important;
+    }
+    body#upi_confirmation .pay-tr div.pay-buttons {
+        margin-top: 20px !important;
+    }
 }
+
 
 /* --/UnionPay confirmation styles */
 
-#applepay:disabled, .gpay-button:disabled, #samsungPay:disabled, .contactless__pay-card[disabled="disabled"] {
-	opacity: 0.5;
+#applepay:disabled,
+.gpay-button:disabled,
+#samsungPay:disabled,
+.contactless__pay-card[disabled="disabled"] {
+    opacity: 0.5;
 }
 
 #samsungPay:disabled:hover {
-	background-color: #000 !important;
+    background-color: #000 !important;
 }
 
-
 @media screen and (max-width: 630px) {
-	input[type="submit"], input[type="button"] {
-		height: 55px;
-	}
-
-	input[name="offert"]:checked+label#offert-accept:before,
-	input[name="fp_sc"]:checked+label#fp_savecard:before,
-	input[name="offert"]+label#offert-accept:before,
-	input[name="fp_sc"]+label#fp_savecard:before {
-		height: 26px;
-		width: 26px;
-		font-size: 21px;
-		line-height: 26px;
-	}
-
-	input[name="offert"]+label#offert-accept,
-	input[name="fp_sc"]+label#fp_savecard {
-		padding: 5px 0 5px 38px !important;
-	}
-
-	.logo {
-		height: 40px;
-		max-height: 40px;
-	}
-
-	.logo img {
-		height: 40px;
-	}
-
-	.pay-container {
-		width: 100% !important;
-		padding: 20px;
-	}
-
-	.pay-container__wrapper {
-		background-color: #f5f6f7;
-		overflow: auto;
-	}
-
-	.pay-container__cards {
-		height: 326px;
-		min-height: 326px;
-		max-height: 326px;
-	}
-
-	.pay-container__card {
-		width: auto;
-		position: relative;
-		margin: 0 auto;
-	}
-
-	.pay-container__card-front input,
-	.pay-container__card-back input {
-		height: 50px;
-		font-size: 16px;
-		line-height: 24px;
-	}
-
-	.card-front {
-		height: 193px;
-		padding: 15px;
-		-webkit-box-shadow: none;
-		box-shadow: none;
-	}
-
-	.card-front__pslogo {
-		height: 25px !important;
-	}
-
-	.card-front__pslogo.card-type.visa {
-		background-position-x: -69px;
-	}
-
-	.card-front__pslogo.card-type.mastercard {
-		background-position-x: 12px;
-	}
-
-	.card-front__pslogo.card-type.maestro {
-		background-position-x: -28px;
-	}
-
-	.card-front__pslogo.card-type.mir {
-		background-position-x: -128px;
-	}
-
-	.card-front__pslogo.card-type.upi {
-		width: 41px;
-		background-position-x: -204px;
-	}
-
-	.card-front__label,
-	.card-back__label {
-		display: block;
-		font-size: 14px;
-		margin-bottom: 5px;
-	}
-
-	.card-front__label[for="card"] {
-		margin-top: 5px;
-	}
-
-	.card-front__action {
-		width: 18px;
-		height: 18px;
-		background-position: -7px -283px;
-		top: 41px;
-		left: auto;
-		right: 8px;
-	}
-
-	.card-front__action.change {
-		background-position: -9px -148px;
-	}
-
-	.card-front__select input {
-		width: 47px;
-	}
-
-	.pay-container__card-back {
-		top: -20px;
-		left: 0;
-	}
-
-	.card-back {
-		height: auto;
-		padding: 30px 15px 15px;
-		background-color: #efefef;
-	}
-
-	.card-back__code {
-		margin: 0;
-	}
-
-	.card-back__label {
-		margin-right: 0;
-	}
-
-	.card-back__code input {
-		width: 80px;
-		font-family: inherit;
-		line-height: inherit;
-	}
-
-	.card-back__cvvdesc {
-		position: relative;
-		top: -40px;
-		left: -95px;
-		width: 160px;
-		margin-right: 0 !important;
-		padding: 0;
-	}
-
-	.card-back__stripe {
-		display: none;
-	}
-
-	.pay-container__offert, .pay-container__recurring, .pay-container__pay {
-		margin-top: 15px;
-	}
-
-	.pay-container__pay {
-		margin-top: 15px;
-	}
-
-	.pay-container__pay>div {
-		-ms-flex-preferred-size: 100%;
-		flex-basis: 100%;
-	}
-
-	.pay-container__pay>div.email {
-		-webkit-box-ordinal-group: 2 !important;
-		-ms-flex-order: 1 !important;
-		order: 1 !important;
-		-webkit-order: 1 !important;
-		margin: 0 0 20px !important;
-	}
-
-	.pay-container__pay div.email input {
-		height: 50px;
-		font-size: 18px;
-		line-height: 26px;
-	}
-
-	.pay-options {
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-ms-flex-flow: column wrap;
-		flex-flow: column wrap;
-	}
-
-	.pay-options>div+div {
-		margin-left: 0;
-	}
-
-	.pay-container__offert, .pay-container__recurring {
-		width: auto;
-	}
-
-	.certlogo {
-		background-position-x: 50%;
-		background-size: contain;
-	}	
+    input[type="submit"],
+    input[type="button"] {
+        height: 55px;
+    }
+    input[name="offert"]:checked+label#offert-accept:before,
+    input[name="fp_sc"]:checked+label#fp_savecard:before,
+    input[name="offert"]+label#offert-accept:before,
+    input[name="fp_sc"]+label#fp_savecard:before {
+        height: 26px;
+        width: 26px;
+        font-size: 21px;
+        line-height: 26px;
+    }
+    input[name="offert"]+label#offert-accept,
+    input[name="fp_sc"]+label#fp_savecard {
+        padding: 5px 0 5px 38px !important;
+    }
+    .logo {
+        height: 40px;
+        max-height: 40px;
+    }
+    .logo img {
+        height: 40px;
+    }
+    .pay-container {
+        width: 100% !important;
+        padding: 20px;
+    }
+    .pay-container__wrapper {
+        background-color: #f5f6f7;
+        overflow: auto;
+    }
+    .pay-container__cards {
+        height: 326px;
+        min-height: 326px;
+        max-height: 326px;
+    }
+    .pay-container__card {
+        width: auto;
+        position: relative;
+        margin: 0 auto;
+    }
+    .pay-container__card-front input,
+    .pay-container__card-back input {
+        height: 50px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .card-front {
+        height: 193px;
+        padding: 15px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .card-front__pslogo {
+        height: 25px !important;
+    }
+    .card-front__pslogo.card-type.visa {
+        background-position-x: -69px;
+    }
+    .card-front__pslogo.card-type.mastercard {
+        background-position-x: 12px;
+    }
+    .card-front__pslogo.card-type.maestro {
+        background-position-x: -28px;
+    }
+    .card-front__pslogo.card-type.mir {
+        background-position-x: -128px;
+    }
+    .card-front__pslogo.card-type.upi {
+        width: 41px;
+        background-position-x: -204px;
+    }
+    .card-front__label,
+    .card-back__label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .card-front__label[for="card"] {
+        margin-top: 5px;
+    }
+    .card-front__action {
+        width: 18px;
+        height: 18px;
+        background-position: -7px -283px;
+        top: 41px;
+        left: auto;
+        right: 8px;
+    }
+    .card-front__action.change {
+        background-position: -9px -148px;
+    }
+    .card-front__select input {
+        width: 47px;
+    }
+    .pay-container__card-back {
+        top: -20px;
+        left: 0;
+    }
+    .card-back {
+        height: auto;
+        padding: 30px 15px 15px;
+        background-color: #efefef;
+    }
+    .card-back__code {
+        margin: 0;
+    }
+    .card-back__label {
+        margin-right: 0;
+    }
+    .card-back__code input {
+        width: 80px;
+        font-family: inherit;
+        line-height: inherit;
+    }
+    .card-back__cvvdesc {
+        position: relative;
+        top: -40px;
+        left: -95px;
+        width: 160px;
+        margin-right: 0 !important;
+        padding: 0;
+    }
+    .card-back__stripe {
+        display: none;
+    }
+    .pay-container__offert,
+    .pay-container__recurring,
+    .pay-container__pay {
+        margin-top: 15px;
+    }
+    .pay-container__pay {
+        margin-top: 15px;
+    }
+    .pay-container__pay>div {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+    }
+    .pay-container__pay>div.email {
+        -webkit-box-ordinal-group: 2 !important;
+        -ms-flex-order: 1 !important;
+        order: 1 !important;
+        -webkit-order: 1 !important;
+        margin: 0 0 20px !important;
+    }
+    .pay-container__pay div.email input {
+        height: 50px;
+        font-size: 18px;
+        line-height: 26px;
+    }
+    .pay-options {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+        flex-flow: column wrap;
+    }
+    .pay-options>div+div {
+        margin-left: 0;
+    }
+    .pay-container__offert,
+    .pay-container__recurring {
+        width: auto;
+    }
+    .certlogo {
+        background-position-x: 50%;
+        background-size: contain;
+    }
 }
 
 @media screen and (max-width: 425px) {
-  .payform-lang {
-  	display: none;
-  }
+    .payform-lang {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 376px) {
-
-	body,
-	td,
-	input,
-	select {
-		font-size: 14px;
-	}
-
-	.pay-container {
-		width: 100%;
-		min-width: 290px;
-		padding: 15px;
-	}
-
-	.pay-container__content {
-		display: block;
-	}
-
-	.pay-container__cards {
-		height: auto;
-		min-height: auto;
-		max-height: unset;
-	}
-
-	.card-front,
-	.card-back {
-		border: 0;
-		background: none;
-		padding: 0;
-	}
-
-	.card-front {
-		-ms-grid-columns: 1fr;
-		grid-template-columns: 1fr;
-		-ms-grid-rows: 25px 10px 1fr 10px 1fr 10px auto;
-		grid-template-rows: 25px 1fr 1fr auto;
-		grid-template-areas: "pslogo""card""expiry-date""cardholder";
-		grid-row-gap: 10px;
-		height: auto;
-	}
-
-	.card-front.no-cardholder {
-		-ms-grid-rows: 25px 1fr 1fr;
-		grid-template-rows: 25px 1fr 1fr;
-		grid-template-areas: "pslogo""card""expiry-date";
-	}
-
-	.card-front__action.change {
-		top: 35px;
-	}
-
-	.card-front__label {
-		margin-top: 0 !important
-	}
-
-	.card-front__expiry-date {
-		width: 50%;
-	}
-
-	.card-front__cardholder {
-		width: 100%;
-		margin-left: 0;
-	}
-
-	.card-front__action {
-		top: 37px;
-	}
-
-	.card-front__pslogo {
-		-ms-grid-column-align: start;
-		justify-self: start;
-	}
-
-	.card-front__pslogo.card-type {
-		background-position-x: 0;
-	}
-
-	.card-front__pslogo.card-type.visa {
-		background-position-x: -82px;
-	}
-
-	.card-front__pslogo.card-type.mastercard {
-		background-position-x: 0;
-	}
-
-	.card-front__pslogo.card-type.maestro {
-		background-position-x: -40px;
-	}
-
-	.card-front__pslogo.card-type.mir {
-		width: 60px;
-		background-position-x: -146px;
-	}
-
-	.card-front__pslogo.card-type.upi {
-		background-position-x: -215px;
-	}
-
-	.pay-container__card-back {
-		position: absolute;
-		top: 111px;
-		right: 0;
-		width: 50%;
-		margin-right: 0;
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-ms-flex-direction: column;
-		flex-direction: column;
-		-webkit-box-align: end;
-		-ms-flex-align: end;
-		align-items: flex-end;
-		z-index: 5;
-	}
-
-	.card-back__cvvdesc {
-		display: none;
-	}
-
-	.pay-token::before {
-		padding: 15px 0;
-	}
-
-	.payment-totals__offert input[name="offert"]+label#offert-accept::before {
-		width: 25px;
-		height: 25px;
-		font-size: 20px;
-		line-height: 24px
-	}
+    body,
+    td,
+    input,
+    select {
+        font-size: 14px;
+    }
+    .pay-container {
+        width: 100%;
+        min-width: 290px;
+        padding: 15px;
+    }
+    .pay-container__content {
+        display: block;
+    }
+    .pay-container__cards {
+        height: auto;
+        min-height: auto;
+        max-height: unset;
+    }
+    .card-front,
+    .card-back {
+        border: 0;
+        background: none;
+        padding: 0;
+    }
+    .card-front {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        -ms-grid-rows: 25px 10px 1fr 10px 1fr 10px auto;
+        grid-template-rows: 25px 1fr 1fr auto;
+        grid-template-areas: "pslogo""card""expiry-date""cardholder";
+        grid-row-gap: 10px;
+        height: auto;
+    }
+    .card-front.no-cardholder {
+        -ms-grid-rows: 25px 1fr 1fr;
+        grid-template-rows: 25px 1fr 1fr;
+        grid-template-areas: "pslogo""card""expiry-date";
+    }
+    .card-front__action.change {
+        top: 35px;
+    }
+    .card-front__label {
+        margin-top: 0 !important
+    }
+    .card-front__expiry-date {
+        width: 50%;
+    }
+    .card-front__cardholder {
+        width: 100%;
+        margin-left: 0;
+    }
+    .card-front__action {
+        top: 37px;
+    }
+    .card-front__pslogo {
+        -ms-grid-column-align: start;
+        justify-self: start;
+    }
+    .card-front__pslogo.card-type {
+        background-position-x: 0;
+    }
+    .card-front__pslogo.card-type.visa {
+        background-position-x: -82px;
+    }
+    .card-front__pslogo.card-type.mastercard {
+        background-position-x: 0;
+    }
+    .card-front__pslogo.card-type.maestro {
+        background-position-x: -40px;
+    }
+    .card-front__pslogo.card-type.mir {
+        width: 60px;
+        background-position-x: -146px;
+    }
+    .card-front__pslogo.card-type.upi {
+        background-position-x: -215px;
+    }
+    .pay-container__card-back {
+        position: absolute;
+        top: 111px;
+        right: 0;
+        width: 50%;
+        margin-right: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+        z-index: 5;
+    }
+    .card-back__cvvdesc {
+        display: none;
+    }
+    .pay-token::before {
+        padding: 15px 0;
+    }
+    .payment-totals__offert input[name="offert"]+label#offert-accept::before {
+        width: 25px;
+        height: 25px;
+        font-size: 20px;
+        line-height: 24px
+    }
 }
 
+
 /* Payment method choice */
+
 .contactless-wrapper {
-	width: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #f5f6f7;
-	z-index: 10000;
+    justify-self: center;
+    /* width: 100%; */
+    width: 640px;
+    height: 544px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f5f6f7;
+    z-index: 10000;
+}
+
+@media screen and (max-width: 630px) {
+    .contactless-wrapper {
+        height: auto;
+    }
 }
 
 .contactless-waiter {
-	width: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #f5f6f7;
-	z-index: 10001;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f5f6f7;
+    z-index: 10001;
 }
 
 .contactless__container {
@@ -910,165 +864,166 @@ body#upi_confirmation .card-front__input {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     padding: 30px 35px;
 }
 
 .contactless-wrapper #applePay {
-	width: calc(100% - 30px);
-	height: 60px;
-	display: none;
-	margin: 30px auto;
+    width: calc(100% - 30px);
+    height: 60px;
+    display: none;
+    margin: 30px auto;
 }
 
 body.applePay .contactless-wrapper #applePay {
-	display: block;
+    display: block;
 }
 
 .contactless__pay-card.samsung #samsungPay {
-	width: 250px;
-	border: 0px;
-	height: inherit;
-	background-position: 50% 50%;
-	background-image: url(../img/s_pay_button.svg);
-	background-repeat: no-repeat;
-	background-color: transparent;
-	background-size: contain;
-	border-radius: 5px;
-	cursor: pointer;
-	display: none;
-	-webkit-appearance: none;
+    width: 250px;
+    border: 0px;
+    height: inherit;
+    background-position: 50% 50%;
+    background-image: url(../img/s_pay_button.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: contain;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    -webkit-appearance: none;
 }
 
 .samsung-pay-mobile #samsungPay {
-	display: block;
-	width: 100%;
-	height: 60px;
-	border: none;
-	border-radius: 5px;
-	background-position: 50% 50%;
-	background-image: url(../img/samsung-pay_button_black_414.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-color: #000;
-	margin-top: 10px;
-	cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    background-position: 50% 50%;
+    background-image: url(../img/samsung-pay_button_black_414.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #000;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
 #mirPay_widget {
-	width: 250px;
-	border: 0px;
-	background-position: 50% 50%;
-	background-image: url(../../oos2/img/mirpay_logo.svg);
-	background-repeat: no-repeat;
-	background-color: #008452;
-	background-size: 100px;
-	background-position: 50% 57%;
-	border-radius: 5px;
-	cursor: pointer;
+    width: 250px;
+    border: 0px;
+    background-position: 50% 50%;
+    background-image: url(../../oos2/img/mirpay_logo.svg);
+    background-repeat: no-repeat;
+    background-color: #008452;
+    background-size: 100px;
+    background-position: 50% 57%;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #mirPay_widget:not([disabled]):active {
-	background-color: #0b4d31;
+    background-color: #0b4d31;
 }
 
 .contactless__pay-card {
-	display: block;
-	width: 250px;
-	height: 60px;
-	background-color: #000;
-	line-height: 60px;
-	text-align: center;
-	padding: 0;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	overflow: hidden;
+    display: block;
+    width: 250px;
+    height: 60px;
+    background-color: #000;
+    line-height: 60px;
+    text-align: center;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .contactless__pay-card+.contactless__pay-card {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .contactless__pay-card.real-card {
-	font-family: montserrat, -apple-system, Helvetica, Arial;
-	user-select: none;
+    font-family: montserrat, -apple-system, Helvetica, Arial;
+    user-select: none;
 }
 
 .contactless__pay-card.real-card {
-	background-color: #55ed00;
+    background-color: #55ed00;
 }
 
 .contactless__pay-card {
-	height: 60px;
-	line-height: 60px;
+    height: 60px;
+    line-height: 60px;
 }
 
 .contactless__pay-card button {
-	background-color: transparent;
-	border: 0;
-	-webkit-box-shadow: none;
-	box-shadow: none;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .contactless__pay-card.inactive {
-	opacity: 0.5 !important;
+    opacity: 0.5 !important;
 }
 
 .contactless__pay-card.samsung button#samsungPay {
-	width: 100%;
-	background-color: #000;
-	background-image: url(../img/s_pay_button.svg);
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0px;
-	-webkit-appearance: none;
+    width: 100%;
+    background-color: #000;
+    background-image: url(../img/s_pay_button.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0px;
+    -webkit-appearance: none;
 }
 
 .contactless__pay-card.google button:not(disabled=[disabled]):hover,
 .contactless__pay-card.samsung button#samsungPay:hover {
-	background-color: rgb(60, 64, 67);
+    background-color: rgb(60, 64, 67);
 }
 
 .payment-totals {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .payment-totals .param,
 .payment-totals .param-name {
-	display: inline;
-	font-family: montserrat, -apple-system, Helvetica, Arial;
-	font-size: 16px;
-	text-align: center;
-	padding: 0;
-	vertical-align: middle;
+    display: inline;
+    font-family: montserrat, -apple-system, Helvetica, Arial;
+    font-size: 16px;
+    text-align: center;
+    padding: 0;
+    vertical-align: middle;
 }
 
 .payment-totals__total,
 .payment-totals__fee {
-	text-align: center;
+    text-align: center;
 }
 
 .payment-totals__offert {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	margin-top: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .payment-totals__offert input[name="offert"]+label#offert-accept {
-	font-size: 1em;
-	padding-left: 1.75em;
-	user-select: none;
+    font-size: 1em;
+    padding-left: 1.75em;
+    user-select: none;
 }
+
 
 /* --/Payment method choice */
 
@@ -1077,11 +1032,9 @@ body.applePay .contactless-wrapper #applePay {
         display: none;
         opacity: 0;
     }
-
     1% {
         display: block;
     }
-
     100% {
         opacity: 1;
     }
@@ -1092,11 +1045,9 @@ body.applePay .contactless-wrapper #applePay {
         display: none;
         opacity: 0;
     }
-
     1% {
         display: block;
     }
-
     100% {
         opacity: 1;
     }
