@@ -810,10 +810,7 @@ body#upi_confirmation .card-front__input {
 /* Payment method choice */
 
 .contactless-wrapper {
-    justify-self: center;
-    /* width: 100%; */
-    width: 640px;
-    height: 544px;
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
