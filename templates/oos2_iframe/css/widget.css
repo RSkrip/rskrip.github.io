@@ -22,7 +22,9 @@ body.overflow-hidden {
 }
 
 input[type="submit"],
-input[type="button"] {
+input[type="button"],
+button {
+    font-family: inherit;
     font-size: 1em;
 }
 
@@ -826,7 +828,7 @@ body#upi_confirmation .card-front__input {
     right: 0;
     bottom: 0;
     background: #f5f6f7;
-    z-index: 10000;
+    z-index: 998;
 }
 
 @media screen and (max-width: 630px) {
@@ -859,6 +861,8 @@ body#upi_confirmation .card-front__input {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    width: 100%;
+    height: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-flow: column wrap;
@@ -866,6 +870,7 @@ body#upi_confirmation .card-front__input {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
     padding: 30px 35px;
 }
 
@@ -928,8 +933,8 @@ body.applePay .contactless-wrapper #applePay {
 }
 
 .contactless__pay-card {
-    display: block;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     height: 60px;
     background-color: #000;
     line-height: 60px;
@@ -952,11 +957,6 @@ body.applePay .contactless-wrapper #applePay {
 
 .contactless__pay-card.real-card {
     background-color: #55ed00;
-}
-
-.contactless__pay-card {
-    height: 60px;
-    line-height: 60px;
 }
 
 .contactless__pay-card button {
@@ -1055,4 +1055,42 @@ body.applePay .contactless-wrapper #applePay {
     font-size: 14px;
     margin: 0.25rem auto 0;
     text-align: center;
+}
+
+
+/* .popup-fade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+} */
+
+.popup {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    border-radius: 0;
+}
+
+.popup__close-btn {
+    display: none;
+}
+
+.pay-token__button {
+    width: 100%;
+    max-width: 250px;
+    margin-top: 20px;
+}
+
+.pay-token__button_sberpay>span {
+    color: #fff;
+}
+
+.pay-token__button_sberpay>svg {
+    margin-left: 8px;
 }
