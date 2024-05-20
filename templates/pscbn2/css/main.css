@@ -783,7 +783,6 @@ body.result-page.success .pay-container {
 
 .security .provided {
     display: block;
-    margin: 0;
 }
 
 .security .provided-mobile {
@@ -1158,8 +1157,9 @@ styles for mobile version
         width: 100%;
         font-size: 20px;
         line-height: 1.2em;
-        margin: 20px 0 10px 0;
-        padding: 0;
+        margin: 0;
+        padding: 20px 10px 10px;
+        box-sizing: border-box;
     }
     .merchant-name-result {
         width: auto;

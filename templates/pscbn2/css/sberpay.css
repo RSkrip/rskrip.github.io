@@ -22,10 +22,13 @@
     background-color: #1e8f33;
 }
 
+.pay-button_sberpay>span {
+    margin-right: 7px;
+}
+
 .pay-button_sberpay>svg {
     width: 60px;
     height: 20px;
-    margin-left: 8px;
 }
 
 .popup-fade {
@@ -282,9 +285,9 @@
 }
 
 .popup__alert {
-    display: none;
+    /* display: none; */
     position: relative;
-    color: #b92633;
+    color: #e51010;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
     border-radius: 5px;
@@ -292,6 +295,12 @@
     padding: .75rem 1.25rem;
     margin-top: 1.25rem;
     text-align: left;
+}
+
+.alert-success {
+    color: #0e8729;
+    background-color: #d1e7d3;
+    border-color: #badbcc;
 }
 
 @media screen and (max-device-width: 610px) {
