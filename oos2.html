@@ -747,30 +747,7 @@
                             </div>
                         </div>
                         <div class="pay-container__token-mobile mobile-only">
-                            <button id="sberpay-button-pay-mobile" class="token-mobile__button token-mobile__button_sberpay" type="button" title="Оплатить SberPay">
-										<svg
-											 xmlns="http://www.w3.org/2000/svg"
-											 width="170.94"
-											 height="60"
-											 viewBox="0 0 170.94 60"
-										>
-											 <defs>
-												  <style>
-													  .a {
-													  fill: #fff;
-													  }
-												  </style>
-											 </defs>
-											 <g>
-												  <path class="a" d="M89.82,35.82V48h-7V8.79H95.87c12.39,0,17.66,4.43,17.66,13.29,0,9.14-6.17,13.74-17.66,13.74Zm0-20.58V29.36H96.4c6.51,0,9.87-2.13,9.87-7.45,0-4.82-2.92-6.67-9.75-6.67Z" transform="translate(-0.03 0)"/>
-												  <path class="a" d="M117.23,22c1.85-1.39,5.21-2.53,10-2.53,8.19,0,12.23,2.81,12.23,10.1V48h-6.17V43c-1.35,3.24-4.76,5.49-9.26,5.49-5.66,0-9-3.2-9-8.69,0-6.4,4.66-8.19,11.55-8.19h6.34V30.38c0-4-1.91-5.22-5.67-5.22-5.16,0-8.13,2-10,5Zm15.7,16.17V35.88h-5.55c-3.87,0-5.72.73-5.72,3.24,0,2.13,1.57,3.48,4.49,3.48C130.57,42.6,132.65,40.08,132.93,38.14Z" transform="translate(-0.03 0)"/>
-												  <path class="a" d="M142.74,20h7.32l7.68,19.22L164,20H171L159.76,51c-2.47,6.73-5,8.24-8.69,8.24A7.74,7.74,0,0,1,146.58,58V51.91a4.94,4.94,0,0,0,3.37,1.4c2,0,3.52-1.34,4.59-5.12Z" transform="translate(-0.03 0)"/>
-												  <path class="a" d="M18.62,22v8.61L30,37.76l27.33-20.1a31,31,0,0,0-3.6-6L30,29.15Z" transform="translate(-0.03 0)"/>
-												  <path class="a" d="M53.09,29.36V30A23.07,23.07,0,1,1,43,11l5.86-4.29A30,30,0,1,0,60,30a30.4,30.4,0,0,0-.48-5.38Z" transform="translate(-0.03 0)"/>
-											 </g>
-										</svg>
-									 </button>
-                            <button id="mirPay_mobile" type="button" class="token-mobile__button"></button>
+                            <button id="mirPay_mobile" type="button" class="token-mobile__button" disabled></button>
                             <div class="token-mobile__text" data-lang-ru="или ввести данные карты" data-lang-en="or enter card data">
                                 или ввести данные карты
                             </div>
@@ -834,7 +811,6 @@
                         </div>
                     </div>
                     <div class="pay-options">
-
                         <div class="pay-container__recurring">
                             <div>
                                 <input type="checkbox" name="fp_sc" value="1">
@@ -850,36 +826,13 @@
                             <input autocomplete="off" size="32" id="email" name="email" type="email" onchange="check();" onkeyup="check();" align="baseline" value="" class="">
                         </div>
                         <div class="pay-buttons">
-                            <input class="pay-button disablable-button" type="submit" value="Оплатить" name="button1" id="submit_button" data-lang-ru="Оплатить" data-lang-en="Pay">
+                            <input class="pay-button inactive disablable-button" type="submit" value="Оплатить" name="button1" id="submit_button" disabled="" data-lang-ru="Оплатить" data-lang-en="Pay">
                         </div>
                         <div class="pay-token">
                             <div class="pay-token__text" data-lang-ru="или оплатить через" data-lang-en="or pay with">
                                 или оплатить через
                             </div>
                             <div class="pay-token__buttons-container">
-                                <button id="sberpay-button-pay" class="pay-token__button pay-token__button_sberpay" type="button" title="Оплатить SberPay">
-											<svg
-												 xmlns="http://www.w3.org/2000/svg"
-												 width="170.94"
-												 height="60"
-												 viewBox="0 0 170.94 60"
-											>
-												 <defs>
-													  <style>
-														  .a {
-														  fill: #fff;
-														  }
-													  </style>
-												 </defs>
-												 <g>
-													  <path class="a" d="M89.82,35.82V48h-7V8.79H95.87c12.39,0,17.66,4.43,17.66,13.29,0,9.14-6.17,13.74-17.66,13.74Zm0-20.58V29.36H96.4c6.51,0,9.87-2.13,9.87-7.45,0-4.82-2.92-6.67-9.75-6.67Z" transform="translate(-0.03 0)"/>
-													  <path class="a" d="M117.23,22c1.85-1.39,5.21-2.53,10-2.53,8.19,0,12.23,2.81,12.23,10.1V48h-6.17V43c-1.35,3.24-4.76,5.49-9.26,5.49-5.66,0-9-3.2-9-8.69,0-6.4,4.66-8.19,11.55-8.19h6.34V30.38c0-4-1.91-5.22-5.67-5.22-5.16,0-8.13,2-10,5Zm15.7,16.17V35.88h-5.55c-3.87,0-5.72.73-5.72,3.24,0,2.13,1.57,3.48,4.49,3.48C130.57,42.6,132.65,40.08,132.93,38.14Z" transform="translate(-0.03 0)"/>
-													  <path class="a" d="M142.74,20h7.32l7.68,19.22L164,20H171L159.76,51c-2.47,6.73-5,8.24-8.69,8.24A7.74,7.74,0,0,1,146.58,58V51.91a4.94,4.94,0,0,0,3.37,1.4c2,0,3.52-1.34,4.59-5.12Z" transform="translate(-0.03 0)"/>
-													  <path class="a" d="M18.62,22v8.61L30,37.76l27.33-20.1a31,31,0,0,0-3.6-6L30,29.15Z" transform="translate(-0.03 0)"/>
-													  <path class="a" d="M53.09,29.36V30A23.07,23.07,0,1,1,43,11l5.86-4.29A30,30,0,1,0,60,30a30.4,30.4,0,0,0-.48-5.38Z" transform="translate(-0.03 0)"/>
-												 </g>
-											</svg>
-									  	  </button>
                                 <button id="mirPay" type="button" class="pay-token__button"></button>
                                 <!-- <button id="applePay" type="button" class="apple-pay-button apple-pay-button-white disablable-button" style='display:none'></button>
 							<button id="googlePay" type="button" class="" style='display:none'></button>
@@ -908,94 +861,6 @@
                 </div>
             </div>
         </div>
-        <div class="popup-fade">
-            <div id="popup-sberpay" class="popup">
-                <div id="js-popup-close-btn" class="popup__close-btn">
-                    <span>Закрыть</span>
-                </div>
-                <div id="popup-sberpay-qr" class="popup__content">
-                    <div class="popup__header" data-lang-ru="Отсканируйте QR-код, чтобы заплатить в СберБанк Онлайн" data-lang-en="Scan QR-code to pay in Sberbank Online">Отсканируйте QR-код, чтобы заплатить в СберБанк Онлайн</div>
-                    <div class="popup__tip" data-lang-ru="Используйте сканер кодов в приложении Сбербанка. Оплатите в течение " data-lang-en="Scan QR-code via Sberbank mobile app. Pay within ">
-                        Используйте сканер кодов в приложении Сбербанка. Оплатите в течение <span class="popup__tip-accent">04:59</span>.
-                    </div>
-                    <div class="popup__body">
-                        <div class="sberpay-qr-container">
-                            <div class="sberpay-qr">
-                                <img class="sberpay-qr__img" alt="" src="codeImage.jpg">
-                                <img class="sberpay-qr__logo" alt="sberpay-logo" src="sberpay_logo.png">
-                            </div>
-                        </div>
-                        <div class="popup__button-group">
-                            <button id="js-sberpay-push-mode-button" class="popup__button popup__button_with-img">
-											<svg
-												 xmlns="http://www.w3.org/2000/svg"
-												 width="24"
-												 height="24"
-												 viewBox="0 0 24 24"
-												 fill="none"
-												 stroke="#4d4f53"
-												 stroke-width="2"
-												 stroke-linecap="round"
-												 stroke-linejoin="round"
-											>
-												 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-											</svg>
-											<span data-lang-ru="Оплатить через пуш" data-lang-en="Send push message">Оплатить через пуш</span>
-									  </button>
-                            <button class="popup__button sberpay-button-cancel" type="button" data-lang-ru="Вернуться к способам оплаты" data-lang-en="Back to payment page">Вернуться к способам оплаты</button>
-                        </div>
-                        <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
-                    </div>
-                </div>
-                <div id="popup-sberpay-push" class="popup__content">
-                    <div class="popup__header">SberPay</div>
-                    <div class="popup__tip" data-lang-ru="Для оплаты отправим Push в приложение СберБанк Онлайн или СМС." data-lang-en="Push message will be sent to Sberbank mobile app or via SMS">
-                        Для оплаты отправим Push в приложение СберБанк Онлайн или СМС.
-                    </div>
-                    <div class="popup__body">
-                        <form action="">
-                            <div class="sberpay-phone">
-                                <label for="sberpay-phone" class="sberpay-phone__label" data-lang-ru="Номер телефона" data-lang-en="Phone number">Номер телефона</label>
-                                <input id="sberpay-phone" class="sberpay-phone__input" type="tel" name="" id="" autocomplete="off" value="+79000000000">
-                                <input class="sberpay-phone__button inactive" type="submit" value="Отправить">
-                            </div>
-                        </form>
-                        <div class="popup__button-group">
-                            <button id="js-sberpay-qr-mode-button" class="popup__button popup__button_with-img" type="button">
-											<svg
-												 xmlns="http://www.w3.org/2000/svg"
-												 width="24"
-												 height="24"
-												 viewBox="0 0 24 24"
-											>
-												 <path d="M3,3H6V6H3Z"/>
-												 <path d="M9,0V9H0V0ZM7.5,1.5h-6v6h6ZM6,18H3v3H6Z"/>
-												 <path d="M9,15v9H0V15ZM1.5,16.5v6h6v-6ZM18,3h3V6H18Z"/>
-												 <path d="M15,0V9h9V0Zm7.5,1.5v6h-6v-6ZM12,1.5V0h1.5V3H12V6H10.5V1.5ZM12,9V6h1.5V9ZM9,12V10.5h1.5V9H12v3h1.5V10.5H21V12H15v1.5H10.5V12Zm0,0v1.5H3V12H1.5v1.5H0v-3H4.5V12Zm15,1.5H22.5v-3H24Zm-1.5,0H21v3h3V15H22.5Zm-6,0h3V15H18v1.5H16.5Zm3,4.5V16.5H18V18H16.5v1.5h-3V21H18V18Zm0,0H24v1.5H21V21H19.5Zm-6-1.5V18H15V15H10.5v1.5Z"/>
-												 <path d="M10.5,18H12v4.5h6V24H10.5ZM24,21v3H19.5V22.5h3V21Z"/>
-											</svg>
-											<span data-lang-ru="Оплатить по QR-коду" data-lang-en="Pay using QR-code">Оплатить по QR-коду</span>
-									  </button>
-                            <button class="popup__button sberpay-button-cancel" data-lang-ru="Вернуться к способам оплаты" data-lang-en="Back to payment page">Вернуться к способам оплаты</button>
-                        </div>
-                        <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
-                    </div>
-                </div>
-                <div id="popup-sberpay-push-result" class="popup__content">
-                    <div class="popup__header" data-lang-ru="Оплатите в Сбербанк Онлайн" data-lang-en="Pay into Sberbank Online">Оплатите в Сбербанк Онлайн</div>
-                    <div class="popup__body">
-                        <div class="popup__text-block" data-lang-ru="Отправили push-уведомление для оплаты в приложение Сбербанк Онлайн или СМС на номер" data-lang-en="Push message was sent to your mobile app or via SMS to">
-                            Отправили push-уведомление для оплаты в приложение Сбербанк Онлайн или СМС на номер
-                            <span class="popup__tip-accent"> +79000000000</span>.
-                        </div>
-                        <button id="js-sberpay-change-phone-button" class="popup__button" type="button">
-								  <span data-lang-ru="Изменить номер телефона" data-lang-en="Change phone number">Изменить номер телефона</span>
-							 </button>
-                        <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </form>
     <!-- Qwerty321 -->
     <div id="scrnli_recorder_root"></div>
@@ -1005,63 +870,6 @@
         <div data-v-f3fb3dc8="" class="container_selected_area" style="cursor: crosshair;"></div>
         <div data-v-f3fb3dc8="" class="area" style="left: 0px; top: 0px; width: 0px; height: 0px;"></div>
     </div>
-    <script>
-        const sberPayButton = $("#sberpay-button-pay");
-        const sberPayModal = $("#popup-sberpay");
-        let sberpayQrScreen = $("#popup-sberpay-qr");
-        let sberpayPushScreen = $("#popup-sberpay-push");
-        let sberpayResultScreen = $("#popup-sberpay-push-result");
-
-        function closePopup() {
-            $(".popup-fade").removeClass("popup-fade_visible");
-            sberPayModal.hide();
-            sberpayPushScreen.hide();
-            sberpayQrScreen.show();
-        }
-
-        if (sberPayButton) {
-            sberPayButton.on("click", function() {
-                if (user_agent.match(/mobile/i)) {
-                    // call sberpay api, get deaplink, redirect to app
-                } else {
-                    $(".popup-fade").addClass("popup-fade_visible");
-                    sberPayModal.show();
-                }
-            });
-        }
-
-        $(".sberpay-button-cancel").on("click", function() {
-            closePopup();
-        });
-
-        $("#js-popup-close-btn").on("click", function() {
-            closePopup();
-        });
-
-        if (sberPayModal) {
-            $("#js-sberpay-push-mode-button").on("click", function() {
-                sberpayQrScreen.hide();
-                sberpayPushScreen.show();
-            });
-        }
-
-        if (sberpayPushScreen) {
-            $("#js-sberpay-qr-mode-button").on("click", function() {
-                sberpayPushScreen.hide();
-                sberpayQrScreen.show();
-            });
-        }
-
-        $(".sberpay-phone__button").on("click", function() {
-            sberpayPushScreen.hide();
-            sberpayResultScreen.show();
-        });
-
-        $("#js-sberpay-change-phone-button").on("click", function() {
-            sberpayResultScreen.hide();
-            sberpayPushScreen.show();
-        });
-    </script>
 </body>
 
 </html>
