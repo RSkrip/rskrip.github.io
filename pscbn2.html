@@ -1302,7 +1302,7 @@
                     </div>
                 </div>
             </div>
-            <div class="popup-fade">
+            <div class="popup-fade popup-fade_visible">
                 <div id="popup-sberpay" class="popup">
                     <div id="js-popup-close-btn" class="popup__close-btn">
                         <span>Закрыть</span>
@@ -1373,6 +1373,7 @@
                                     </button>
                                 <button class="popup__button sberpay-button-cancel" data-lang-ru="Вернуться к способам оплаты" data-lang-en="Back to payment page">Вернуться к способам оплаты</button>
                             </div>
+                            <div class="popup__alert alert-success">Я - текст, который вы видите, поскольку всё хорошо</div>
                             <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
                         </div>
                     </div>
@@ -1383,10 +1384,12 @@
                                 Отправили push-уведомление для оплаты в приложение Сбербанк Онлайн или СМС на номер
                                 <span class="popup__tip-accent"> +79000000000</span>.
                             </div>
-                            <button id="js-sberpay-change-phone-button" class="popup__button" type="button">
+                            <div class="popup__button-group">
+                                <button id="js-sberpay-change-phone-button" class="popup__button" type="button">
 											<span data-lang-ru="Изменить номер телефона" data-lang-en="Change phone number">Изменить номер телефона</span>
 									  </button>
-                            <div class="popup__alert">Я - текст, который вы видите, потому что что-то пошло не так</div>
+                                <button class="popup__button sberpay-button-cancel" type="button" data-lang-ru="Вернуться к способам оплаты" data-lang-en="Back to payment page">Вернуться к способам оплаты</button>
+                            </div>
                         </div>
                     </div>
                 </div>

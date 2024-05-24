@@ -75,12 +75,13 @@
     pointer-events: all;
 }
 
+#popup-sberpay-qr,
 #popup-sberpay-push {
     display: none;
 }
 
 #popup-sberpay-push-result {
-    display: none;
+    /* display: none; */
 }
 
 .popup__close-btn {
