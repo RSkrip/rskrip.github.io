@@ -1232,6 +1232,7 @@ body.result-page.error .content-result__container {
         line-height: 26px;
     }
     .pay-options {
+        display: none;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -ms-flex-flow: column wrap;
