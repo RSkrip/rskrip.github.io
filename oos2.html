@@ -738,14 +738,14 @@
                     </div>
                     <div class="clear:both"></div>
                     <div class="pay-container__content">
-                        <div class="pay-options-mobile mobile-only">
+                        <!-- <div class="pay-options-mobile mobile-only">
                             <div class="pay-container__offert">
                                 <div>
                                     <input type="checkbox" name="offert" value="1">
                                     <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">Я соглашаюсь с <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" target="_blank" class="offert"> <span class="offert-text" data-lang-ru="офертой" data-lang-en="terms and conditions">офертой</span></a></label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="pay-container__token-mobile mobile-only">
                             <button id="sberpay-button-pay-mobile" class="token-mobile__button token-mobile__button_sberpay" type="button" title="Оплатить SberPay">
 										<span data-lang-ru="Оплатить" data-lang-en="">Оплатить</span>
@@ -834,20 +834,20 @@
                             <span class="error-tip info email__err" data-lang-ru="Email некорректен" data-lang-en="Invalid cardholder email">Email некорректен</span>
                         </div>
                     </div>
-                    <div class="pay-options">
+                    <!-- <div class="pay-options">
                         <div class="pay-container__offert">
                             <div>
                                 <input type="checkbox" name="offert" value="1">
                                 <label id="offert-accept" data-lang-ru="Я соглашаюсь с " data-lang-en="I agree with the">Я соглашаюсь с <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" target="_blank" class="offert"> <span class="offert-text" data-lang-ru="офертой" data-lang-en="terms and conditions">офертой</span></a></label>
                             </div>
                         </div>
-                        <!-- <div class="pay-container__recurring">
+                        <div class="pay-container__recurring">
                             <div>
                                 <input type="checkbox" name="fp_sc" value="1">
                                 <label id="fp_savecard" data-lang-ru="Я разрешаю банку запомнить карту" data-lang-en="Save card data for the following payments">Я разрешаю банку запомнить карту</label>
                             </div>
-                        </div> -->
-                    </div>
+                        </div>
+                    </div> -->
                     <div class="pay-container__pay">
                         <div class="email">
                             <span class="email-label" data-lang-ru="E-mail для квитанции" data-lang-en="E-mail for receipt">
@@ -896,16 +896,18 @@
                 </div>
                 <div style="clear:both"></div>
                 <div class="pay-container__footer">
-                    <div class="security">
-                        <p class="provided" data-lang-ru="Ваш платеж защищен по международному стандарту PCI DSS." data-lang-en="This payment is protected in accordance with the requirements of the PCI DSS.">
-                            Ваш платеж защищен по международному стандарту PCI DSS.
+                    <div class="footer-terms">
+                        <p>
+                            <span data-lang-ru="Нажимая кнопку &quot;Оплатить&quot; я соглашаюсь с " data-lang-en="Pressing &quot;Pay&quot; button I accept ">Нажимая кнопку "Оплатить" я соглашаюсь с </span>
+                            <a href="https://pay.pscb.ru/templates/pscbn/img/%D0%9E%D1%84%D0%B5%D1%80%D1%82%D0%B0%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%9F%D0%A1%D0%9A%D0%91.pdf" class="footer-terms__link" target="_blank"><span data-lang-ru="условиями" data-lang-en="the terms of service">условиями</span></a><span data-lang-ru=" АО Банк &quot;ПСКБ&quot;" data-lang-en=" of JSC Bank &quot;PSCB&quot;"> АО Банк "ПСКБ"</span>.
                         </p>
-                        <p class="provided" data-lang-ru="Сервис предоставляет " data-lang-en="The service is provided by ">
-                            Сервис предоставляет
-                            <a class="about-the-bank" href="https://www.pscb.ru" data-lang-ru="https://www.pscb.ru" data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php" target="_blank">
-                                <b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b>
-                            </a>
-                            .
+                    </div>
+                    <div class="security">
+                        <p class="provided" data-lang-ru="Безопасность платежей обеспечивается в соответствии с российскими и международными стандартами. Сервис предоставляет" data-lang-en="Safety of payments is ensured in accordance with the local and international security standarts. The service is provided by ">
+                            Безопасность платежей обеспечивается в соответствии с российскими и международными стандартами. Сервис предоставляет
+                            <a class="about-the-bank" href="https://www.pscb.ru" data-lang-ru="https://www.pscb.ru" data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php" target="_blank"><b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b></a>.
+                        </p>
+                        <p class="provided">
                             <b id="supporttext" data-lang-ru="Служба&nbsp;поддержки" data-lang-en="Support">Служба&nbsp;поддержки</b>:
                             <a href="mailto:support@pscb.ru">support@pscb.ru</a>
                         </p>

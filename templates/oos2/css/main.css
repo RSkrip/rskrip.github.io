@@ -856,11 +856,15 @@ span.email-label.required:after {
     border-top: 1px solid #ddd;
 }
 
+.footer-terms p,
 .security p {
     font-size: 14px;
-    text-align: center;
-    line-height: 160%;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
+}
+
+.security b,
+.about-the-bank b {
+    font-family: inherit;
 }
 
 #supporttext {
