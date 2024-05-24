@@ -16,6 +16,9 @@
     font-family: inherit;
     font-size: 17px;
     margin-top: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .pay-button_sberpay:hover {
