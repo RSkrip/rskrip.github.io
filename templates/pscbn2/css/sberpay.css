@@ -23,6 +23,7 @@
 }
 
 .pay-button_sberpay>span {
+    line-height: 1;
     margin-right: 7px;
 }
 
