@@ -15,8 +15,8 @@
     color: #fff;
     font-family: inherit;
     font-size: 17px;
+    line-height: 60px;
     margin-top: 10px;
-    overflow: hidden;
 }
 
 .pay-button_sberpay:hover {
@@ -24,10 +24,7 @@
 }
 
 .pay-button_sberpay>span {
-    display: inline-block;
-    padding-top: 17.5px;
-    padding-bottom: 17.5px;
-    padding-right: 7px;
+    margin-right: 7px;
 }
 
 .pay-button_sberpay>svg {
