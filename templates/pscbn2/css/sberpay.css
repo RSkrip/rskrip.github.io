@@ -76,13 +76,12 @@
     pointer-events: all;
 }
 
-#popup-sberpay-qr,
 #popup-sberpay-push {
     display: none;
 }
 
 #popup-sberpay-push-result {
-    /* display: none; */
+    display: none;
 }
 
 .popup__close-btn {
@@ -286,7 +285,7 @@
 }
 
 .popup__alert {
-    /* display: none; */
+    display: none;
     position: relative;
     color: #e51010;
     background-color: #f8d7da;
