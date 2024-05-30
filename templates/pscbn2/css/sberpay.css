@@ -42,7 +42,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     z-index: -1;
     opacity: 0;
-    overflow: hidden;
+    overflow-y: auto;
     -webkit-transition: opacity 0.2s, z-index 0s 0.2s;
     -o-transition: opacity 0.2s, z-index 0s 0.2s;
     transition: opacity 0.2s, z-index 0s 0.2s;
@@ -69,7 +69,6 @@
     padding: 30px;
     width: 400px;
     max-width: 400px;
-    max-height: 90%;
     margin: 50px auto;
     background-color: #ffffff;
     border-radius: 6px;
@@ -304,6 +303,10 @@
     color: #0e8729;
     background-color: #d1e7d3;
     border-color: #badbcc;
+}
+
+.modal-open {
+    overflow: hidden;
 }
 
 @media screen and (max-device-width: 610px) {
