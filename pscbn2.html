@@ -1434,6 +1434,7 @@
             sberPayModal.hide();
             sberpayPushScreen.hide();
             sberpayQrScreen.show();
+            $("body").removeClass('modal-open');
         }
 
         if (sberPayButton) {
@@ -1443,6 +1444,7 @@
                 } else {
                     $(".popup-fade").addClass("popup-fade_visible");
                     sberPayModal.show();
+                    $("body").addClass('modal-open');
                 }
             });
         }
