@@ -33,9 +33,16 @@
 }
 
 .popup-fade {
-    position: relative;
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: -1;
     opacity: 0;
+    overflow: hidden;
     -webkit-transition: opacity 0.2s, z-index 0s 0.2s;
     -o-transition: opacity 0.2s, z-index 0s 0.2s;
     transition: opacity 0.2s, z-index 0s 0.2s;
@@ -43,37 +50,33 @@
 
 .popup-fade:before {
     content: '';
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-    pointer-events: none;
+    vertical-align: middle;
 }
 
 .popup-fade_visible {
-    position: relative;
     z-index: 999;
     opacity: 1;
     transition: opacity 0.2s;
 }
 
 .popup {
-    position: fixed;
-    top: 20%;
-    left: 50%;
+    position: relative;
+    display: inline-block;
     padding: 30px;
     width: 400px;
-    max-width: 100%;
-    margin-top: -60px;
-    margin-left: -200px;
+    max-width: 400px;
+    max-height: 90%;
+    margin: 50px auto;
     background-color: #ffffff;
     border-radius: 6px;
     box-sizing: border-box;
-    z-index: 1000;
+    overflow: hidden auto;
     pointer-events: all;
+    z-index: 1000;
 }
 
 #popup-sberpay-push {
@@ -306,6 +309,9 @@
 @media screen and (max-device-width: 610px) {
     .popup-fade {
         display: none !important;
+    }
+    .pay-button_sberpay {
+        width: 100%;
     }
 }
 
