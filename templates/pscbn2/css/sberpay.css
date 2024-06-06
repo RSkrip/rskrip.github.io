@@ -18,7 +18,7 @@
 
 .pay-button_sberpay>span {
     display: inline-block;
-    color: rgb(43, 226, 156);
+    color: rgb(253, 174, 143);
     height: 20px;
     line-height: 20px;
     padding-top: 18px;
@@ -31,8 +31,7 @@
     display: inline-block;
     width: 60px;
     height: 20px;
-    padding-top: 18px;
-    padding-bottom: 18px;
+    margin-top: 2px;
     vertical-align: baseline;
 }
 
