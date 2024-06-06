@@ -22,16 +22,12 @@
 }
 
 .pay-button_sberpay>span {
-    display: inline-block;
-    color: #dbf776;
     margin-right: 7px;
 }
 
 .pay-button_sberpay>svg {
-    display: inline-block;
     width: 60px;
     height: 20px;
-    margin-bottom: 3px;
 }
 
 .popup-fade {
