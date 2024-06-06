@@ -1,14 +1,19 @@
 /* Sberpay styles */
 .pay-button_sberpay {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     background-color: #21a038;
     border-radius: 5px;
     color: #fff;
     font-family: inherit;
     font-size: 17px;
-    line-height: 60px;
     margin-top: 10px;
 }
 
@@ -19,15 +24,14 @@
 .pay-button_sberpay>span {
     display: inline-block;
     margin-right: 7px;
-    vertical-align: baseline;
 }
 
 .pay-button_sberpay>svg {
     display: inline-block;
+    color: #badbcc;
     width: 60px;
     height: 20px;
     margin-bottom: 3px;
-    vertical-align: baseline;
 }
 
 .popup-fade {
@@ -313,7 +317,6 @@
     }
     .pay-button_sberpay {
         width: 100%;
-        line-height: 56px;
     }
 }
 
