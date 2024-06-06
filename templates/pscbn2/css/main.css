@@ -740,7 +740,7 @@ body.result-page.success .pay-container {
     background-color: #55ed00;
     border: 0px;
     border-radius: 5px;
-    color: #4d4f53;
+    color: rgb(77 79 83 / 90%);
     font-size: 17px;
     font-family: PFCentroSansPro, Sans, Arial;
     padding: 0;
@@ -756,8 +756,12 @@ body.result-page.success .pay-container {
     outline: none !important;
 }
 
-.pay-button.active {
+/* .pay-button.active {
     background-color: #55cf00;
+} */
+
+.pay-button_primary:not(.inactive):hover {
+    background-color: #5ddd01;
 }
 
 .inactive,
