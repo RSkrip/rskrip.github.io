@@ -15,8 +15,8 @@
     color: #fff;
     font-family: inherit;
     font-size: 17px;
-    line-height: 60px;
     margin-top: 10px;
+    -webkit-appearance: button;
 }
 
 .pay-button_sberpay:hover {
@@ -24,7 +24,7 @@
 }
 
 .pay-button_sberpay>span {
-    color: red;
+    color: magenta;
     margin-right: 7px;
 }
 
