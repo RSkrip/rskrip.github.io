@@ -24,9 +24,7 @@
 }
 
 .pay-button_sberpay>span {
-    color: yellow;
-    line-height: 100%;
-    margin-top: 5px;
+    color: red;
     margin-right: 7px;
 }
 
@@ -318,7 +316,6 @@
     }
     .pay-button_sberpay {
         width: 100%;
-        line-height: 55px;
     }
 }
 
