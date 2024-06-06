@@ -15,6 +15,7 @@
     color: #fff;
     font-family: inherit;
     font-size: 17px;
+    line-height: 60px;
     margin-top: 10px;
 }
 
@@ -23,7 +24,7 @@
 }
 
 .pay-button_sberpay>span {
-    color: #ccc;
+    color: blue;
     line-height: 100%;
     margin-top: 1px;
     margin-right: 7px;
@@ -317,6 +318,7 @@
     }
     .pay-button_sberpay {
         width: 100%;
+        line-height: 55px;
     }
 }
 
