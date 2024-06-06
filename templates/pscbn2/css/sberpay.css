@@ -31,6 +31,8 @@
     display: inline-block;
     width: 60px;
     height: 20px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     vertical-align: baseline;
 }
 
