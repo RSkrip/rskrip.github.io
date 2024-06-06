@@ -1,14 +1,14 @@
 /* Sberpay styles */
+.sberpay-button-container {
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+    align-items: center;
+}
 
 .pay-button_sberpay {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
     background-color: #21a038;
     border-radius: 5px;
@@ -25,7 +25,7 @@
 
 .pay-button_sberpay>span {
     display: inline-block;
-    color: rgb(238, 115, 14);
+    color: red;
     margin-right: 7px;
     vertical-align: baseline;
 }
