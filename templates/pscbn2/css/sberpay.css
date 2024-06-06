@@ -23,6 +23,8 @@
 }
 
 .pay-button_sberpay>span {
+    color: red;
+    margin-top: 1px;
     margin-right: 7px;
 }
 
