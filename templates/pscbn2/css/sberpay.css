@@ -25,16 +25,16 @@
 
 .pay-button_sberpay>span {
     display: inline-block;
-    color: rgb(14, 238, 14);
-    height: 20px;
-    line-height: 20px;
+    color: rgb(238, 115, 14);
     margin-right: 7px;
+    vertical-align: baseline;
 }
 
 .pay-button_sberpay>svg {
     display: inline-block;
     width: 60px;
     height: 20px;
+    vertical-align: baseline;
 }
 
 .popup-fade {
