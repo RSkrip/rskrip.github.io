@@ -833,9 +833,10 @@ span.email-label.required:after {
 } */
 
 .pay-button:disabled,
-.token-mobile__button:disabled {
-    opacity: 0.7;
-    filter: alpha(Opacity=70);
+.token-mobile__button:disabled,
+.sberpay-phone__button:disabled {
+    opacity: 0.6;
+    filter: alpha(Opacity=60);
 }
 
 .pay-button.active:disabled {
