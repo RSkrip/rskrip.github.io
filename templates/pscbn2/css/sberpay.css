@@ -1,5 +1,4 @@
 /* Sberpay styles */
-
 .pay-button_sberpay {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -15,7 +14,6 @@
     color: #fff;
     font-family: inherit;
     font-size: 17px;
-    line-height: 60px;
     margin-top: 10px;
 }
 
@@ -24,10 +22,12 @@
 }
 
 .pay-button_sberpay>span {
+    display: inline-block;
     margin-right: 7px;
 }
 
 .pay-button_sberpay>svg {
+    display: inline-block;
     width: 60px;
     height: 20px;
 }
@@ -315,6 +315,9 @@
     }
     .pay-button_sberpay {
         width: 100%;
+    }
+    .pay-button_sberpay>svg{
+        margin-bottom: 3px;
     }
 }
 
