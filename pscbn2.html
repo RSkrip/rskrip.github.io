@@ -13,6 +13,7 @@
     <link media="screen" href="templates/pscbn2/css/fonts.css" type="text/css" rel="stylesheet">
     <link media="screen" href="templates/pscbn2/css/main.css" type="text/css" rel="stylesheet">
     <link media="screen" href="templates/pscbn2/css/sberpay.css" type="text/css" rel="stylesheet">
+    <link media="screen" href="templates/pscbn2/css/utilities.css" type="text/css" rel="stylesheet">
     <!-- <script
             type="text/javascript"
             async=""
@@ -606,7 +607,7 @@
         }
 
         function on_load() {
-            document.payform.CARD.focus();
+            //document.payform.CARD.focus();
 
             check();
         }
@@ -1393,6 +1394,43 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="popup-utils" class="popup">
+                    <div id="popup-utils-1" class="popup__content">
+                        <div class="popup__header">
+                            Вы являетесь льготником?
+                        </div>
+                        <div class="popup__tip">
+                            Вы относитесь к какой-либо категории граждан, определённых <a href="http://publication.pravo.gov.ru/document/0001202404300001" target="_blank">Распоряжением Правительства РФ от 27.04.2024 № 1059-р</a>?
+                        </div>
+                        <div class="popup__body">
+                            <div class="popup__button-group">
+                                <button id="js-utils-close-button" class="popup__button popup__button_green" type="button">
+										 <span>Нет, продолжить оплату</span>
+										 </button>
+                                <button id="js-utils-next-button" class="popup__button">Да, предоставить документы</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="popup-utils-2" class="popup__content">
+                        <div class="popup__header">
+                            Подтверждение льготы
+                        </div>
+                        <div class="popup__tip">
+                            <p>Вам необходимо подтвердить право на льготу. Для этого обратитесь в любое из отделений АО&nbsp;Банк&nbsp;«ПСКБ» (Банк) и предоставьте документы, подтверждающие ваше право на освобождение от уплаты комиссии (вознаграждения) Банку
+                                при оплате жилищно-коммунальных услуг.</p>
+                            <p>После проверки документов и присвоения специального идентификатора вы сможете совершать оплату жилищно-коммунальных услуг через сервисы Банка без комиссии.</p>
+                        </div>
+                        <div class="popup__body">
+                            <div class="popup__button-group">
+                                <button id="js-utils-prev-button" class="popup__button" type="button">
+										<span>Вернуться назад</span>
+										</button>
+                                <button id="js-utils-cancel-button" class="popup__button">Оплатить другим способом</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
         <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
@@ -1431,7 +1469,7 @@
 
         function closePopup() {
             $(".popup-fade").removeClass("popup-fade_visible");
-            sberPayModal.hide();
+            sberPayModal.css('display', 'none');
             sberpayPushScreen.hide();
             sberpayQrScreen.show();
             $("body").removeClass('modal-open');
@@ -1443,7 +1481,7 @@
                     // call sberpay api, get deaplink, redirect to app
                 } else {
                     $(".popup-fade").addClass("popup-fade_visible");
-                    sberPayModal.show();
+                    sberPayModal.css('display', 'inline-block');
                     $("body").addClass('modal-open');
                 }
             });
@@ -1480,6 +1518,47 @@
             sberpayResultScreen.hide();
             sberpayPushScreen.show();
         });
+    </script>
+    <script>
+        const utilModal = $("#popup-utils");
+        let utilStartScreen = $("#popup-utils-1");
+        let utilManualScreen = $("#popup-utils-2");
+
+        // служебное
+        $(document).keyup(function(e) {
+            if (e.key === "u" || e.keyCode === 85) {
+                $(".popup-fade").addClass("popup-fade_visible");
+                utilModal.css('display', 'inline-block');
+                $("body").addClass('modal-open');
+            }
+        });
+
+        function closePopup() {
+            $(".popup-fade").removeClass("popup-fade_visible");
+            utilModal.css('display', 'none');
+            $("body").removeClass('modal-open');
+        }
+
+        if (utilModal) {
+            $("#js-utils-close-button").on("click", function() {
+                closePopup();
+            });
+
+            $("#js-utils-next-button").on("click", function() {
+                utilStartScreen.hide();
+                utilManualScreen.show();
+            });
+
+            $("#js-utils-prev-button").on("click", function() {
+                utilManualScreen.hide();
+                utilStartScreen.show();
+            });
+
+            $("#js-utils-cancel-button").on("click", function() {
+                // redirect to service url
+                window.location.href = "https://www.pscb.ru";
+            });
+        }
     </script>
 </body>
 
