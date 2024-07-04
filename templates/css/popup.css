@@ -1,38 +1,3 @@
-/* Sberpay styles */
-
-.pay-button_sberpay {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    background-color: #21a038;
-    border-radius: 5px;
-    color: #fff;
-    font-family: inherit;
-    font-size: 17px;
-    margin-top: 10px;
-}
-
-.pay-button_sberpay:hover {
-    background-color: #1e8f33;
-}
-
-.pay-button_sberpay>span {
-    display: inline-block;
-    margin-right: 7px;
-}
-
-.pay-button_sberpay>svg {
-    display: inline-block;
-    width: 60px;
-    height: 20px;
-}
-
 .popup-fade {
     position: fixed;
     display: block;
@@ -51,11 +16,13 @@
 
 .popup-fade:before {
     content: '';
-    display: inline-block;
-    overflow: hidden;
-    width: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 100%;
-    vertical-align: middle;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
 }
 
 .popup-fade_visible {
@@ -63,6 +30,7 @@
     opacity: 1;
     transition: opacity 0.2s;
 }
+
 
 .popup {
     position: relative;
@@ -77,18 +45,6 @@
     overflow: hidden auto;
     pointer-events: all;
     z-index: 1000;
-}
-
-#popup-sberpay {
-    display: none;
-}
-
-#popup-sberpay-push {
-    display: none;
-}
-
-#popup-sberpay-push-result {
-    display: none;
 }
 
 .popup__close-btn {
@@ -165,36 +121,6 @@
     text-align: left;
 }
 
-.sberpay-qr-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-}
-
-.sberpay-qr {
-    position: relative;
-}
-
-.sberpay-qr__img {
-    width: 200px;
-    padding: 30px;
-}
-
-.sberpay-qr__logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -12.5px;
-    margin-left: -25px;
-}
-
 .popup__button-group {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -211,10 +137,6 @@
 
 .popup__button-group>.popup__button:nth-child(1) {
     margin-top: 0;
-}
-
-#popup-sberpay .popup__body>.popup__button-group {
-    margin-top: 1.25rem;
 }
 
 .popup__button {
@@ -257,40 +179,6 @@
     margin-left: 8px;
 }
 
-#popup-sberpay-qr .popup__button_with-img>span {
-    margin-left: 6px;
-}
-
-.sberpay-phone__label {
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-
-.sberpay-phone__input {
-    border-radius: 5px;
-    border: 1px solid #b3b3b3;
-    font-size: 24px;
-    width: 100%;
-    height: 38px;
-    padding: 0 10px;
-}
-
-.sberpay-phone__input:hover {
-    border: 1px solid #b3b3b3;
-}
-
-.sberpay-phone__button {
-    width: 100%;
-    height: 50px;
-    border-width: 0px;
-    color: #4d4f53;
-    font-size: 16px;
-    background-color: #55ed00;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
 .popup__alert {
     display: none;
     position: relative;
@@ -310,10 +198,6 @@
     border-color: #badbcc;
 }
 
-.modal-open {
-    overflow: hidden;
-}
-
 @media screen and (max-device-width: 610px) {
     .popup {
         position: absolute;
@@ -324,17 +208,5 @@
         max-height: 100%;
         margin: 0;
         border-radius: 0;
-    }
-    #popup-sberpay {
-        display: none !important;
-    }
-    .pay-button_sberpay {
-        width: 100%;
-    }
-    .pay-button_sberpay>svg {
-        margin-bottom: 3px;
-    }
+    }    
 }
-
-
-/* ---------/Sberpay styles */

@@ -788,9 +788,8 @@ body.result-page.success .pay-container {
 .security .provided {
     display: block;
 }
-
 .security .provided-mobile {
-    display: none !important;
+    display:none !important; 
 }
 
 .certlogo {
@@ -1518,10 +1517,12 @@ styles for mobile version
     .pay-container__footer {
         padding: 15px 15px 0;
     }
+
     .footer-terms>p {
         margin-bottom: 5px;
         text-align: center;
     }
+
     .security {
         display: block;
         text-align: center;
@@ -1877,5 +1878,23 @@ waitin wrapper
     }
     100% {
         opacity: 1;
+    }
+}
+
+.com-range,
+.com-range-descr {
+    display: inline-block;
+}
+
+.com-range-descr {
+    font-size: 14px;
+    line-height: 16px;
+    opacity: 0.9;
+}
+
+@media screen and (max-device-width: 610px) {
+    .com-range-descr {
+        font-size: 12px;
+        line-height: 14px;
     }
 }
