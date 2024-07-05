@@ -829,12 +829,6 @@ body#upi_confirmation .card-front__input {
     z-index: 10000;
 }
 
-@media screen and (max-width: 630px) {
-    .contactless-wrapper {
-        height: auto;
-    }
-}
-
 .contactless-waiter {
     width: 100%;
     display: -webkit-box;
@@ -1051,8 +1045,8 @@ body.applePay .contactless-wrapper #applePay {
 }
 
 .payment-totals__fee-descr {
-    max-width: 300px;
+    width: 300px;
     font-size: 14px;
-    margin: 0.25rem auto 0;
+    margin-top: 0.25rem;
     text-align: center;
 }
