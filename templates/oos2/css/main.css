@@ -94,7 +94,7 @@ input[name='fp_sc']+label#fp_savecard {
 
 input[name='offert']+label#offert-accept::before,
 input[name='fp_sc']+label#fp_savecard::before {
-    content: '✓';
+    content: 'вњ“';
     display: block;
     height: 16px;
     width: 16px;
@@ -333,8 +333,8 @@ table {
 /* .param.sum .sum-2,
 .param.sum .sum-3,
 .param.sum .sum-4 {
- opacity: 0.6;
- filter: alpha(Opacity=60);
+opacity: 0.6;
+filter: alpha(Opacity=60);
 } */
 
 .param-split {
@@ -715,6 +715,7 @@ table {
 body.applePay .pay-token,
 body.googlePay .pay-token,
 body.samsungPay .pay-token,
+body.sberpay .pay-token,
 body.mirPay .pay-token {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -828,8 +829,8 @@ span.email-label.required:after {
 
 
 /* .pay-button.inactive {
- color: rgba(77, 79, 83, 0.8);
- background-color: rgba(85, 237, 0, 0.8);
+color: rgba(77, 79, 83, 0.8);
+background-color: rgba(85, 237, 0, 0.8);
 } */
 
 .pay-button:disabled,
@@ -1237,7 +1238,6 @@ body.result-page.error .content-result__container {
         line-height: 26px;
     }
     .pay-options {
-        display: none;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -ms-flex-flow: column wrap;
