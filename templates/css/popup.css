@@ -31,7 +31,6 @@
     transition: opacity 0.2s;
 }
 
-
 .popup {
     position: relative;
     display: inline-block;
@@ -208,5 +207,5 @@
         max-height: 100%;
         margin: 0;
         border-radius: 0;
-    }    
+    }
 }
