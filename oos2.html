@@ -725,7 +725,7 @@
                                         Тестовый платеж от ПСКБ
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="desktop-only">
                                     <td class="param-name sum" data-lang-ru="Сумма платежа" data-lang-en="Total">
                                         Сумма платежа
                                     </td>
@@ -1072,10 +1072,11 @@
         if (sberPayButton) {
             sberPayButton.on("click", function() {
                 if (user_agent.match(/mobile/i)) {
-                    // call sberpay api, get deaplink, redirect to app
+                    // call sberpay api, get deeplink, redirect to app
                 } else {
                     $(".popup-fade").addClass("popup-fade_visible");
                     sberPayModal.show();
+                    $("body").addClass('modal-open');
                 }
             });
         }
