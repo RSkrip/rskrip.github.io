@@ -95,6 +95,8 @@
 
 .popup__header {
     font-size: 1.4rem;
+    margin-right: 15px;
+    margin-bottom: 15px;
     text-align: left;
 }
 
@@ -139,25 +141,15 @@
 }
 
 .popup__button {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+    width: 100%;
+    height: 50px;
     border: 1px solid #b3b3b3;
     border-radius: 5px;
     background-color: #fff;
     background-image: none !important;
     color: #4d4f53;
     font-family: inherit;
-    font-size: 16px;
-    width: 100%;
-    height: 50px;
-    margin-top: 1.5rem;
+    font-size: 15px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     -webkit-transition: 0.2s ease-in-out;
@@ -169,13 +161,39 @@
     cursor: pointer;
 }
 
-.popup__button:hover {
+.popup__button:not([disabled]):hover {
     background-color: #efefef;
+}
+
+.popup__button_with-img {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 .popup__button_with-img>span {
     display: inline-block;
     margin-left: 8px;
+}
+
+.popup__button_green {
+    border-width: 0px;
+    color: #4d4f53;
+    background-color: #55ed00;
+}
+
+.popup__button_green:not([disabled]):hover {
+    background-color: #5cd803;
+}
+
+.popup__button_green:not([disabled]):active {
+    background-color: #4db801;
 }
 
 .popup__alert {
@@ -195,6 +213,10 @@
     color: #0e8729;
     background-color: #d1e7d3;
     border-color: #badbcc;
+}
+
+.modal-open {
+    overflow: hidden;
 }
 
 @media screen and (max-device-width: 610px) {

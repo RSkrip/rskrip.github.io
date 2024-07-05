@@ -5,18 +5,3 @@
 #popup-utils-2 {
     display: none;
 }
-
-.popup__button_green {
-    border-width: 0px;
-    color: #4d4f53;
-    font-size: 16px;
-    background-color: #55ed00;
-}
-
-.popup__button_green:hover {
-    background-color: #5cd803;
-}
-
-.popup__button_green:active {
-    background-color: #4db801;
-}

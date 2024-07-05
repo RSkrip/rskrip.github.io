@@ -87,32 +87,20 @@
 }
 
 .sberpay-phone__button {
-    width: 100%;
-    height: 50px;
-    font-size: 15px;
-    color: #4d4f53;
-    background-color: #55ed00;
-    border: 0;
     margin-top: 10px;
-    padding: 0;
-    cursor: pointer;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    -webkit-transition: 0.2s ease;
-    -o-transition: 0.2s ease;
-    transition: 0.2s ease;
-    -webkit-transition-property: background-color;
-    -o-transition-property: background-color;
-    transition-property: background-color;
     outline: none !important;
-}
-
-.sberpay-phone__button:not([disabled]):active {
-    background-color: #55cf00;
 }
 
 #popup-sberpay {
     display: none;
+}
+
+#popup-sberpay .popup__header {
+    font-size: 20px;
+}
+
+#popup-sberpay .popup__tip {
+    font-size: 15px;
 }
 
 @media screen and (max-device-width: 610px) {
