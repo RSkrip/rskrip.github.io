@@ -995,11 +995,26 @@ body.applePay .contactless-wrapper #applePay {
     user-select: none;
 }
 
+.terms {
+    width: 250px;
+    text-align: center;
+}
+
+.terms p {
+    font-size: 13px;
+    line-height: 18px;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
 @media screen and (max-width: 630px) {
     .contactless__container {
         padding: 20px;
     }
     .contactless__pay-card {
+        width: 100%;
+    }
+    .terms {
         width: 100%;
     }
 }
