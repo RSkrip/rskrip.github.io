@@ -806,8 +806,9 @@ span.email-label.required:after {
     width: 100%;
     height: 60px;
     font-size: 1rem;
+    font-weight: normal;
     color: #4d4f53;
-    background-color: #55ed00;
+    background-color: #ccb42a;
     border: 0px;
     border-radius: 5px;
     padding: 0;
