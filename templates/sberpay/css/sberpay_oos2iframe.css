@@ -1,0 +1,32 @@
+.contactless__pay-card.sberpay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #21a038;
+    font-family: inherit;
+    font-size: inherit;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease;
+    -webkit-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
+    outline: none !important;
+}
+
+.contactless__pay-card.sberpay:not([disabled]):hover {
+    background-color: #1e8f33;
+}
+
+.contactless__pay-card.sberpay>svg {
+    width: 72px;
+    height: 24px;
+}
+
+.contactless__pay-card.sberpay>span {
+    font-family: inherit;
+    color: #fff;
+    padding-right: 7px;
+}

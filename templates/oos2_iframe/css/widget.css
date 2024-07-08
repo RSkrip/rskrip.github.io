@@ -213,11 +213,15 @@ body.cupp .pay-container__wrapper {
     color: #444;
 }
 
+.contactless__pay-card.real-card:not([disabled]):hover {
+    background-color: #5cd803;
+}
+
 .contactless__pay-card.real-card:active:not([disabled]),
-.pay-button.active:active,
-.button-do-close.active:active,
-.button-do-repeat.active:active {
-    background-color: #55cf00 !important;
+.pay-button.active:not([disabled]):active,
+.button-do-close.active:not([disabled]):active,
+.button-do-repeat.active:not([disabled]):active {
+    background-color: #4db801 !important;
 }
 
 .pay-container__offert {
@@ -826,7 +830,7 @@ body#upi_confirmation .card-front__input {
     right: 0;
     bottom: 0;
     background: #f5f6f7;
-    z-index: 10000;
+    z-index: 998;
 }
 
 .contactless-waiter {
@@ -850,6 +854,7 @@ body#upi_confirmation .card-front__input {
 }
 
 .contactless__container {
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -925,22 +930,25 @@ body.applePay .contactless-wrapper #applePay {
     display: block;
     width: 250px;
     height: 60px;
-    background-color: #000;
     line-height: 60px;
     text-align: center;
     padding: 0;
     border: none;
     border-radius: 5px;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease;
+    -webkit-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .contactless__pay-card+.contactless__pay-card {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .contactless__pay-card.real-card {
-    font-family: montserrat, -apple-system, Helvetica, Arial;
     user-select: none;
 }
 
@@ -948,36 +956,8 @@ body.applePay .contactless-wrapper #applePay {
     background-color: #55ed00;
 }
 
-.contactless__pay-card {
-    height: 60px;
-    line-height: 60px;
-}
-
-.contactless__pay-card button {
-    background-color: transparent;
-    border: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
 .contactless__pay-card.inactive {
     opacity: 0.5 !important;
-}
-
-.contactless__pay-card.samsung button#samsungPay {
-    width: 100%;
-    background-color: #000;
-    background-image: url(../img/s_pay_button.svg);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: 0px;
-    -webkit-appearance: none;
-}
-
-.contactless__pay-card.google button:not(disabled=[disabled]):hover,
-.contactless__pay-card.samsung button#samsungPay:hover {
-    background-color: rgb(60, 64, 67);
 }
 
 .payment-totals {
@@ -1013,6 +993,15 @@ body.applePay .contactless-wrapper #applePay {
     font-size: 1em;
     padding-left: 1.75em;
     user-select: none;
+}
+
+@media screen and (max-width: 630px) {
+    .contactless__container {
+        padding: 20px;
+    }
+    .contactless__pay-card {
+        width: 100%;
+    }
 }
 
 
