@@ -292,6 +292,14 @@ table {
     border-color: #bce8f1;
 }
 
+.alert_utils {
+    color: #4d4f53;
+}
+
+.alert_utils>a {
+    text-decoration: underline;
+}
+
 .pay-container__table table tr:first-child td {
     padding-top: 0;
 }
