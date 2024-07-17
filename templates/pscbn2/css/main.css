@@ -401,6 +401,10 @@ body.result-page.success .pay-container {
     text-decoration: none;
 }
 
+.pay-container__pretext {
+    margin-top: 24px;
+}
+
 .pay-container__main {}
 
 .pay-container__table {
@@ -408,7 +412,8 @@ body.result-page.success .pay-container {
 }
 
 .pay-container__pretext .alert {
-    font-size: 14px;
+    font-size: 16px;
+    text-align: left;
 }
 
 .alert {
@@ -425,6 +430,10 @@ body.result-page.success .pay-container {
     color: #3a87ad;
     background-color: #d9edf7;
     border-color: #bce8f1;
+}
+
+.alert_utils>a:hover {
+    color: #000;
 }
 
 .param-name {
@@ -1177,6 +1186,12 @@ styles for mobile version
     }
     .payform-lang-mobile img {
         margin: 0 3px -1px 0 !important;
+    }
+    .pay-container__pretext {
+        margin: 20px 10px 0;
+    }
+    .pay-container__pretext .alert {
+        font-size: 14px;
     }
     .pay-container__table tr:not(.pt_amounts) {
         display: none;
