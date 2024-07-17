@@ -996,15 +996,18 @@ body.applePay .contactless-wrapper #applePay {
 }
 
 .terms {
-    width: 250px;
+    margin-top: 24px;
     text-align: center;
 }
 
 .terms p {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 18px;
-    margin-top: 30px;
-    margin-bottom: 0;
+    margin: 0;
+}
+
+.terms p:not(:last-child) {
+    margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 630px) {
@@ -1014,8 +1017,8 @@ body.applePay .contactless-wrapper #applePay {
     .contactless__pay-card {
         width: 100%;
     }
-    .terms {
-        width: 100%;
+    .terms p {
+        font-size: 13px;
     }
 }
 
