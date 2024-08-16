@@ -5,3 +5,20 @@
     margin: 0;
     border-radius: 0;
 }
+
+.popup__close-btn {
+    display: none !important;
+}
+
+@media screen and (min-width: 631px) {
+    .popup__button-group {
+        flex-flow: row;
+    }
+    .popup__button-group>.popup__button {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+    .popup__button-group>.popup__button:nth-child(1) {
+        margin-left: 0;
+    }
+}
