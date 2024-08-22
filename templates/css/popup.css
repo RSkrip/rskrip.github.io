@@ -130,14 +130,7 @@
     -webkit-box-direction: normal;
     -ms-flex-flow: column wrap;
     flex-flow: column wrap;
-}
-
-.popup__button-group>.popup__button {
-    margin-top: 10px;
-}
-
-.popup__button-group>.popup__button:nth-child(1) {
-    margin-top: 0;
+    gap: 10px;
 }
 
 .popup__button {
