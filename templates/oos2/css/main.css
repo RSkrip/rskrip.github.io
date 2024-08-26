@@ -739,13 +739,20 @@ body.mirPay .pay-token {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .pay-token__button {
     width: calc(50% - 10px);
     height: 60px !important;
+    -webkit-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease;
+    -webkit-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
+    outline: none !important;
 }
 
 .pay-token__buttons-container>button:disabled {
@@ -770,9 +777,22 @@ body.mirPay .pay-token {
     display: none;
     background-color: #008452;
     background-image: url(../../oos2/img/mirpay_logo.svg);
-    background-position: 50% 55%;
+    background-position-x: 50%;
     background-repeat: no-repeat;
     background-size: 90px;
+}
+
+#mirPay {
+    background-position-y: 21px;
+}
+
+#mirPay_mobile {
+    background-position-y: 19px;
+}
+
+#mirPay:not([disabled]):hover,
+#mirPay_mobile:not([disabled]):hover {
+    background-color: #0f7048;
 }
 
 #mirPay:not([disabled]):active,
@@ -1298,7 +1318,7 @@ body.result-page.error .content-result__container {
         height: 55px;
     }
     .token-mobile__button+.token-mobile__button {
-        margin-top: 15px;
+        margin-top: 10px;
     }
     .token-mobile__text {
         font-size: 14px;
