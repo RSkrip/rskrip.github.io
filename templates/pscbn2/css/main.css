@@ -915,14 +915,11 @@ color: white;
 
 #mirPay {
     display: none; 
-    width: 100%;
-    height: 55px;
     background-color: #008452;
     background-image: url(../../oos2/img/mirpay_logo.svg);
-    background-position: 50% 55%;
+    background-position: 50% 21px;
     background-repeat: no-repeat;
     background-size: 90px;
-    border-radius: 5px;
     margin-top: 10px;
 }
 
@@ -931,6 +928,10 @@ body.mirPay #mirPay {
 }
 
 #mirPay:not([disabled]):hover {
+    background-color: #0b4d31;
+}
+
+#mirPay:not([disabled]):active {
     background-color: #0b4d31;
 }
 
@@ -1416,6 +1417,9 @@ styles for mobile version
     .pay-tr .email {
         max-width: 100%;
         margin-bottom: 20px;
+    }
+    #mirPay {
+        background-position-y: 19px;
     }
     body.applePay .pay-table .pay-tr {
         /*display:flex;*/
