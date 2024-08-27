@@ -928,7 +928,7 @@ body.mirPay #mirPay {
 }
 
 #mirPay:not([disabled]):hover {
-    background-color: #0b4d31;
+    background-color: #0f7048;
 }
 
 #mirPay:not([disabled]):active {
