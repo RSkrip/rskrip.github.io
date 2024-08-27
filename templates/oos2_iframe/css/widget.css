@@ -918,6 +918,10 @@ body.applePay .contactless-wrapper #applePay {
     background-position: 50% 21px;
 }
 
+#mirPay_widget:not([disabled]):hover {
+    background-color: #0f7048;
+}
+
 #mirPay_widget:not([disabled]):active {
     background-color: #0b4d31;
 }
