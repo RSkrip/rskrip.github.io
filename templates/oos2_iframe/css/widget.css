@@ -910,16 +910,12 @@ body.applePay .contactless-wrapper #applePay {
 }
 
 #mirPay_widget {
-    width: 250px;
-    border: 0px;
     background-position: 50% 50%;
     background-image: url(../../oos2/img/mirpay_logo.svg);
     background-repeat: no-repeat;
     background-color: #008452;
-    background-size: 100px;
-    background-position: 50% 57%;
-    border-radius: 5px;
-    cursor: pointer;
+    background-size: 90px;
+    background-position: 50% 21px;
 }
 
 #mirPay_widget:not([disabled]):active {
