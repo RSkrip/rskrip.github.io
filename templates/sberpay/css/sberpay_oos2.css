@@ -17,25 +17,14 @@
     outline: none !important;
 }
 
-.pay-token__button_sberpay {
-    color: #fff;
-    font-family: 'montserrat_m', -apple-system, Helvetica, Arial;
-    font-size: 1rem;
-}
-
 .pay-token__button_sberpay:hover {
     background-color: #1e8f33;
 }
 
-.pay-token__button_sberpay>span {
-    display: inline-block;
-    margin-right: 7px;
-}
-
 .pay-token__button_sberpay>svg,
 .token-mobile__button_sberpay>svg {
-    width: 69px;
-    height: 23px;
+    width: 72px;
+    height: 24px;
 }
 
 #popup-sberpay-push {
@@ -115,6 +104,7 @@
 }
 
 @media screen and (max-device-width: 610px) {
+
     #popup-sberpay {
         display: none !important;
     }

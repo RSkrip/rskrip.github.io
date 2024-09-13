@@ -96,7 +96,7 @@
 .popup__header {
     font-size: 1.4rem;
     margin-right: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 15px;    
     text-align: left;
 }
 
@@ -222,5 +222,5 @@
         max-height: 100%;
         margin: 0;
         border-radius: 0;
-    }
+    }    
 }
