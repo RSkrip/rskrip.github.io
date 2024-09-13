@@ -619,7 +619,7 @@ filter: alpha(Opacity=60);
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 30px 20px;
+    column-gap: 20px;
 }
 
 .pay-container__pay .email,
@@ -639,13 +639,13 @@ filter: alpha(Opacity=60);
     -webkit-order: 1;
 }
 
-.pay-container__pay .email>input {
+.email>input {
     width: 100%;
     height: 36px;
     margin-top: 5px;
 }
 
-.pay-container__pay .email>input[type='submit'] {
+.email>input[type='submit'] {
     margin-top: 0;
 }
 
@@ -700,15 +700,6 @@ filter: alpha(Opacity=60);
 
 
 /* Alternative methods buttons */
-
-.pay-token::before {
-    content: '';
-    position: relative;
-    width: 100%;
-    margin-bottom: 25px;
-    border-top: 1px solid #ddd;
-}
-
 .pay-token {
     display: none;
     flex-direction: column;
@@ -718,6 +709,7 @@ filter: alpha(Opacity=60);
     -webkit-order: 4;
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
+    margin-top: 24px;
 }
 
 body.applePay .pay-token,
@@ -730,29 +722,45 @@ body.mirPay .pay-token {
     display: flex;
 }
 
-.pay-token__text {
+.pay-token__sep {
+    height: 40px;
+    position: relative;
+    background-color: #f5f6f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sep-text {
+    position: relative;
+    background-color: inherit;
+    display: inline-block;
     font-size: 14px;
+    line-height: 100%;
     text-align: center;
+    z-index: 5;
+    padding: 0 16px;
+}
+
+.sep-border {
+    position: absolute;
+    width: 100%;
+    z-index: 4;
+    border-top: 1px solid #ddd;
 }
 
 .pay-token__buttons-container {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 16px;
+    margin-top: 24px;
 }
 
 .pay-token__button {
     width: calc(50% - 10px);
     height: 60px !important;
-    -webkit-transition: 0.2s ease;
-    -o-transition: 0.2s ease;
-    transition: 0.2s ease;
-    -webkit-transition-property: background-color;
-    -o-transition-property: background-color;
-    transition-property: background-color;
-    outline: none !important;
 }
 
 .pay-token__buttons-container>button:disabled {
@@ -777,22 +785,9 @@ body.mirPay .pay-token {
     display: none;
     background-color: #008452;
     background-image: url(../../oos2/img/mirpay_logo.svg);
-    background-position-x: 50%;
+    background-position: 50% 55%;
     background-repeat: no-repeat;
     background-size: 90px;
-}
-
-#mirPay {
-    background-position-y: 21px;
-}
-
-#mirPay_mobile {
-    background-position-y: 19px;
-}
-
-#mirPay:not([disabled]):hover,
-#mirPay_mobile:not([disabled]):hover {
-    background-color: #0f7048;
 }
 
 #mirPay:not([disabled]):active,
@@ -867,6 +862,13 @@ background-color: rgba(85, 237, 0, 0.8);
 .popup__button_green:disabled {
     opacity: 0.6;
     filter: alpha(Opacity=60);
+}
+
+.pay-container__pay .pay-button:disabled {
+    background-color: #e3e3e3;
+    cursor: not-allowed;
+    opacity: 0.8;
+    filter: alpha(Opacity=80);
 }
 
 .pay-button.active:disabled {
@@ -1112,9 +1114,6 @@ body.result-page.error .content-result__container {
     .card-back__cvvdesc {
         width: 40%;
     }
-    .pay-container__pay .email>input {
-        font-size: 16px;
-    }
     .certlogo {
         height: 27px;
         margin-top: 10px;
@@ -1147,7 +1146,9 @@ body.result-page.error .content-result__container {
     input[name='fp_sc']+label#fp_savecard {
         padding: 5px 0 5px 38px !important;
     }
-    .pay-container__content {
+    .pay-container__content,
+    .pay-container__pay,
+    .pay-container__footer {
         margin-top: 20px;
     }
     .pay-container__main,
@@ -1280,11 +1281,6 @@ body.result-page.error .content-result__container {
     .pay-container__pay {
         row-gap: 20px;
     }
-    .pay-container__pay .email>input {
-        height: 50px;
-        font-size: 18px;
-        line-height: 26px;
-    }
     .pay-options {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -1311,7 +1307,6 @@ body.result-page.error .content-result__container {
     }
     .pay-container__token-mobile {
         display: block;
-        margin-bottom: 15px;
     }
     .token-mobile__button {
         width: 100%;
@@ -1322,7 +1317,10 @@ body.result-page.error .content-result__container {
     }
     .token-mobile__text {
         font-size: 14px;
-        padding-top: 15px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
         text-align: center;
     }
     /* --/Alternative buttons margins */
@@ -1339,9 +1337,6 @@ body.result-page.error .content-result__container {
     }
     .pay-buttons {
         margin-top: 0;
-    }
-    .pay-container__footer {
-        margin-top: 30px;
     }
     /* Result step styles */
     .pay-container__content-result,
@@ -1620,4 +1615,15 @@ waitin wrapper
 
 #popup-utils .popup__tip {
     font-size: 15px;
+}
+
+
+.block-header {
+    font-family: 'montserrat_m', -apple-system, Helvetica, Arial;
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.pay-container__token-mobile>.email {
+    margin-bottom: 1rem;
 }

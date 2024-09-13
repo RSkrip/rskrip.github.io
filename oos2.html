@@ -756,6 +756,15 @@
                             </div>
                         </div> -->
                         <div class="pay-container__token-mobile mobile-only">
+                            <div class="email">
+                                <span class="email-label" data-lang-ru="E-mail для квитанции" data-lang-en="E-mail for receipt">
+                                        E-mail для квитанции
+                                    </span>
+                                <input autocomplete="off" size="32" id="" name="" type="email" onchange="" value="">
+                            </div>
+                            <div class="block-header">
+                                Оплата в приложении
+                            </div>
                             <button id="sberpay-button-pay-mobile" class="token-mobile__button token-mobile__button_sberpay" type="button" title="Оплатить SberPay">
 										<span data-lang-ru="Оплатить" data-lang-en="">Оплатить</span>
 										<svg
@@ -781,8 +790,11 @@
 										</svg>
 									 </button>
                             <button id="mirPay_mobile" type="button" class="token-mobile__button"></button>
-                            <div class="token-mobile__text" data-lang-ru="или ввести данные карты" data-lang-en="or enter card data">
-                                или ввести данные карты
+                            <div class="token-mobile__text" data-lang-ru="или" data-lang-en="or">
+                                или
+                            </div>
+                            <div class="block-header">
+                                Оплата картой
                             </div>
                         </div>
                         <div class="pay-container__cards">
@@ -868,11 +880,13 @@
                             <input class="pay-button disablable-button" type="submit" value="Оплатить" name="button1" id="submit_button" data-lang-ru="Оплатить" data-lang-en="Pay" disabled>
                         </div>
                         <div class="pay-token">
-                            <div class="pay-token__text" data-lang-ru="или оплатить через" data-lang-en="or pay with">
-                                или оплатить через
+                            <div class="pay-token__sep">
+                                <div class="sep-text" data-lang-ru="или" data-lang-en="or">или</div>
+                                <div class="sep-border"></div>
                             </div>
                             <div class="pay-token__buttons-container">
                                 <button id="sberpay-button-pay" class="pay-token__button pay-token__button_sberpay" type="button" title="Оплатить SberPay">
+                                            <span data-lang-ru="Оплатить" data-lang-en="">Оплатить</span>
 											<svg
 												 xmlns="http://www.w3.org/2000/svg"
 												 width="170.94"
@@ -912,7 +926,7 @@
                         </p>
                     </div>
                     <div class="security">
-                        <p class="provided" data-lang-ru="Безопасность платежей обеспечивается в соответствии с российскими и международными стандартами. Сервис предоставляет" data-lang-en="Safety of payments is ensured in accordance with the local and international security standarts. The service is provided by ">
+                        <p class="provided desktop-only" data-lang-ru="Безопасность платежей обеспечивается в соответствии с российскими и международными стандартами. Сервис предоставляет" data-lang-en="Safety of payments is ensured in accordance with the local and international security standarts. The service is provided by ">
                             Безопасность платежей обеспечивается в соответствии с российскими и международными стандартами. Сервис предоставляет
                             <a class="about-the-bank" href="https://www.pscb.ru" data-lang-ru="https://www.pscb.ru" data-lang-en="https://www.pscb.ru/en/about-the-bank/index.php" target="_blank"><b data-lang-ru="АО&nbsp;Банк&nbsp;”ПСКБ”" data-lang-en="JSC&nbsp;Bank&nbsp;“PSCB”">АО&nbsp;Банк&nbsp;”ПСКБ”</b></a>.
                         </p>
