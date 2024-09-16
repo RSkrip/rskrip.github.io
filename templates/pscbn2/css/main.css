@@ -64,6 +64,7 @@ input[name="offert"] + label#offert-accept:before{
 }
 
 input[name="fp_sc"] + label#fp_savecard:before{
+	content:"✔";
 	display:block;
 	height:20px;
 	width:20px;
