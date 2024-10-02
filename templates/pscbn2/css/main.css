@@ -417,7 +417,7 @@ body.result-page.success .pay-container {
 }
 
 .alert {
-	padding: 10px 14px;
+	padding: 1em;
 	text-shadow: 0 1px 0 rgb(255 255 255 / 50%);
 	background-color: #fcf8e3;
 	border: 1px solid #fbeed5;
@@ -432,7 +432,16 @@ body.result-page.success .pay-container {
 	border-color: #bce8f1;
 }
 
-.alert_utils>a:hover {
+.alert>p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.alert>p:not(:last-child) {
+	margin-bottom: 0.5em;
+}
+
+.alert_utils a:hover {
 	color: #000;
 }
 
@@ -1832,6 +1841,10 @@ styles for mobile version
 
 	#card.unionpay {
 		background-position: 8px -322px;
+	}
+
+	.pay-container__pretext .alert_utils {
+		font-size: 12px;
 	}
 }
 
