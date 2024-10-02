@@ -1065,14 +1065,17 @@ body.applePay .contactless-wrapper #applePay {
 }
 
 .terms {
-	width: 250px;
+	font-size: 13px;
+	line-height: 18px;
 	text-align: center;
+	margin-top: 30px;
 }
 
 .terms p {
-	font-size: 13px;
-	line-height: 18px;
-	margin-top: 30px;
+	margin-top: 0;
+}
+
+.terms p:last-child {
 	margin-bottom: 0;
 }
 
