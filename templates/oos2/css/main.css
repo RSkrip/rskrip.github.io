@@ -277,13 +277,22 @@ table {
 }
 
 .alert {
-	padding: 10px 14px;
+	padding: 1em;
 	text-shadow: 0 1px 0 rgb(255 255 255 / 50%);
 	background-color: #fcf8e3;
 	border: 1px solid #fbeed5;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
+}
+
+.alert>p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.alert>p:not(:last-child) {
+	margin-bottom: 0.5em;
 }
 
 .alert-info {
@@ -1402,6 +1411,10 @@ body.result-page.error .content-result__container {
 
 	.pay-container__footer {
 		margin-top: 30px;
+	}
+
+	.pay-container__pretext .alert_utils {
+		font-size: 12px;
 	}
 
 	/* Result step styles */
