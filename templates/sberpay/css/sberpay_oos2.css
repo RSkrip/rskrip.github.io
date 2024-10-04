@@ -114,12 +114,6 @@
     font-size: 15px;
 }
 
-@media screen and (max-device-width: 610px) {
-    #popup-sberpay {
-        display: none !important;
-    }
-}
-
 @media screen and (max-width: 529px) {
     .token-mobile__button_sberpay {
         color: #fff;
