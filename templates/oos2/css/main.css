@@ -627,7 +627,7 @@ table {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: flex-start;
-	gap: 30px 20px;
+	column-gap: 20px;
 }
 
 .pay-container__pay .email,
@@ -647,13 +647,13 @@ table {
 	-webkit-order: 1;
 }
 
-.pay-container__pay .email>input {
+.email>input {
 	width: 100%;
 	height: 36px;
 	margin-top: 5px;
 }
 
-.pay-container__pay .email>input[type='submit'] {
+.email>input[type='submit'] {
 	margin-top: 0;
 }
 
@@ -706,16 +706,8 @@ table {
 	background-color: transparent;
 }
 
+
 /* Alternative methods buttons */
-
-.pay-token::before {
-	content: '';
-	position: relative;
-	width: 100%;
-	margin-bottom: 25px;
-	border-top: 1px solid #ddd;
-}
-
 .pay-token {
 	display: none;
 	flex-direction: column;
@@ -725,6 +717,7 @@ table {
 	-webkit-order: 4;
 	-ms-flex-preferred-size: 100%;
 	flex-basis: 100%;
+	margin-top: 24px;
 }
 
 body.applePay .pay-token,
@@ -737,29 +730,45 @@ body.mirPay .pay-token {
 	display: flex;
 }
 
-.pay-token__text {
+.pay-token__sep {
+	height: 40px;
+	position: relative;
+	background-color: #f5f6f7;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.sep-text {
+	position: relative;
+	background-color: inherit;
+	display: inline-block;
 	font-size: 14px;
+	line-height: 100%;
 	text-align: center;
+	z-index: 5;
+	padding: 0 16px;
+}
+
+.sep-border {
+	position: absolute;
+	width: 100%;
+	z-index: 4;
+	border-top: 1px solid #ddd;
 }
 
 .pay-token__buttons-container {
 	display: flex;
 	flex-flow: column wrap;
 	align-items: center;
-	gap: 10px;
-	margin-top: 20px;
+	gap: 16px;
+	margin-top: 24px;
 }
 
 .pay-token__button {
 	width: calc(50% - 10px);
 	height: 60px !important;
-	-webkit-transition: 0.2s ease;
-	-o-transition: 0.2s ease;
-	transition: 0.2s ease;
-	-webkit-transition-property: background-color;
-	-o-transition-property: background-color;
-	transition-property: background-color;
-	outline: none !important;
 }
 
 .pay-token__buttons-container>button:disabled {
@@ -784,27 +793,9 @@ body.mirPay .pay-token {
 	display: none;
 	background-color: #008452;
 	background-image: url(../../oos2/img/mirpay_logo.svg);
-	background-position-x: 50%;
+	background-position: 50% 55%;
 	background-repeat: no-repeat;
 	background-size: 90px;
-}
-
-#mirPay:not([disabled]):active,
-#mirPay_mobile:not([disabled]):active {
-	background-size: 90px;
-}
-
-#mirPay {
-	background-position-y: 21px;
-}
-
-#mirPay_mobile {
-	background-position-y: 19px;
-}
-
-#mirPay:not([disabled]):hover,
-#mirPay_mobile:not([disabled]):hover {
-	background-color: #0f7048;
 }
 
 #mirPay:not([disabled]):active,
@@ -877,6 +868,13 @@ span.email-label.required:after {
 .popup__button_green:disabled {
 	opacity: 0.6;
 	filter: alpha(Opacity=60);
+}
+
+.pay-container__pay .pay-button:disabled {
+	background-color: #e3e3e3;
+	cursor: not-allowed;
+	opacity: 0.8;
+	filter: alpha(Opacity=80);
 }
 
 .pay-button.active:disabled {
@@ -1128,10 +1126,6 @@ body.result-page.error .content-result__container {
 		width: 40%;
 	}
 
-	.pay-container__pay .email>input {
-		font-size: 16px;
-	}
-
 	.certlogo {
 		height: 27px;
 		margin-top: 10px;
@@ -1169,7 +1163,9 @@ body.result-page.error .content-result__container {
 		padding: 5px 0 5px 38px !important;
 	}
 
-	.pay-container__content {
+	.pay-container__content,
+	.pay-container__pay,
+	.pay-container__footer {
 		margin-top: 20px;
 	}
 
@@ -1336,12 +1332,6 @@ body.result-page.error .content-result__container {
 		row-gap: 20px;
 	}
 
-	.pay-container__pay .email>input {
-		height: 50px;
-		font-size: 18px;
-		line-height: 26px;
-	}
-
 	.pay-options {
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
@@ -1373,7 +1363,6 @@ body.result-page.error .content-result__container {
 
 	.pay-container__token-mobile {
 		display: block;
-		margin-bottom: 15px;
 	}
 
 	.token-mobile__button {
@@ -1387,7 +1376,10 @@ body.result-page.error .content-result__container {
 
 	.token-mobile__text {
 		font-size: 14px;
-		padding-top: 15px;
+		margin-top: 8px;
+		margin-bottom: 8px;
+		padding-top: 8px;
+		padding-bottom: 8px;
 		text-align: center;
 	}
 
@@ -1407,14 +1399,6 @@ body.result-page.error .content-result__container {
 
 	.pay-buttons {
 		margin-top: 0;
-	}
-
-	.pay-container__footer {
-		margin-top: 30px;
-	}
-
-	.pay-container__pretext .alert_utils {
-		font-size: 12px;
 	}
 
 	/* Result step styles */
@@ -1500,7 +1484,7 @@ body.result-page.error .content-result__container {
 		grid-template-columns: 1fr;
 		-ms-grid-rows: 25px 10px 1fr 10px 1fr 10px auto;
 		grid-template-rows: 25px 1fr 1fr auto;
-		grid-template-areas: 'pslogo' 'card' 'expiry-date' 'cardholder';
+		grid-template-areas: 'pslogo''card''expiry-date''cardholder';
 		grid-row-gap: 10px;
 		height: auto;
 	}
@@ -1508,7 +1492,7 @@ body.result-page.error .content-result__container {
 	.card-front.no-cardholder {
 		-ms-grid-rows: 25px 1fr 1fr;
 		grid-template-rows: 25px 1fr 1fr;
-		grid-template-areas: 'pslogo' 'card' 'expiry-date';
+		grid-template-areas: 'pslogo''card''expiry-date';
 	}
 
 	.card-front__label {
@@ -1727,4 +1711,14 @@ body.result-page.error .content-result__container {
 
 #popup-utils .popup__tip {
 	font-size: 15px;
+}
+
+.block-header {
+	font-family: 'montserrat_m', -apple-system, Helvetica, Arial;
+	font-size: 17px;
+	margin-bottom: 12px;
+}
+
+.pay-container__token-mobile>.email {
+	margin-bottom: 1rem;
 }
