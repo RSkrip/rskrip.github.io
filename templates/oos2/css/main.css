@@ -1384,6 +1384,11 @@ body.result-page.error .content-result__container {
 	}
 
 	/* --/Alternative buttons margins */
+
+	.email>input {
+		height: 50px;
+	}
+	
 	.pay-container__pay .email,
 	.pay-container__pay .pay-buttons {
 		-ms-flex-preferred-size: 100%;
