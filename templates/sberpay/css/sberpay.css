@@ -124,6 +124,9 @@
     .pay-button_sberpay>svg{
         margin-bottom: 3px;
     }
+	 .sberpay-phone__button {
+		font-size: 15px !important;
+	 }
 }
 
 /* ---------/Sberpay styles */
