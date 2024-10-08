@@ -1403,7 +1403,7 @@
                     </div>
                 </div>
 
-                <div id="popup-utils" class="popup">
+                <!-- <div id="popup-utils" class="popup">
                     <div id="popup-utils-1" class="popup__content">
                         <div class="popup__header">
                             Вы являетесь льготником?
@@ -1438,7 +1438,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </form>
         <!-- <script src="https://www.google.com/recaptcha/api.js?render=6Lc2cd4ZAAAAANeK2zMfZ36wGZTvgaGxpmwCGN4u"></script> -->
@@ -1485,13 +1485,16 @@
 
         if (sberPayButton) {
             sberPayButton.on("click", function() {
-                if (user_agent.match(/mobile/i)) {
-                    // call sberpay api, get deaplink, redirect to app
-                } else {
-                    $(".popup-fade").addClass("popup-fade_visible");
-                    sberPayModal.css('display', 'inline-block');
-                    $("body").addClass('modal-open');
-                }
+               //  if (user_agent.match(/mobile/i)) {
+               //      // call sberpay api, get deaplink, redirect to app
+               //  } else {
+               //      $(".popup-fade").addClass("popup-fade_visible");
+               //      sberPayModal.css('display', 'inline-block');
+               //      $("body").addClass('modal-open');
+               //  }
+					$(".popup-fade").addClass("popup-fade_visible");
+					sberPayModal.css('display', 'inline-block');
+					$("body").addClass('modal-open');
             });
         }
 
