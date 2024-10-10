@@ -126,6 +126,7 @@
     }
 	 .sberpay-phone__button {
 		font-size: 15px !important;
+        font-weight: normal;
 	 }
 }
 
